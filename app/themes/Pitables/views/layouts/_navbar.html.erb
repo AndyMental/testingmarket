@@ -1,0 +1,285 @@
+<section class="z_navbar" data-component="IndexNavbar">
+  <div class="header_top_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="header_top_cc_left">
+            <ul>
+              <li>
+                <%= link_to '/' do%>
+                <%= fa_icon "phone" %>Call
+                1321546454
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header_middle_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-2 col-xs-12">
+          <div class="header_logo hidden-xs">
+            <h1 id="logo">
+              <%= link_to root_path class: 'z-head' do %>
+              Pitables
+              <% end %>
+            </h1>
+          </div>
+        </div>
+        <div class="col-md-7 col-sm-8 col-xs-12 hidden-xs">
+          <div class="header_middle_right">
+            <nav class="mainmenu">
+              <ul>
+                <li>
+                  <%= link_to "Home", root_path %>
+                </li>
+                <li>
+                  <%= link_to "#" do%>Categories
+                  <%= fa_icon "angle-down" %>
+                  <% end %>
+                  <div class="main_pages_dropdown">
+                    <div class="row">
+                      <%# unless @categories.nil? %>
+                      <%# @categories.where(product_segment_id: [109,124,162,104]).limit(5).each do |category| %>
+                      <%# @categories.limit(5).each do |category| %>
+                      <div class="col-md-2">
+                       <%# if category.title == "Keyrings & Keychains" && category.title == "Pendants" && category.title == "Posters" && category.title == "Bookmarks" && category.title == "Décor"  %>
+
+                        <div class="header-meu">
+                          <h4>
+                            Keyrings & Keychains
+                          </h4>
+                        </div>
+                        <ul class="list-unstyled">
+                          <% unless @subcategories.nil? %>
+                          <% @subcategories.where(category_id: 538).each do |subcategory| %>
+                          <%# if Product.where(category_id: category.id).count > 0 %>
+                          <li style="width: 100%;">
+                            <%=link_to "#{subcategory.title}", products_path(subcategory_id: subcategory.id) %>
+                          </li>
+                          <%# end %>
+                          <% end %>
+                          <% end %>
+                        </ul>
+                        <%# end %>
+                      </div>
+
+                       <div class="col-md-2">
+                       <%# if category.title == "Keyrings & Keychains" && category.title == "Pendants" && category.title == "Posters" && category.title == "Bookmarks" && category.title == "Décor"  %>
+
+                        <div class="header-meu">
+                          <h4>
+                           Pendants
+                          </h4>
+                        </div>
+                        <ul class="list-unstyled">
+                          <% unless @subcategories.nil? %>
+                          <% @subcategories.where(category_id: 577).each do |subcategory| %>
+                          <%# if Product.where(category_id: category.id).count > 0 %>
+                          <li style="width: 100%;">
+                            <%=link_to "#{subcategory.title}", products_path(subcategory_id: subcategory.id) %>
+                          </li>
+                          <%# end %>
+                          <% end %>
+                          <% end %>
+                        </ul>
+                        <%# end %>
+                      </div>
+                      <div class="col-md-2">
+                       <%# if category.title == "Keyrings & Keychains" && category.title == "Pendants" && category.title == "Posters" && category.title == "Bookmarks" && category.title == "Décor"  %>
+
+                        <div class="header-meu">
+                          <h4>
+                           Posters
+                          </h4>
+                        </div>
+                        <ul class="list-unstyled">
+                          <% unless @subcategories.nil? %>
+                          <% @subcategories.where(category_id: 721).each do |subcategory| %>
+                          <%# if Product.where(category_id: category.id).count > 0 %>
+                          <li style="width: 100%;">
+                            <%=link_to "#{subcategory.title}", products_path(subcategory_id: subcategory.id) %>
+                          </li>
+                          <%# end %>
+                          <% end %>
+                          <% end %>
+                        </ul>
+                        <%# end %>
+                      </div>
+                      <div class="col-md-2">
+                       <%# if category.title == "Keyrings & Keychains" && category.title == "Pendants" && category.title == "Posters" && category.title == "Bookmarks" && category.title == "Décor"  %>
+
+                        <div class="header-meu">
+                          <h4>
+                           Bookmarks
+                          </h4>
+                        </div>
+                        <ul class="list-unstyled">
+                          <% unless @subcategories.nil? %>
+                          <% @subcategories.where(category_id: 727).each do |subcategory| %>
+                          <%# if Product.where(category_id: category.id).count > 0 %>
+                          <li style="width: 100%;">
+                            <%=link_to "#{subcategory.title}", products_path(subcategory_id: subcategory.id) %>
+                          </li>
+                          <%# end %>
+                          <% end %>
+                          <% end %>
+                        </ul>
+                        <%# end %>
+                      </div>
+                      <div class="col-md-2">
+                       <%# if category.title == "Keyrings & Keychains" && category.title == "Pendants" && category.title == "Posters" && category.title == "Bookmarks" && category.title == "Décor"  %>
+
+                        <div class="header-meu">
+                          <h4>
+                           Room Décoration
+                          </h4>
+                        </div>
+                        <ul class="list-unstyled">
+                          <% unless @subcategories.nil? %>
+                          <% @subcategories.where(category_id: 728).each do |subcategory| %>
+                          <%# if Product.where(category_id: category.id).count > 0 %>
+                          <li style="width: 100%;">
+                            <%=link_to "#{subcategory.title}", products_path(subcategory_id: subcategory.id) %>
+                          </li>
+                          <%# end %>
+                          <% end %>
+                          <% end %>
+                        </ul>
+                        <%# end %>
+                      </div>
+                      <%# end %>
+                      <%# end %>
+                    </div>
+                  </li>
+                  <li >
+                    <%= link_to 'About', about_path %>
+                  </li>
+                  <li >
+                   <%= link_to 'Contact', contact_path %>
+
+                 </li>
+               </ul>
+             </nav>
+           </div>
+         </div>
+         <div class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
+          <div class="header_middle_cc_search">
+            <ul>
+              <li class="list_cl">
+                <%= link_to "" do%> <i class="fa fa-users"></i> Register
+                <% end %>
+              </li> |
+               <li>
+                <%= link_to "", class: "list_cl" do%>
+                <i class="fa fa-shopping-cart"></i>Cart
+                2
+                <% end %>
+              </li> 
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-inverse visible-xs">
+    <div class="container-fluid">
+      <div class="navbar-header z-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="header_logo">
+          <%= link_to root_path do %>
+          <h1 class="z-head">
+            Pitables
+          </h1>
+          <% end %>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+             <% unless @categories.nil? %>
+             <% @categories.where(product_segment_id: [162,109,124,104]).limit(6).each do |category| %>
+             <li> <%=link_to "#{category.title}", products_path(category_id: category.id) %></li>
+             <% end %>
+             <% end %>
+           </ul>
+         </li>
+         <li>
+          <%= link_to 'About', about_path %>
+        </li>
+        <li>
+         <%= link_to 'Contact', contact_path %>
+       </li>
+       <li>
+        <%= link_to "", class: "list_cl" do%>
+        <i class="fa fa-shopping-cart"></i>Cart
+        2
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "" do%>Register/Sign in
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+<section class="header_bottom_area hidden-xs">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div id="carousel-example-generiched" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <div class="header_bottom">
+                <div class="left-slide-new">
+                  <h2>N
+                    <span>ews
+                      <i class="fa fa-caret-right"></i>
+                    </span>
+                  </h2>
+                </div>
+                <div class="right-slide-new">
+                  <h2>Win exciting goodies and coupons by participating Facebook and Instagram
+                  </h2>
+                  <p>Share Products on Facebook and Instagram
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="header_bottom">
+                <div class="left-slide-new">
+                  <h2>N
+                    <span>ews
+                      <i class="fa fa-caret-right"></i>
+                    </span>
+                  </h2>
+                </div>
+                <div class="right-slide-new">
+                  <h2>Awsome discount sales are happening.</h2>
+                  <p>Explore new products</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= link_to "#carousel-example-generiched", class: "left carousel-control", 'data-slide' => 'prev' do%>
+          <span class="fa fa-angle-left " aria-hidden="true"></span>
+          <% end %>
+          <%= link_to "#carousel-example-generiched", class: "right carousel-control", 'data-slide' => 'next' do%>
+          <span class="fa fa-angle-right" aria-hidden="true"></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>

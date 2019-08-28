@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col">
+    <form action="">
+      <div class="input-group mb-4">
+        <input type="search" placeholder="Product Name, SKU or any other details?" aria-describedby="button-addon5" class="form-control zform-control zborder">
+        <div class="input-group-append">
+          <button id="button-addon5" type="submit" class="btn btn-primary zborder zborder-right"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col text-right">
+    <div class="btn-group">
+      <select class="custom-select m-b" name="vendors" id="vendor_list">
+        <option value="">Filter by Brand</option>
+        <% @vendors.each do |vendor| %>
+          <% if params[:vid].present? && vendor.vid == params[:vid] %>
+            <option value="<%= vendor.vid %>" selected data-edit-url='<%= products_path(pi: "1", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{vendor.vid}") %>'><%= vendor.n %></option>
+          <% else %>
+            <option value="<%= vendor.vid %>" data-edit-url='<%= products_path(pi: "1", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{vendor.vid}") %>'><%= vendor.n %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+</div>

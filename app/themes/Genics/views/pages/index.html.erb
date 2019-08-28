@@ -1,0 +1,196 @@
+<section class="z-carousel">
+  <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+    <!-- Overlay -->
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+      <li data-target="#bs-carousel" data-slide-to="1"></li>
+      <li data-target="#bs-carousel" data-slide-to="2"></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item slides active">
+        <div class="slide-1">
+          <div class="overlay"></div>
+        </div>
+        <div class="hero">
+          <hgroup>
+            <h1>WIDE RANGE of PRODUCTS</h1>
+            <h3>for all seasons</h3>
+          </hgroup>
+          <%= link_to products_path(main_product_id: 1) do %>
+            <button class="btn btn-hero btn-lg" role="button">SHOP NOW</button>
+          <% end %>
+        </div>
+      </div>
+      <div class="item slides">
+        <div class="slide-2">
+          <div class="overlay"></div>
+        </div>
+        <div class="hero">
+          <hgroup>
+            <h1>Fashion Stop</h1>
+            <h3>Explore handpicked Collection</h3>
+          </hgroup>
+          <%= link_to products_path(main_product_id: 2) do %>
+            <button class="btn btn-hero btn-lg" role="button">EXPLORE NOW</button>
+          <% end %>
+        </div>
+      </div>
+      <div class="item slides">
+        <div class="slide-3">
+          <div class="overlay"></div>
+        </div>
+        <div class="hero">
+          <hgroup>
+            <h1>Personalized Shopping</h1>
+          </hgroup>
+          <%= link_to products_path do %>
+            <button class="btn btn-hero btn-lg" role="button">Get Started</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="block-banner">
+    <div class="container">
+      <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="banner">
+            <%= link_to products_path(main_product_id: 2) do %>
+              <img src="<%= asset_url('Genics/banner1.jpg') %>" alt="" class="img-responsive" />
+            <% end %>
+          </div>
+          <div class="banner">
+            <%= link_to products_path(main_product_id: 107) do %>
+              <img src="<%= asset_url('Genics/banner2.jpg') %>" alt="" class="img-responsive" />
+            <% end %>
+          </div>
+        </article>
+        <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="banner">
+            <%= link_to products_path(main_product_id: 1) do %>
+              <img src="<%= asset_url('Genics/banner3.jpg') %>" alt="" class="img-responsive" />
+            <% end %>
+          </div>
+        </article>
+        <article class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="banner">
+            <%= link_to products_path(main_product_id: 1) do %>
+              <img src="<%= asset_url('Genics/banner4.jpg') %>" alt="" class="img-responsive" />
+            <% end %>
+          </div>
+          <div class="banner">
+            <%= link_to products_path(main_product_id: 1) do %>
+              <img src="<%= asset_url('Genics/banner5.jpg') %>" alt="" class="img-responsive" />
+            <% end %>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="block product-section color-scheme-3">
+    <div class="container">
+      <div class="header-1">
+        <h1>Latest Products</h1>
+        <div class="header-bottom-line"></div>
+      </div>
+      <ul class="row list-unstyled" id="products">
+        <% @products.last(4).each do |product|%>
+          <li class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-center">
+            <div class="product">
+              <figure class="figure-hover-overlay">
+               <% if product.on_sale? %>
+               <div class="product-sale">sale</div>
+                <% end %>
+                <%= link_to product_path(product) do %>
+                  <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+                <% end %>
+                <span class="bar"></span>
+              </figure>
+              <div class="product-caption">
+                <h4>
+                <%= link_to product_path(product) do %>
+                  <%= truncate(product.title, :length => 30) %>
+                  <% end %>
+                </h4>
+                <p class="product-price">
+                  <%= t('product.price') %>:
+                  <%= number_to_currency(product.price) %>
+                </p>
+                <%=link_to product_path(product), class: "btn btn-danger" do%>Add To Cart<% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class=container-fluid">
+    <div class="col-sm-12 text-center">
+    <%= link_to products_path, class: "btn btn-danger" do%>Show All<% end %>
+    </div>
+    </div>
+    </div>
+</section>
+
+
+<section id="bg-banner">
+  <div class="block block-bg-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-6 col-md-6">
+          <img src="<%= asset_url('Genics/bg_banner.png') %>" alt="" class="img-responsive">
+          <p class="text-center">
+            <%= link_to products_path, class: 'btn-default-1' do %>Explore All
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="block product-section color-scheme-3">
+    <div class="container">
+      <div class="header-1">
+        <h1>Featured Products</h1>
+        <div class="header-bottom-line"></div>
+      </div>
+      <ul class="row list-unstyled" id="products">
+       <% @products.first(8).each do |product| %>
+          <li class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-center">
+            <div class="product">
+              <figure class="figure-hover-overlay">
+                <%= link_to product_path(product) do %>
+                  <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+                <% end %>
+                <span class="bar"></span>
+              </figure>
+              <div class="product-caption">
+                <h4>
+                <%= link_to product_path(product) do %>
+                  <%= truncate(product.title, :length => 20) %>
+                  <% end %>
+                </h4>
+                <p class="product-price">
+                  <%= t('product.price') %>:
+                  <%= number_to_currency(product.price) %>
+                </p>
+                <%=link_to product_path(product), class: "btn btn-danger" do%>Add To Cart<% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class=container-fluid">
+    <div class="col-sm-12 text-center">
+    <%= link_to products_path, class: "btn btn-danger" do%>Show All<% end %>
+    </div>
+    </div>
+    </div>
+</section>

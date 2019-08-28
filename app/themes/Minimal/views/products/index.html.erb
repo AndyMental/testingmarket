@@ -1,0 +1,56 @@
+<%= tag.div class: 'hero-wrap hero-bread', style: "background-image: url('#{image_path('Minimal/products.jpg')}')" do %>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <h1 class="col ftco-animate text-right fadeInUp ftco-animated text-center mb-0 bread text-light">Products</h1>
+    </div>
+  </div>
+<% end %>
+<section class="p-4">
+  <div class="container-fluid">
+    <%= render 'pg_search' %>
+    <%= render 'pg_nav' %>
+    <div class="row">
+      <div class="col"><hr></div>
+    </div>
+    <div class="container">
+      <div class="card-columns">
+        <% @products.each_with_index do |product, index| %>
+          <div class="card">
+            <div class="card-body">
+              <center>
+                <h4 class="card-title">SKU: <%= product.pn %></h4>
+                <% if product.i2 != "" %>
+                  <%= image_tag(product.ia + product.i2, class: "card-img-top z-img", alt: product.pn) %>
+                <% end %>
+              </center>
+              <p class="text-center">
+                <span class="badge badge-success">Brand: <%= product.vn %></span>
+                <span class="badge badge-secondary">UPC: <%= product.upc %></span>
+              </p>
+              <p class="card-text"><%= product.d %></p>
+            </div>
+            <div class="card-footer text-center">
+              <p>
+                <span class="badge badge-secondary">Price: <%= product.p %></span>
+                <span class="badge badge-secondary">Min Qty: <%= product.qm %></span>
+              </p>
+              <a href="#" class="btn btn-primary btn-sm" role="button">Add to Cart</a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col"><hr></div>
+    </div>
+    <%= render 'pg_nav' %>
+  </div>
+</section>
+<script type="text/javascript">
+  $('#vendor_list').change(function() {
+  window.location = $(this).find(":selected").data('edit-url');
+  });
+  $('#search-btn').click(function() {
+  window.location = '<%= raw products_url(pi: "#{params[:pi].to_i + 1}", pz: "32", rg: "#{params[:rg]}", vid: "#{params[:vid]}") %>' + '&search=' + $('#search_tags').val();
+  });
+</script>

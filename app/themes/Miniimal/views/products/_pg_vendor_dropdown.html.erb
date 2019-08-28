@@ -1,0 +1,12 @@
+<div class="btn-group  btn-group-sm">
+  <select class="custom-select m-b" name="vendors" id="vendor_list">
+    <option value="">Filter by Brand</option>
+    <% @vendors.each do |vendor| %>
+      <% if params[:vid].present? && vendor.vid == params[:vid] %>
+        <option value="<%= vendor.vid %>" selected data-edit-url='<%= products_path(pi: "1", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{vendor.vid}") %>'><%= vendor.n %></option>
+      <% else %>
+        <option value="<%= vendor.vid %>" data-edit-url='<%= products_path(pi: "1", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{vendor.vid}") %>'><%= vendor.n %></option>
+      <% end %>
+    <% end %>
+  </select>
+</div>

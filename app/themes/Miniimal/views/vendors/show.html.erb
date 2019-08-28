@@ -1,0 +1,83 @@
+<section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <ul class="list-unstyled mb-4">
+          <li class="lead banner-stuff font-weight-bold text-uppercase"><%= @vendor.n %></li>
+          <li class="banner-stuff">Minimum Order: <%= @vendor.mo %></li>
+          <li class="banner-stuff">Minimum Reorder: <%= @vendor.mr %></li>
+          <li class="d-flex justify-content-end"><a class="badge pb-1 badge-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Know More..</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <span><%= @vendor.d %></span>
+            <span>Accepted Credit Cards: <%= @vendor.pt %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="p-4">
+  <div class="container-fluid">
+    <div class="sticky-top">
+      <%= render 'pg_search' %>
+      <%= render 'pg_nav' %>
+    </div>
+    <div class="row">
+      <div class="col"><hr></div>
+    </div>
+    <div class="container-fluid">
+      <% if @products != [] %>
+        <% @products.each_slice(4).with_index do |products, id | %>
+          <div class="row">
+            <% products.each_with_index do |product, index| %>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <div class="product text-center">
+                  <% if product.i2 != "" %>
+                    <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                      <img src="<%= product_image_path(product) %>" onerror="this.src='<%= asset_url 'no-image-available.jpg' %>';" class="img-fluid" alt="<%= product.pn %>">
+                    <% end %>
+                  <% else %>
+                    <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                      <img src="<%= asset_path 'no-image-available.jpg' %>" class="img-fluid" alt="<%= product.pn %>">
+                    <% end %>
+                  <% end %>
+                  <div class="text-center py-3 px-3">
+                    <span class="prod-text">SKU: <%= product.pn %></span>
+                    <span class="prod-text prod-text-alt"><%= product.vn %></span>
+                    <span class="prod-text prod-text-alt"><%= product.upc %></span>
+                    <span class="prod-text"><%= product.d %></span>
+                    <a href="#" class="badge badge-primary" role="button">Add to Cart</a>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="row">
+          <div class="col">
+            <div class="text-center">No Products Found.</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col"><hr></div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+  $('#vendor_list').change(function() {
+  window.location = $(this).find(":selected").data('edit-url');
+  });
+  $('#page_item_count').change(function() {
+  window.location = $(this).find(":selected").data('edit-url');
+  });
+  $('#search-btn').click(function() {
+  window.location = '<%= raw products_url(pi: "#{params[:pi].to_i + 1}", pz: "32", rg: "#{params[:rg]}", vid: "#{params[:vid]}") %>' + '&search=' + $('#search_tags').val();
+  });
+</script>

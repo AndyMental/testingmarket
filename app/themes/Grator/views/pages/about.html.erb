@@ -1,0 +1,12 @@
+<div class="container" id="all">
+  <h1 style="text-align: center;margin-top: 50px;margin-bottom: 20px;">About Us
+  </h1>
+  <% if @shop.date_of_establishment.nil? %>
+  <h4>Established at <%= @shop.date_of_establishment %></h4>
+  <% end %>
+  <p style="padding:60px;"><%= raw @shop.shop_description %>
+    If you need any clarifications regarding our product, feel free to contact us:-
+    <a href="mailto:customercare@taginstyle.com" >customercare@taginstyle.com </a> |
+    <a href="mailto:inquiry@taginstyle.com" >inquiry@taginstyle.com </a>
+  </p>
+</div>

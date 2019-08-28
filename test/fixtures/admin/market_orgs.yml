@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  repdesk_token: MyString
+  api_url: MyString
+  rep_group: MyString
+  theme: MyString
+  domain: MyString
+
+two:
+  repdesk_token: MyString
+  api_url: MyString
+  rep_group: MyString
+  theme: MyString
+  domain: MyString

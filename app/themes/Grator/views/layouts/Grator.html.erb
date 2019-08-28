@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grator</title>
+    <%= render 'components/seo_others' %>
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Permanent+Marker" rel="stylesheet">
+    <%= stylesheet_link_tag "Grator/all", media: "all" %>
+  </head>
+  <body>
+    <%#= raw @seo_option_code.body_code %>
+    <%= render 'layouts/navbar' %>
+    <%= render 'layouts/messages' %>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+    <%#= raw @seo_option_code.footer_code %>
+    <%= javascript_include_tag "Grator/all" %>
+  </body>
+</html>

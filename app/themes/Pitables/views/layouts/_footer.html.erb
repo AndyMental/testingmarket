@@ -1,0 +1,119 @@
+<section class="z_Footer" data-component="IndexFooter">
+  <footer class="fotter_top_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="footer_top">
+            <div class="row">
+              <div class="col-md-3 col-sm-3 col-xs-12">
+                <div class="footer_wid">
+                  <h2 class="z-head">
+                    <%= link_to root_path do%>
+                    Pitables
+                    <% end %>
+                  </h2>
+                  <div class="first_wid_text">
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem facere odit.
+                    </p>
+                  </div>
+                  <h3>find us on</h3>
+                  <div class="first_wid_social">
+                    <ul>
+                     <li>
+                     
+                      <i class="fa fa-facebook"></i>
+                      <i class="fa fa-google"></i>
+                      <i class="fa fa-twitter"></i>
+                     
+                    </li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="footer_wid">
+                <nav class="footer_wid_menu">
+                  <h3>Pages</h3>
+                  <ul>
+                    <li>
+                      <%= link_to about_path do %>
+                      <%= fa_icon "caret-right" %> About
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to tandc_path do %>
+                      <%= fa_icon "caret-right" %> Terms
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to contact_path do %>
+                      <%= fa_icon "caret-right" %> Contact
+                      <% end %>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="footer_wid">
+                <h3>Categories</h3>
+                <nav class="footer_wid_menu">
+                  <ul class="list-unstyled">
+                    <% unless @categories.nil? %>
+                    <% @categories.where(product_segment_id: [109,124,162,104]).limit(4).each do |category| %>
+                    <li>
+                      <%=link_to "#{category.title}", products_path(category_id: category.id) %>
+                    </li>
+                    <% end %>
+                    <% end %>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="footer_wid">
+                <h3>User section</h3>
+                <nav class="footer_wid_menu">
+                  <ul class="list-unstyled">
+                    <li>
+                      <%= link_to "" do %>
+                      <%= fa_icon "caret-right" %> Login
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to "" do %>
+                      <%= fa_icon "caret-right" %> Register
+                      <% end %>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<footer class="footer_bottom_area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-8 col-xs-12">
+        <nav class="footer_bottom_left">
+          <img src="<%= asset_url('Kaira/payment.png') %>" alt="payments accepted" />
+        </nav>
+      </div>
+      <div class="col-md-5 col-sm-4 col-xs-12">
+        <nav class="footer_bottom_right">
+          <p>Copyright ©
+            <%= link_to root_path do%>
+            Pitables 2018<% end %>
+          </p>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+</section>

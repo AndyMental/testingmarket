@@ -1,0 +1,393 @@
+<section class="z_carousel" data-component="Indexcarousel">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="overlay"></div>
+
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="<%= asset_url('Pitables/banner7.jpeg') %>" alt="" class="img-responsive" />
+        <div class="hero">
+        <hgroup>
+            <h2>Welcome To PRIXEL ACCESSORIES</h2>        
+        </hgroup>
+      </div>
+      </div>
+      <div class="item">
+        <img src="<%= asset_url('Pitables/banner2.png') %>" alt="" class="img-responsive" />
+      </div>
+      <div class="item">
+        <img src="<%= asset_url('Pitables/Banner4.jpg') %>" alt="" class="img-responsive" />
+      </div>
+    </div>
+  </div>
+</section>
+<section class="z_images" data-component="Indeximages">
+  <div class="welcome_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="common_heading">
+            <h2 class="background">
+              <span>WELCOME TO PRIXEL Store</span>
+            </h2>
+            <div class="bery-hr medium star">
+              <div class="icon-wrapper">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star large"></i>
+                <i class="fa fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7 col-sm-7 col-xs-12">
+              <%= link_to products_path(product_segment_id: 124) do %>
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="banner-top">
+                    <div class="banner-inner-content">
+                      <img src="<%= asset_url('Pitables/ban1.jpg') %>" alt="" class="img-responsive" />
+                      <div class="overlay"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+              <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                  <%= link_to products_path(product_segment_id: 162) do %>
+                  <div class="banner-top">
+                    <div class="banner-inner-content">
+                      <div class="overlay"></div>
+                      <img src="<%= asset_url('Pitables/ban2.jpg') %>" alt="" class="img-responsive" />
+                      <div class="text-banner text-banner-2">
+                        <div class="banner-texthome">
+                          <h3>New Collection</h3>
+                          <h2>New Trends</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% end %>
+                </div>
+                <%= link_to products_path(product_segment_id: 104) do %>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <div class="banner-top">
+                    <div class="banner-inner-content">
+                      <div class="bg-overlay"> </div>
+                      <img src="<%= asset_url('Pitables/ban4.jpg') %>" alt="" class="img-responsive" />
+                      <div class="text-banner text-banner-3">
+                        <div class="banner-texthome">
+                          <h3>NEW ARRIVALS</h3>
+                          <h2>Collection</h2>
+                          <%= link_to products_path(product_segment_id: 104), class: "btn-shop" do%>Explore Now
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            </div>
+            <%= link_to products_path(product_segment_id: 124) do %>
+            <div class="col-md-5 col-sm-5 col-xs-12">
+              <div class="banner-top">
+                <div class="banner-inner-content">
+                  <img src="<%= asset_url('Pitables/ban3.jpg') %>" alt="" class="img-responsive" />
+                  <div class="text-banner text-banner-4">
+                    <div class="banner-texthome">
+                      <h3>NEW ARRIVALS</h3>
+                      <h2>Posters</h2>
+                      <%= link_to products_path(product_segment_id: 124), class: "btn-shop" do%>Explore Now
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="z_latestproduct" data-component="Indexlatestproduct">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="common_heading">
+          <h2 class="background">
+            <span>Posters & Keychains </span>
+          </h2>
+          <div class="bery-hr medium star">
+            <div class="icon-wrapper">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star large"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <% @products.last(4).each do |product| %>
+        <%# @products.limit(4).each do |product|%>
+        <%= link_to product_path(product) do%>
+        <div class="col-md-3 col-sm-6 ">
+          <div class="single_featured_product">
+            <div class="image_feature_change">
+              <div class="featured_img">
+                <div class="image-overlay"></div>
+                <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+              </div>
+            </div>
+            <div class="featured_info">
+             <%= link_to product_path(product) do%>
+             Product Name
+             <% end %>
+             <p class="price">
+              <span class="price-new">
+                <%= t('product.price') %>:
+                <%= number_to_currency(product.price, unit: "₹ ") %>
+              </span>
+            </p>
+          </div>
+          <div class="z-cart">
+            <%= link_to product_path(product) do %>
+            <button type="button" class="btn z-btn">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</button>
+              <% end %>
+              <%= link_to product_path(product), class: "z-link" do%>
+              <i class="fa fa-heart-o fa-2x z-fa"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="z_banner" data-component="Indexbanner">
+  <div class="testimonial_area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div id="carousel-example-generic-testi" class="carousel slide" data-ride="carousel">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="weekly_featured_area z_weeklyfeature" data-component="Indexweeklyfeature">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="common_heading">
+          <h2 class="background">
+            <span>Home Decoration</span>
+          </h2>
+          <div class="bery-hr medium star">
+            <div class="icon-wrapper">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star large"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+        </div>
+        <div class="weekly_feature_detail">
+          <div class="row">
+            <% @products.first(8).each do |product| %>
+            <%# @shop.products.offset(3).limit(3).each do |product|%>
+            <%= link_to product_path(product) do %>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="weekly_featured">
+                <div class="single_weekly_featured">
+                  <div class="row">
+                    <div class="col-md-5 col-sm-6 col-xs-5">
+                      <div class="weekly_hover">
+                        <%= link_to "/", class: "fa fa-eye", 'data-toggle' => "modal", 'data-target' => "#myModal03" do%>
+                        <% end %>
+                      </div>
+                      <div class="image_weekly_change">
+                        <div class="single_weekly_img">
+                          <div class="weekly_overlay"></div>
+                          <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+                        </div>
+                        <div class="single_weekly_img_hover">
+                          <div class="weekly_overlay"></div>
+                          <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-7 col-sm-6 col-xs-7 no_col_padding">
+                      <div class="single_weekly_text">
+                        <%=link_to product_path(product) do %>
+                        Product Name
+                        <% end %>
+                      </div>
+                      <div class="weekly_price">
+                        <span>
+                          <p class="price">
+                            <%= t('product.price') %>:
+                            <%= number_to_currency(product.price, unit: "₹ ") %>
+                          </p>
+                        </span>
+                      </div>
+                      <div class="weekly_add_cart">
+                        <%= link_to product_path(product) do %>Add to Cart
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="z_latestproduct" data-component="Indexlatestproduct">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="common_heading">
+          <h2 class="background">
+            <span>Bookmarks & Pendants</span>
+          </h2>
+          <div class="bery-hr medium star">
+            <div class="icon-wrapper">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star large"></i>
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+        </div>
+         <% @products.last(4).each do |product| %>
+        <%# @shop.products.last(4).each do |product|%>
+        <%= link_to product_path(product) do%>
+        <div class="col-md-3 col-sm-6 ">
+          <div class="single_featured_product">
+            <div class="image_feature_change">
+              <div class="featured_img">
+                <div class="image-overlay"></div>
+                <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+              </div>
+            </div>
+            <div class="featured_info">
+              <%= link_to product_path(product) do%>
+              Product Name
+              <% end %>
+              <p class="price">
+                <span class="price-new">
+                  <%= t('product.price') %>:
+                  <%= number_to_currency(product.price, unit: "₹ ") %>
+                </span>
+              </p>
+            </div>
+            <div class="z-cart">
+              <%= link_to product_path(product) do %>
+              <button type="button" class="btn z-btn">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</button>
+                <% end %>
+                <%= link_to product_path(product), class: "z-link" do%>
+                <i class="fa fa-heart-o fa-2x z-fa" aria-hidden="true"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="z_service" data-component="Indexservice">
+    <div class="home_service_area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="row">
+              <div class="col-md-3 col-sm-4 col-xs-3">
+                <div class="single_home_service">
+                  <div class="support-icon square-round">
+                    <%= link_to  '/', class: "fa fa-car" do%>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-9 col-sm-8 col-xs-9">
+                <div class="support-info">
+                  <div class="info-title">
+                    <%= link_to '/' do %>FREE SHIPPING
+                    <h6 style="line-height: 1.5;">On order above Rs.459</h6>
+                    <h6 style="line-height: 1.5;">Cash On Delivery Available</h6>
+                    <% end %>
+                  </div>
+                <!-- <div class="info-details">
+                  Suspendisse metus diam, pulvinar nec massa non, dignis sim imperdiet nulla.
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-3">
+              <div class="single_home_service">
+                <div class="support-icon square-round">
+                  <%= link_to  "/", class: "fa fa-life-ring" do%>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-9">
+              <div class="support-info">
+                <div class="info-title">
+                  <%= link_to  "" do %>Customer Care
+                  <h6 style="line-height: 1.5;">Email: prixelaccessories@gmail.com</h6>
+                  <h6>Phone No: +91 7480873555</h6>
+                  <% end %>
+                </div>
+                <!-- <div class="info-details">
+                  Suspendisse metus diam, pulvinar nec massa non, dignis sim imperdiet nulla.
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-3">
+              <div class="single_home_service">
+                <div class="support-icon square-round">
+                  <%= link_to  '/', class: "fa fa-money" do%>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-9">
+              <div class="support-info">
+                <div class="info-title">
+                  <%= link_to  '/' do %>Monthly Giveaway
+                  <% end %>
+                  <h5 style="line-height: 1.5;">Win exciting goodies and coupons by participating Facebook and Instagram</h5>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

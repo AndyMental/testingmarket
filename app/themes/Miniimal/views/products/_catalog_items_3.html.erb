@@ -1,0 +1,52 @@
+<% if @products != [] %>
+  <div class="row mb-4">
+    <% @products.each_with_index do |product, index| %>
+      <div class="col-xl-3 col-lg-4 col-md-4 mb-4">
+        <div class="card card-ecommerce h-100 _product">
+          <div class="view overlay">
+            <% if product.i2 != "" %>
+              <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                <img src="<%= product_image_path(product) %>" onerror="this.src='<%= asset_url 'no-image-available.jpg' %>';" class="img-fluid" alt="<%= product.pn %>">
+              <% end %>
+            <% else %>
+              <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                <img src="<%= asset_path 'no-image-available.jpg' %>" class="img-fluid" alt="<%= product.pn %>">
+              <% end %>
+            <% end %>
+          </div>
+          <div class="card-body card-body-cascade text-center">
+            <div>
+              <span class="text-secondary" title="<%= product.vn %>"><%= product.vn %></span>
+            </div>
+            <div>
+              <strong title="<%= product.pn %>">SKU: <%= product.pn %></strong>
+            </div>
+            <div>
+              <span class="text-nowrap small text-info" title="UPC Code">UPC: <%= product.upc %></span>
+            </div>
+            <p><%= product.d %></p>
+          </div>
+          <div class="card-footer px-1">
+            <div class="row">
+              <span class="float-left font-weight-light mx-3">
+                <%= number_to_currency(product.p.p) %>
+              </span>
+              <span class="float-left">Min Qty: product.qm</span>
+            </div>
+            <div class="row">
+              <div class="col w-100 text-center">
+                <button class="btn btn-dark btn-sm waves-effect waves-light px-2 _addToCart" data-toggle="modal" data-target="#add_to_cart" data-pid="<%= product.pid %>">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col">
+      <div class="text-center">No Products Found.</div>
+    </div>
+  </div>
+<% end %>

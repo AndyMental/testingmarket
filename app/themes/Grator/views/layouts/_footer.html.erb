@@ -1,0 +1,64 @@
+<section class="z-footer">
+  <div class="footer-w3l">
+    <div class="container">
+      <div class="footer-grids">
+        <div class="col-md-3 footer-grid">
+          <h4>About </h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe maxime maiores quisquam culpa veniam quam incidunt ad ex? Recusandae reiciendis illum maiores aut dolor, modi, neque voluptatum dolores praesentium possimus.
+          </p>
+          <div class="social-icon">
+           <li>
+               <i class="fa fa-facebook %>"></i>
+                <i class="fa fa-google"></i>
+                <i class="fa fa-twitter %>"></i>
+            </li>
+          </div>
+        </div>
+        <div class="col-md-3 footer-grid">
+          <h4>My Account</h4>
+          <ul>
+            <li><%= link_to "" do%>Login<% end %></li>
+            <li><%= link_to "" do%>Account <% end %></li>
+          </ul>
+        </div>
+        <div class="col-md-3 footer-grid">
+          <h4>Information</h4>
+          <ul>
+            <li>
+                  <%= link_to "About", about_path %>
+                </li>
+                <li>
+                  <%= link_to "Terms", tandc_path %>
+                </li>
+                <li>
+                  <%= link_to "Contact", contact_path %>
+                </li>
+          </ul>
+        </div>
+        <div class="col-md-3 footer-grid foot">
+          <h4>Contacts</h4>
+          <ul>
+            <li><i class="fa fa-phone" aria-hidden="true"></i>
+             <%= link_to "/" do%> Call Us : 12345648795 <% end %></li>
+             <li><i class="fa fa-envelope" aria-hidden="true"></i>
+                 <a href="mailto:customercare@taginstyle.com" >customercare@taginstyle.com </a>, <a href="mailto:inquiry@taginstyle.com" >inquiry@taginstyle.com </a>
+              </li>
+            </ul>
+          </div>
+          <div class="clearfix"> </div>
+        </div>
+      </div>
+    </div>
+    <div class="copy-section">
+      <div class="container">
+        <div class="copy-left">
+          <p>&copy; 2017
+          <%= link_to root_path do %>  Grator<% end %>. All rights reserved </p>
+        </div>
+        <div class="copy-right">
+          <img src="<%= asset_url('https://p.w3layouts.com/demos/aug-2016/02-08-2016/new_shop/web/images/card.png') %>" alt="" class="img-responsive"/>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,133 @@
+<%# byebug %>
+<nav class="nav d-flex justify-content-start justify-content-md-start justify-content-lg-start justify-content-xl-start justify-content-center">
+  <ul class="pagination pagination-sm flex-sm-wrap">
+    <% if params[:pi].to_i != 1 %>
+      <li class="page-item">
+        <%= link_to products_path(pi: "#{params[:pi].to_i - 1}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link", "aria-label": "Previous" do %>
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        <% end %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <a class="page-link" href="#">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+    <% end %>
+    <% if params[:pi].to_i >= 5 && params[:pi].to_i < (@raw_products.pc.to_i - 3)  %>
+      <li class="page-item">
+        <%= link_to products_path(pi: "1", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+          <%= 1 %>
+        <% end %>
+      </li>
+      <li class="page-item page-link-dots">
+        ....
+      </li>
+      <li class="page-item">
+        <%= link_to products_path(pi: "#{params[:pi].to_i - 1}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+          <%= params[:pi].to_i - 1 %>
+        <% end %>
+      </li>
+      <% (params[:pi].to_i..(@raw_products.pc.to_i - 3)).each_with_index do |pg, index| %>
+        <% if index < 2 %>
+          <% if pg == params[:pi].to_i && pg == @raw_products.pn %>
+            <li class="page-item active">
+              <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+                <%= pg %><span class="sr-only">(current)</span>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="page-item">
+              <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+                <%= pg %>
+              <% end %>
+            </li>
+          <% end %>
+        <% else %>
+          <% break %>
+        <% end %>
+      <% end %>
+      <li class="page-item page-link-dots">
+        ....
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#"><%= @raw_products.pc %></a>
+      </li>
+    <% elsif @raw_products.pc.to_i < 5 %>
+      <% (1..@raw_products.pc.to_i).each_with_index do |pg, index| %>
+        <% if pg == params[:pi].to_i && pg == @raw_products.pn %>
+          <li class="page-item active">
+            <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+              <%= pg %><span class="sr-only">(current)</span>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="page-item">
+            <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+              <%= pg %>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+    <% elsif params[:pi].to_i >= (@raw_products.pc.to_i - 3) %>
+      <li class="page-item">
+        <%= link_to products_path(pi: "1", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+          <%= 1 %>
+        <% end %>
+      </li>
+      <li class="page-item page-link-dots">
+        ....
+      </li>
+      <li class="page-item">
+        <%= link_to products_path(pi: "#{params[:pi].to_i - 1}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+          <%= params[:pi].to_i - 1 %>
+        <% end %>
+      </li>
+      <% ((@raw_products.pc.to_i - 3)..@raw_products.pc.to_i).each_with_index do |pg, index| %>
+        <% if pg == params[:pi].to_i && pg == @raw_products.pn %>
+          <li class="page-item active">
+            <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+              <%= pg %><span class="sr-only">(current)</span>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="page-item">
+            <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+              <%= pg %>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% (1..5).each_with_index do |pg, index| %>
+        <% if pg == params[:pi].to_i && pg == @raw_products.pn %>
+          <li class="page-item active">
+            <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+              <%= pg %><span class="sr-only">(current)</span>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="page-item">
+            <%= link_to products_path(pi: "#{pg}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link" do %>
+              <%= pg %>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+      <li class="page-item page-link-dots">
+        ....
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#"><%= @raw_products.pc %></a>
+      </li>
+    <% end %>
+    <li class="page-item">
+      <%= link_to products_path(pi: "#{params[:pi].to_i + 1}", pz: "32", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}"), class: "page-link", "aria-label": "Next" do %>
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      <% end %>
+    </li>
+  </ul>
+</nav>

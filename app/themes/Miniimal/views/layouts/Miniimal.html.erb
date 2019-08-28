@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Miniimal</title>
+    <%#= render 'components/seo_others' %>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+    <%= stylesheet_link_tag "Miniimal/all", media: "all" %>
+    <%= javascript_include_tag "Miniimal/all" %>
+  </head>
+  <body>
+    <% if @seo_option_code.present? %>
+      <%= raw @seo_option_code.body_code %>
+    <% end %>
+    <% if @seasonal_greetings.present? %>
+      <%= render 'components/greetings' %>
+    <% end %>
+    <% if controller_name == "products" || controller_name == "vendors" || controller_name == "pages" %>
+      <%= render 'layouts/navbar' %>  
+    <% else %>
+      <%= render 'layouts/navbar_unhinged' %>
+    <% end %>
+    <%= render 'layouts/messages' %>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+    <% if @seo_option_code.present? %>
+      <%= raw @seo_option_code.footer_code %>
+    <% end %>
+    <script>
+      function flip(id) {
+          $("#" + id).toggleClass('flipped');
+      }
+    </script>
+    <%= content_for :render_async %>
+  </body>
+</html>

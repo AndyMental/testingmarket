@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Market Orgs</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Repdesk token</th>
+      <th>Api url</th>
+      <th>Rep group</th>
+      <th>Theme</th>
+      <th>Domain</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @market_orgs.each do |market_org| %>
+      <tr>
+        <td><%= market_org.repdesk_token %></td>
+        <td><%= market_org.api_url %></td>
+        <td><%= market_org.rep_group %></td>
+        <td><%= market_org.theme %></td>
+        <td><%= market_org.domain %></td>
+        <td><%= link_to 'Edit', edit_admin_market_org_path(market_org) %></td>
+        <td><%= link_to 'Destroy', admin_market_org_path(market_org), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Market Org', new_admin_market_org_path %>

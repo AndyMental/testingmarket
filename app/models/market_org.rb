@@ -1,0 +1,2 @@
+class MarketOrg < ApplicationRecord
+end

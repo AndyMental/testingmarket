@@ -1,0 +1,57 @@
+<section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
+  <div class="container">
+    <div class="row">
+      <%= tag.div class: 'col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center', style: "background-image: url('#{image_path('Minimal/vendor.jpg')}')" do %>
+      <% end %>
+      <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
+        <div class="heading-section-bold mb-5 mt-md-5">
+          <div class="ml-md-0">
+            <h2 class="mb-4"><%= @vendor.n %></h2>
+          </div>
+        </div>
+        <div class="pb-md-5">
+          <p><%= @vendor.d %></p>
+          <p>Minimum Order: <%= @vendor.mo %></p>
+          <p>Minimum Reorder: <%= @vendor.mr %></p>
+          <p>Accepted Credit Cards: <%= @vendor.pt %></p>
+          <h5>Explore Products from this Brand</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="p-4">
+  <div class="container-fluid">
+    <%= render 'pg_search' %>
+    <%= render 'pg_nav' %>
+    <div class="row"><div class="col"><hr></div></div>
+    <% @products.each_slice(4).with_index do |products, id | %>
+      <div class="row">
+        <% products.each_with_index do |product, index| %>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <div class="product">
+              <% if product.i2 != "" %>
+                <a href="#" class="img-prod">
+                  <%= image_tag(product.ia + product.i2, class: "img-fluid z-img-fluid", alt: product.pn) %>
+                </a>
+              <% end %>
+              <div class="text text-center py-3 px-3">
+                <span class="badge badge-dark">SKU: <%= product.pn %></span>
+                <span class="badge badge-success">Brand: <%= product.vn %></span>
+                <h3><a href="#"><%= product.d %></a></h3>
+                <a href="#" class="badge badge-primary" role="button">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="row"><div class="col"><hr></div></div>
+    <%= render 'pg_nav' %>
+  </div>
+</section>
+<script type="text/javascript">
+  $('#vendor_list').change(function() {
+  window.location = $(this).find(":selected").data('edit-url');
+  });
+</script>

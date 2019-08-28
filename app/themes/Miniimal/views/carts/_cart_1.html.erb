@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 animated easeInOutExpo delay-2s">
+      <div class="cart-list">
+        <table class="table table-responsive table-hover">
+          <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Part Number</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <% vendor_level_total = 0 %>
+          <% @raw_cartitems.c.v.each_with_index do |vendor,index| %>
+            <tbody>
+              <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-<%= index %>" aria-expanded="false" aria-controls="group-of-rows-<%= index %>">
+                <td><i class="fa fa-plus" aria-hidden="true"></i><%= vendor.n %></td>
+                <td></td>
+                <td><%= @raw_cartitems.c.i.select {|product| vendor.vid == product.v}.inject(0) { |sum, x| sum + x.q } %></td>
+                <td></td>
+                <td><%= number_to_currency(@raw_cartitems.c.i.select {|product| vendor.vid == product.v}.inject(0) { |sum, x| sum + (x.q * x.up) }) %></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tbody id="group-of-rows-<%= index %>" class="collapse">
+              <% sub_total = 0 %>
+              <% @raw_cartitems.c.i.each_with_index do |product, p_index|  %>
+                <% if product.v == vendor.vid %>
+                  <tr>
+                    <td class="text-right">-</td>
+                    <td><%= product.p %></td>
+                    <td><%= product.q %></td>
+                    <td><%= number_to_currency(product.up) %></td>
+                    <td><%= number_to_currency(product.q * product.up) %></td>
+                    <% sub_total += product.q * product.up %>
+                    <td><a data-cmd="edit-item"><i class="fa fa-edit" title="Edit"></i></a></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+            <% vendor_level_total += sub_total %>
+          <% end %>
+          <tbody>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><%= number_to_currency(vendor_level_total) %></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+</div>

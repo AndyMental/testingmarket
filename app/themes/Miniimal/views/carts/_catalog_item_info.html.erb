@@ -1,0 +1,57 @@
+<% if @thisproduct.nil? %>
+  <% getcatalogiteminfo_response = File.read(File.join(Rails.public_path, 'GetCatalogItemInfo.json')) %>
+  <% @this_product = JSON.parse(getcatalogiteminfo_response, object_class: OpenStruct) %>
+<% else %>
+  <% @this_product = @thisproduct %>
+<% end %>
+<%= form_with(url: url_for(:controller => 'carts', :action => 'add_items'), method: "post") do |f| %>
+    <%= f.hidden_field :pid, value: @this_product.PartId %>
+    <%= f.hidden_field :ref_uri, value: request.env["HTTP_REFERER"] %>
+    <div class="row">
+      <div class="col text-left">
+        <%= @this_product.PartId %>
+        <p class="form-control-static font-weight-bold" align="left"><%= @this_product.PartNum %></p>
+        <p class="form-control-static" align="left"><%= @this_product.Description %></p>
+        <p class="form-control-static font-italic" align="left">UPC: <%= @this_product.Upc %></p>
+      </div>
+      <div class="col text-center">
+        <img class="img-100x100 centerImage" src="<%= @this_product.thmb %>" alt="Product">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-left">
+        <div>
+          <label class="small">Quantity</label>
+          <input name="qty" type="number" class="form-control mb-4 rounded-0" value="<%= @this_product.QtyMin %>" min="<%= @this_product.QtyMin %>">
+        </div>
+        <div>
+          <label class="small">Notes</label>
+          <textarea name="notes" class="form-control rounded-0" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="col">
+        <div align="left">
+          <label class="small">Pricing:</label>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Qty</th>
+                <th>Unit Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @this_product.QtyBreaks.each do |qtybreak| %>
+              <tr>
+                <td><%= qtybreak.q %></td>
+                <td><%= number_to_currency(qtybreak.p) %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button id="add-button" class="btn btn-primary">Add Item</button>
+    </div>
+  <% end %>

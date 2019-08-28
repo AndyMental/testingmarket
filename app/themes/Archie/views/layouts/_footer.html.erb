@@ -1,0 +1,66 @@
+<footer class="z-footer">
+  <div class="container">
+    <div class="col-sm-4 col-md-4">
+      <div class="logo_footer">
+        <%= link_to root_path do %>
+            <img src="<%=asset_url('Archie/logo.png') %>" alt="Banner1" class="img-responsive" />
+        <% end %>
+        <p>Quirky, cool & chic minimal designs made for your trendy home. We try to keep things modern, fun & unique with enough wisdom & patterns so that you never tire of the art on your wall.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-4">
+      <div class="weight">
+        <h2>
+          <span>Triva</span>
+        </h2>
+        <ul>
+          <li>
+            <%= link_to "About", about_path %>
+          </li>
+          <li>
+            <%= link_to "Terms", tandc_path %>
+          </li>
+          <li>
+            <%= link_to "Say Hello", contact_path %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-4">
+      <div class="weight">
+        <h2>
+          <span>Contact Us</span>
+        </h2>
+        <div class="f-sicon">
+          <ul>
+          <li>
+            <%= fa_icon "phone" %>
+            Phone#
+          </li>
+          <br>
+          <li>
+            <%# @shop.social_links.each do |social_profile| %>
+            <li>
+              <%#= link_to social_profile.link, target: '_blank' do%>
+                    <i class="fa fa-facebook %>"></i>
+                    <i class="fa fa-google"></i>
+                    <i class="fa fa-twitter %>"></i>
+                    <!-- <i class="fa fa-<%#= social_profile.social_site %>"></i> -->
+              <%# end %>
+            </li>
+            <%# end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copayright">
+    <div class="container">
+      <div class="col-sm-12 text-center">
+        © Copyright Some Store 2019. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>

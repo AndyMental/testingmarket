@@ -1,0 +1,32 @@
+<%= tag.div class: 'hero-wrap hero-bread', style: "background-image: url('#{image_path('Minimal/products.jpg')}')" do %>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <div class="col-md-9 ftco-animate text-right fadeInUp ftco-animated">
+        <h1 class="mb-0 bread">Products</h1>
+      </div>
+    </div>
+  </div>
+<% end %>
+<section class="p-4">
+  <div class="container-fluid">
+    <% @products.each_slice(4).with_index do |products, id | %>
+      <div class="row">
+        <% products.each_with_index do |product, index| %>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <div class="product">
+              <a href="#" class="img-prod">
+                <%= image_tag(product.ia + product.i2, class: "img-fluid z-img-fluid", alt: product.pn) %>
+              </a>
+              <div class="text text-center py-3 px-3">
+                <span class="badge badge-dark">SKU: <%= product.pn %></span>
+                <span class="badge badge-success">Brand: <%= product.vn %></span>
+                <h3><a href="#"><%= product.d %></a></h3>
+                <a href="#" class="badge badge-primary" role="button">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>

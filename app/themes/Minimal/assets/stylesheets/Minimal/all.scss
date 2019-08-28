@@ -1,0 +1,236 @@
+@import 'default';
+@import "font-awesome";
+@import 'animate';
+
+
+/* Card rotate */
+.card-wrapper .card-rotating.flipped {
+    transform: rotateY(180deg);
+}
+
+
+a.nav-link {
+    color: $black;
+}
+
+.card-wrapper .card-rotating {
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: .5s;
+}
+
+.card {
+    // box-shadow: 0 2px 5px 0 rgba(0,0,0,.20), 0 2px 5px 0 rgba(0,0,0,.40);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    border: 1;
+    font-weight: 400;
+}
+
+.card-wrapper {
+    perspective: 800px;
+    position: relative;
+    margin: 0;
+    width: 100%;
+    height: 220px;
+    margin-bottom: 20px;
+}
+
+.card-wrapper .card-rotating {
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: .5s;
+}
+
+.card-wrapper .card-rotating .back,
+.card-wrapper .card-rotating .front {
+    transition: 1s;
+}
+
+.card-wrapper .card-rotating .front {
+    z-index: 1;
+}
+
+.card-wrapper .card-rotating .face {
+    width: 100%;
+    position: absolute;
+    background: $white;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 2;
+}
+
+.card-wrapper .card-up {
+    /*  height: 200px;
+  overflow: hidden;*/
+    padding: 1rem;
+}
+
+.card-up {
+    height: 100px;
+}
+
+.rotate-btn {
+    border-radius: 0.25rem;
+}
+
+.card-wrapper .card-up img {
+    vertical-align: middle;
+}
+
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+}
+
+.card-wrapper .avatar {
+    display: block;
+    margin-top: -60px;
+    overflow: hidden;
+    width: 120px;
+}
+
+.card-body {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-wrapper .card-rotating .back,
+.card-wrapper .card-rotating .front {
+    transition: 1s;
+}
+
+.card-wrapper .card-rotating .back {
+    transform: rotateY(-180deg);
+}
+
+.card-wrapper .card-rotating .face {
+    width: 100%;
+    position: absolute;
+    background: $white;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 2;
+}
+
+a:not([href]):not([tabindex]),
+a:not([href]):not([tabindex]):focus,
+a:not([href]):not([tabindex]):hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:not([href]):not([tabindex]) {
+    color: inherit;
+    text-decoration: none;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: $primary;
+    transition: all .2s ease-in-out;
+}
+
+.card hr {
+    margin-bottom: 0.7rem;
+}
+
+/* New style - */
+
+
+.z-img {
+    max-height: 100px !important;
+    width: auto !important;
+    max-width: 150px !important;
+}
+
+
+/* styles for '...' */
+.ztext-ellipsis {
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative;
+    /* use this value to count block height */
+    line-height: 1.2em;
+    /* max-height = line-height (1.2) * lines max number (3) */
+    max-height: 3.6em;
+    /* fix problem when last visible word doesn't adjoin right side  */
+    text-align: justify;
+    /* place for '...' */
+    // margin-right: -1em;
+    padding-right: 1em;
+    font-size: 12px;
+}
+
+/* create the ... */
+.ztext-ellipsis:before {
+    /* points in the end */
+    content: '...';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 0;
+    bottom: 0;
+}
+
+/* hide ... if we have text, which is less than or equal to max lines */
+.ztext-ellipsis:after {
+    /* points in the end */
+    content: '';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 0;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: white;
+}
+
+.zborder {
+    border-radius: 0.25rem !important;
+}
+
+.zborder-right {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.zform-control {
+    height: 41px !important;
+}
+
+hr {
+  border-top: 1px solid rgba($black, .15);
+}
+
+.page-link-muted {
+  color: $darken !important;
+}
+
+.row.make-columns {
+    -moz-column-width: 19em;
+    -webkit-column-width: 19em;
+    -moz-column-gap: 1em;
+    -webkit-column-gap:1em; 
+}
+
+.row.make-columns > div {
+    display: inline-block;
+    padding:  .5rem;
+    width:  100%; 
+}

@@ -1,0 +1,23 @@
+<% if @raw_products.pc.to_i > 1 %>
+  <div class="row sticky-mt">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 text-right">
+      <%= render 'pagination' %>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text">Results per page:</label>
+        </div>
+        <select class="custom-select" id="page_item_count">
+          <% ['32', '64', '128'].each do |pc| %>
+            <% if params[:pz].present? && pc == params[:pz] %>
+              <option value="<%= pc %>" selected data-edit-url='<%= products_path(pi: "#{params[:pi]}", pz: "#{pc}", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}") %>'><%= pc %></option>
+            <% else %>
+              <option value="<%= pc %>" data-edit-url='<%= products_path(pi: "#{params[:pi]}", pz: "#{pc}", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}") %>'><%= pc %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,88 @@
+<footer id="footer">
+  <div class="footer-information z-foot">
+    <div class="container">
+      <div class="row">
+      <div class="col-md-3">
+          <h1 class="z-log">Genics</h1>
+        </div>
+        <div class="col-md-3">
+          <div class="header-footer">
+            <h3>Pages</h3>
+          </div>
+          <ul class="footer-categories list-unstyled">
+            <li>
+              <%= link_to "About", about_path %>
+            </li>
+            <li>
+              <%= link_to "Terms", tandc_path %>
+            </li>
+            <li>
+              <%= link_to "Contact", contact_path %>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-3">
+          <div class="header-footer">
+            <h3>Categories</h3>
+          </div>
+          <ul class="footer-categories list-unstyled">
+            <% unless @productsegment.nil? %>
+              <% @productsegment.limit(2).each do |productsegment| %>
+                <div class="col-md-12">
+                    <li>
+                      <%=link_to "#{productsegment.title}", products_path(product_segment_id: productsegment.id) %>
+                    </li>
+                </div>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="col-md-3">
+          <div class="header-footer">
+            <h3>Account</h3>
+          </div>
+          <ul class="footer-categories list-unstyled">
+            <li>
+              <%= link_to "Register/Login", "" %>
+            </li>
+            <li>
+              <%= link_to "Cart", "" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy color-scheme-dark z-drak">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="social list-unstyled">
+              Ï
+            </ul>
+            <p class="pull-left">
+              Copyright © 2017 | Genics | All rights reserved.
+            </p>
+            <ul class="footer-payments pull-right">
+              <li>
+                <img src="<%= asset_url('http://mosaicthemes.net/queen/img/payment-paypal.jpg') %>" alt="" class="img-responsive" />
+              </li>
+              <li>
+                <img src="<%= asset_url('http://mosaicthemes.net/queen/img/payment-american-express.jpg') %>" alt="" class="img-responsive" />
+              </li>
+              <li>
+                <img src="<%= asset_url('http://mosaicthemes.net/queen/img/payment-visa.jpg') %>" alt="" class="img-responsive" />
+              </li>
+              <li>
+                <img src="<%= asset_url('http://mosaicthemes.net/queen/img/payment-discover.jpg') %>" alt="" class="img-responsive" />
+              </li>
+              <li>
+                <img src="<%= asset_url('http://mosaicthemes.net/queen/img/payment-maestro.jpg') %>" alt="" class="img-responsive" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>

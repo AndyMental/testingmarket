@@ -1,0 +1,183 @@
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="col-md-12">
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <!-- <li><a href="#">Ladies</a>
+        </li> -->
+          <li>
+            <%=link_to products_path(subcategory_id: @product.subcategory.id) do %>
+              <% @product.subcategory.title %>
+            <% end %>
+          </li>
+          <li>
+            <%= truncate(@product.title, :length => 30) %>
+          </li>
+        </ul>
+        <div class="box text-center">
+          <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+              <h1>
+                <%= truncate(@product.title, :length => 30) %>
+              </h1>
+              <% @product.subcategory.title %>
+              <p class="goToDescription">
+                <a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row" id="productMain">
+          <div class="col-sm-6">
+            <div id="mainImage">
+              <%= image_tag product_image_path(@product), class: "img-responsive" %>
+            </div>
+            <% if @product.on_sale? %>
+              <div class="ribbon sale">
+                <div class="theribbon">SALE</div>
+                <div class="ribbon-background"></div>
+              </div>
+            <% end %>
+            <!-- <div class="ribbon new">
+              <div class="theribbon">NEW</div>
+              <div class="ribbon-background"></div>
+            </div> -->
+          </div>
+          <div class="col-sm-6">
+            <div class="box">
+              <%= simple_form_for :carts, url: cart_path, method: :put do |f| %>
+                <% if @product.source == "community" %>
+                  <% @this_product = Product.find_by(id: @product.source_product_id) %>
+                <% else %>
+                  <% @this_product = @product %>
+                <% end %>
+                <%= f.hidden_field :product_id, value: @product.id %>
+                <% unless @this_product.product_properties.size < 2 %>
+                  <h3>Available Options</h3>
+                <% end %>
+                <% unless @this_product.product_properties.pluck(:size) == [""] %>
+                  <p>Size:
+                    <%= f.select :size, options_for_select(@this_product.product_properties.pluck(:size).uniq), :include_blank => true %>
+                  </p>
+                <% end %>
+                <% unless @this_product.product_properties.pluck(:color) == [""] %>
+                  <p>Color:
+                    <%= f.select :color, options_for_select(@this_product.product_properties.pluck(:color).uniq), :include_blank => true %>
+                  </p>
+                <% end %>
+                <% if @product.on_sale? %>
+                  <p class="price">
+                    <del>
+                      <%= number_to_currency(@product.price) %>
+                    </del>
+                    <br>
+                    <%= number_to_currency(@product.current_price) %>
+                  </p>
+                <% else %>
+                  <p class="price">
+                    <%= number_to_currency(@product.price) %>
+                  </p>
+                <% end %>
+                <p>
+                  <% if @product.status == 'active' %>
+                    <%= f.button :submit, t('cart.add'), class: 'btn btn-custom-lighten' %>
+                    <%= f.button :submit, t('product.buynow'), class: 'btn btn-custom-lighten' %>
+                    <%#= render partial: 'buy_now_button', locals: {product: @product} %>
+                  <% else %>
+                    <p> Product is retired! </p>
+                  <% end %>
+                  <!-- <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add to wishlist"><i class="fa fa-heart-o"></i>
+                </button> -->
+                </p>
+              <% end %>
+            </div>
+            <div class="row" id="thumbs">
+              <% @product.image_path.each_with_index do |image, index|  %>
+                <div class="col-xs-4">
+                  <%= link_to @product.image_path[index].url, class: "thumb" do %>
+                    <%= image_tag @product.image_path[index].url, class: "img-responsive" %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="box" id="details">
+          <h4>Product details</h4>
+          <p>
+            <%= @product.description %>
+          </p>
+          <!-- <h4>Material & care</h4>
+            <ul>
+              <li>Polyester</li>
+              <li>Machine wash</li>
+            </ul>
+            <h4>Size & Fit</h4>
+            <ul>
+              <li>Regular fit</li>
+              <li>The model (height 5'8" and chest 33") is wearing a size S</li>
+            </ul>
+            <blockquote>
+              <p><em>Define style this season with Armani's new range of trendy tops, crafted with intricate details. Create a chic statement look by teaming this lace number with skinny jeans and pumps.</em>
+              </p>
+            </blockquote> -->
+          <!-- <h3>No of Orders: <%#= @product.product_order_items_count %></h3> -->
+          <%= render 'user_rating_status_or_action' %>
+          <% if @ratings.present? %>
+            <div class="average-rating">
+              <h4>
+                <%= t('ratings.average') %>: </h4>
+              <div id="star-avg">
+                <script>
+                  $('#star-avg').raty({
+                    readOnly: true,
+                    score: <%= average_rating(@ratings) %>
+                  });
+                </script>
+              </div>
+              <p></p>
+            </div>
+            <%= render partial: 'rating', collection: @ratings %>
+          <% else %>
+            <%= t('ratings.none') %>
+          <% end %>
+        </div>
+        <div class="box social" id="product-social">
+          <h4>Show it to your friends</h4>
+          <%= social_share_button_tag(@product.title) %>
+          <% if browser.device.mobile? %>
+            <a href="whatsapp://send?text=<%= @product.title %>" data-action="share/whatsapp/share" class="btn btn-primary">Share via Whatsapp</a>
+          <% end %>
+          <!-- <p>
+            <a href="#" class="external facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#" class="external gplus">
+              <i class="fa fa-google-plus"></i>
+            </a>
+            <a href="#" class="external twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#" class="email">
+              <i class="fa fa-envelope"></i>
+            </a>
+          </p> -->
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-6">
+            <div class="box">
+              <h3>You may also like these products</h3>
+            </div>
+          </div>
+          <%= render @products, class_name: "col-md-3 col-sm-6"  %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

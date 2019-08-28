@@ -1,0 +1,42 @@
+<%= form_with(model: admin_market_org, local: true) do |form| %>
+  <% if admin_market_org.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admin_market_org.errors.count, "error") %> prohibited this admin_market_org from being saved:</h2>
+
+      <ul>
+      <% admin_market_org.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :repdesk_token %>
+    <%= form.text_field :repdesk_token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_url %>
+    <%= form.text_field :api_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rep_group %>
+    <%= form.text_field :rep_group %>
+  </div>
+
+  <div class="field">
+    <%= form.label :theme %>
+    <%= form.text_field :theme %>
+  </div>
+
+  <div class="field">
+    <%= form.label :domain %>
+    <%= form.text_field :domain %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

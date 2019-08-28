@@ -1,0 +1,25 @@
+<% unless @mainproduct.nil? %>
+  <% unless @productsegment.nil? %>
+    <% unless @categories.nil? %>
+      <ul class="nav nav-pills nav-stacked subcategory-menu">
+        <% cache "categories_sidebar" + "" + @shop.shop_name.to_s + "" + @shop.id.to_s do  %>
+          <li> <a href="/products?product_segement_id=107"> Bags </a>
+           <% @mainproduct.limit(1).each do |productsegment| %>
+             <ul>
+              <% @productsegment.where(main_product_id: 44).limit(12).each do |category| %>
+                <% if category.title != "Luggage" && category.title != "Pocket Accessories" && category.title != "Travel Accessories" %>
+                  <li>
+                    <%=link_to products_path(product_segment_id: category.id) do %>
+                    <%= category.title %>
+                    <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>

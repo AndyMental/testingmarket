@@ -1,0 +1,237 @@
+<div class="z_carousel" data-component="IndexCarousel" style="margin-top: 90px;">
+  <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+      <li data-target="#bs-carousel" data-slide-to="1"></li>
+      <li data-target="#bs-carousel" data-slide-to="2"></li>
+      <li data-target="#bs-carousel" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner" style="height: 100vh;">
+      <div class="item slides active">
+        <div class="slide-1">
+          <div class="carousel-caption">
+            <h3>Clothing &amp; Accessories</h3>
+            <p>For head-turning looks to overhaul your wardrobe</p>
+          </div>
+        </div>
+      </div>
+      <div class="item slides">
+        <div class="slide-2">
+          <div class="carousel-caption">
+            <h3>Shop Women’s Clothing Online</h3>
+            <p>Find Easy Silhouettes and Structured Accents for Your Daily Fashion Fix</p>
+          </div>
+        </div>
+      </div>
+      <div class="item slides">
+        <div class="slide-3">
+          <div class="carousel-caption">
+            <h3>Find Top Offers on Men’s Clothing</h3>
+            <p>Unanchored to Season or Occasion</p>
+          </div>
+        </div>
+      </div>
+      <div class="item slides">
+        <div class="slide-4">
+          <div class="carousel-caption">
+            <h3>Shop Kid’s Clothing Online</h3>
+            <p>Everyday favorites for Your Little One</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section products second-style z-margin " id="home-products" data-component="IndexLatest">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 section-title text-center">
+        <h3>
+          <i class="line"></i>Latest Products
+          <i class="line"></i>
+        </h3>
+      </div>
+      <div class="col-sm-12">
+        <div class="masonry row">
+          <% @products.last(4).each do |product| %>
+            <%= link_to product_path(product) do %>
+              <div class="product col-md-3 col-sm-6 col-xs-12" data-product-id="1">
+                <div class="inner-product">
+                  <% if product.on_sale? %>
+                    <span class="onsale">Sale!</span>
+                  <% end %>
+                  <div class="product-thumbnail">
+                    <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+                  </div>
+                  <div class="product-details text-center">
+                    <div class="product-btns">
+                      <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Add To Cart">
+                        <%= link_to product_path(product), class: "li-icon" do %>
+                          <%= fa_icon "shopping-cart" %>
+                        <% end %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <h3 class="product-title">
+                  <%= link_to product_path(product) do %>
+                    Product Name
+                  <% end %>
+                </h3>
+                <p class="product-price">
+                  <ins>
+                    <span class="amount">
+                      SKU
+                    </span>
+                  </ins>
+                </p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-12 text-center">
+        <%= link_to products_path ,class: "btn btn-default" do %>Show More
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="parallax">
+  <section class="section collections no-padding-bottom" id="home-collections" data-component="IndexCategory" style="padding-top: 100px;padding-bottom: 90px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6  collection">
+          <%= link_to products_path(main_product_id: 1) do %>
+            <%= image_tag("Noiise/p1.jpg", class: "img-responsive", alt:"" ) %>
+          <% end %>
+          <div class="image_caption">
+            <h3 class="media-heading">Tees Before<br>Everything</h3>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-6 collection">
+              <%= link_to products_path(product_segment_id: 3) do %>
+                <%= image_tag("Noiise/p4.jpg", class: "img-responsive", alt:"") %>
+              <% end %>
+              <div class="image_caption">
+                <h3 class="media-heading">Cute</h3>
+              </div>
+            </div>
+            <div class="col-sm-6 collection">
+              <%= link_to products_path(product_segment_id: 2) do %>
+                <%= image_tag("Noiise/p3.jpg", class: "img-responsive", alt:"") %>
+              <% end %>
+              <div class="image_caption">
+                <h3 class="media-heading">Glamour</h3>
+              </div>
+            </div>
+            <div class="col-sm-12 collection">
+              <%= link_to products_path(product_segment_id: 1) do %>
+                <%= image_tag("Noiise/p2.jpg", class: "img-responsive", alt:"") %>
+              <% end %>
+              <div class="image_caption">
+                <h3 class="media-heading">Perfection</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<section class="section products second-style" id="home-products" data-component="IndexLatest">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 section-title text-center">
+        <h3>
+          <i class="line"></i>All Products
+          <i class="line"></i>
+        </h3>
+      </div>
+      <div class="col-sm-12">
+        <div class="masonry row">
+          <% @products.first(4).each do |product| %>
+            <%= link_to product_path(product) do %>
+              <div class="product col-md-3 col-sm-6 col-xs-12" data-product-id="1">
+                <div class="inner-product">
+                  <% if product.on_sale? %>
+                    <span class="onsale">Sale!</span>
+                  <% end %>
+                  <div class="product-thumbnail">
+                    <%= image_tag(product.ia + product.i2, class:"img-responsive", alt: "") %>
+                  </div>
+                  <div class="product-details text-center">
+                    <div class="product-btns">
+                      <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Add To Cart">
+                        <%= link_to product_path(product), class: "li-icon" do %>
+                          <%= fa_icon "shopping-cart" %>
+                        <% end %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <h3 class="product-title">
+                  <%= link_to product_path(product) do %>
+                    Product Name
+                  <% end %>
+                </h3>
+                <p class="product-price">
+                  <ins>
+                    <span class="amount">
+                      SKU
+                    </span>
+                  </ins>
+                </p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-12 text-center">
+        <%= link_to products_path ,class: "btn btn-default" do %>Show More
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section promotions no-padding-bottom small-padding-top" id="promotions" data-component="IndexPromotions">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="promotion media">
+          <div class="media-left media-middle">
+            <i class="fa fa-money"></i>
+          </div>
+          <div class="media-body">
+            <h3 class="media-heading">Return</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="promotion media">
+          <div class="media-left media-middle">
+            <i class="fa fa-globe"></i>
+          </div>
+          <div class="media-body">
+            <h3 class="media-heading">Support</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="promotion media">
+          <div class="media-left media-middle">
+            <i class="fa fa-truck"></i>
+          </div>
+          <div class="media-body">
+            <h3 class="media-heading">Shipping</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

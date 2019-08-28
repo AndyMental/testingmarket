@@ -1,0 +1,115 @@
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="col-md-12">
+        <ul class="breadcrumb">
+          <li>
+            <%= link_to "Home", root_path %>
+          </li>
+          <li>Catalogue</li>
+        </ul>
+        <div class="row">
+          <div class="box text-center">
+            <div class="row">
+              <div class="col-sm-10 col-sm-offset-1">
+                <h1>Explore</h1>
+                <p class="text-muted">Unique collection sorted for you.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9 col-md-push-3">
+          <div class="box info-bar no-border">
+            <div class="row">
+              <div class="col-sm-12 col-md-4 products-showing">
+              </div>
+              <div class="col-sm-12 col-md-8  products-number-sort">
+                <div class="row">
+                  <form class="form-inline">
+                    <div class="col-md-6 col-sm-6">
+                      <div class="products-number">
+                        <strong>Show</strong>
+                        <%= link_to products_path(params.merge(per_page_count: "12")), class: "btn btn-default btn-sm btn-primary" do %>12
+                        <% end %>
+                        <%= link_to products_path(params.merge(per_page_count: "24")), class: "btn btn-default btn-sm btn-primary" do %>24
+                        <% end %>
+                        <%= link_to products_path(params.merge(per_page_count: "10000")), class: "btn btn-default btn-sm btn-primary" do %>All
+                        <% end %>
+                        <span class="hidden-md">products</span>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-6 col-sm-6">
+                      <div class="products-sort-by">
+                        <strong>Sort by</strong>
+                        <select id="order-by" name="sort-by" class="form-control" onchange="sort()">
+                          <option value="featured" selected>Featured</option>
+                          <option value="sales">Promotions</option>
+                          <option value="price ASC">Price: Low to High</option>
+                          <option value="price DESC">Price: High to Low</option>
+                        </select>
+                      </div>
+                    </div> -->
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row products">
+            <%= render @products, class_name: "col-md-4 col-sm-6  col-xs-6"  %>
+          </div>
+          <div class="pages">
+            <div class="pagination">
+              <div class="page_info">
+                <%= page_entries_info @products %>
+              </div>
+              <%= will_paginate @products, :container => false %>
+            </div>
+          </div>
+          <% if @shop.email != "likhitaentt@gmail.com" %>
+            <div class="row">
+              <div class="col-md-12 banner">
+                <a href="#">
+                  <img src="<%= asset_url('Manisha/product.jpg') %>" alt="" class="img-responsive">
+                </a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-md-3 col-md-pull-9">
+          <div class="panel panel-default sidebar-menu hidden-xs">
+            <div class="panel-heading">
+              <h3 class="panel-title">Categories</h3>
+            </div>
+            <div class="panel-body">
+              <%= render "products/sidebar_categoriesn" %>
+            </div>
+          </div>
+          <div class="panel panel-default sidebar-menu visible-xs">
+            <div class="panel-heading">
+              <h3 class="panel-title">Categories</h3>
+            </div>
+            <div class="panel-body">
+              <%= render "products/sidebar_categoriesn" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function sort() {
+          var selected = document.getElementById('order-by');
+          var val = selected.options[selected.selectedIndex].value;
+          if (window.location.href.search("&") > 0) {
+            window.location = window.location + "&orderBy=" + val;
+          }
+          else
+          {
+            window.location = window.location + "?orderBy=" + val;
+          }
+      }
+</script>

@@ -1,0 +1,65 @@
+<% if @seasonal_greetings.present? %>
+<% if @seasonal_greetings.published == true  %>
+<div class="modal fade greetings" id="myModal">
+  <div class="modal-dialog" style="margin-top: 10%;">
+    <div class="modal-content" style="background: url(<%= @seasonal_greetings.image %>)">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" style="padding: 10px;">&times;</span></button><br /><br /><br /><br />
+          <div class="col-md-12">
+            <h1 class="modal-title text-center"><%= @seasonal_greetings.message_line1 %></h1>
+            <h3><%= @seasonal_greetings.message_line2 %></h3><br />
+            <h5><%= @seasonal_greetings.message_line3 %></h5>
+            <br /><br />
+            <% if @seasonal_greetings.button == true %>
+              <a href="<%= @seasonal_greetings.link_to %>" class="btn btn-default center-block" style="margin: 0 auto;display: block;width: 50%;"><%= @seasonal_greetings.button_text %></a>
+            <% end %>
+            <br />
+            <a class="pull-right nothanks" data-dismiss="modal" aria-hidden="true" style="color: #fff; text-transform: lowercase;font-size: 10px;">Don't Show Me This Again >> </a>
+            <br /><br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+<script>
+  $(document).ready(function() {
+  if ($.cookie("no_thanks") == undefined) {
+  $('#myModal').appendTo("body");
+  function show_modal(){
+  $('#myModal').modal();
+  }
+  window.setTimeout(show_modal, 4000);
+  }
+  $(".nothanks").click(function() {
+  $.cookie('no_thanks', 'true', { expires: 36500, path: '/' });
+  });
+  });
+  $(".linkopen").click(function() {
+    window.location.replace='https://www.google.com';
+  });
+</script>
+
+<style>
+ .greetings h1 {
+  color: #fff;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+ }
+
+ .greetings h3 {
+  color: #fff;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+ }
+
+ .greetings h5 {
+  color: #fff;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+ }
+</style>
+<% end %>
+<% end %>

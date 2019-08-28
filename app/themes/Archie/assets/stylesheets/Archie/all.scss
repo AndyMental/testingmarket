@@ -1,0 +1,1732 @@
+@import url('https://fonts.googleapis.com/css?family=Advent+Pro|Montserrat');
+
+@import "bootstrap";
+@import 'theme_color';
+@import "toastr.min";
+@import "default";
+@import 'font-awesome';
+@import "social-share-button";
+@import "animate";
+
+.z-top_banner {
+    background-image: image-url('Archie/header.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+}
+.z-top_banner1 {
+    background-image: image-url('Archie/header1.jpeg');
+    background-image: -webkit-image-set(
+    image-url('Archie/header1.jpeg') 1x,
+    image-url('Archie/header1.jpeg') 2x
+  );
+    background-repeat: no-repeat;
+    background-position: top;
+}
+.z-top_banner2 {
+    background-image: image-url('Archie/header2.jpeg');
+    background-image: -webkit-image-set(
+    image-url('Archie/header2.jpeg') 1x,
+    image-url('Archie/header2.jpeg') 2x
+  );
+    background-repeat: no-repeat;
+    background-position: top;
+}
+.z-top_banner3 {
+    background-image: image-url('Archie/header3.jpg');
+    background-image: -webkit-image-set(
+    image-url('Archie/header3.jpg') 1x,
+    image-url('Archie/header3.jpg') 2x
+  );
+    background-repeat: no-repeat;
+    background-position: top;
+}
+@meida
+p.goToDescription , .text ,.panel-body, .breadcrumb, td {
+ a, h5 , p{
+   color: $primary !important;
+ }
+ }
+html * {
+    margin: 0;
+    padding: 0;
+}
+
+.image .img-responsive {
+    max-height: 260px;
+}
+
+.new-arrivals .pro-img .img-responsive {
+    max-height: 155px;
+}
+
+.pro-img .img-responsive {
+    max-height: 300px;
+}
+
+img.img-responsive.image1 {
+  height: 300px;
+}
+.text h3 {
+ font-size: 14px;
+}
+.sidebar-menu li {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.thumb img.img-responsive {
+  max-height: 270px;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+a.external {
+  background: #666;
+  border-radius: 50%;
+  color: $secondary;
+  padding: 10px 12px;
+}
+html,
+body {
+    color: $primary !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 25px;
+    overflow-x: hidden;
+}
+a:hover {
+    text-decoration: none;
+}
+.disprice {
+    margin-left: 10px;
+    text-decoration: line-through;
+}
+#loading {
+    background-image: image-url('Archie/loader.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 120px;
+    left: 50%;
+    margin: -100px 0 0 -50px;
+    position: absolute;
+    top: 50%;
+    width: 120px;
+}
+#preloader {
+    background: $secondary none repeat scroll 0 0 !important;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+}
+
+img {
+    max-width: 100%;
+}
+h2 {
+    font-family: 'Advent Pro', sans-serif;
+    font-size: 35px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+p {
+    letter-spacing: 0.04em;
+    margin: 0 0 15px;
+}
+.tittle {
+    padding-bottom: 50px;
+    position: relative;
+}
+.tittle p {
+    margin: 30px auto;
+    width: 50%;
+    font-size: 13px;
+}
+.tittle span {
+    color: $light;
+    font-size: 50px;
+}
+.section-padding {
+    float: left;
+    padding-top: 50px;
+    width: 100%;
+}
+section {
+    float: left;
+    width: 100%;
+}
+.search-popup {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    margin-top: 200px;
+    text-transform: uppercase;
+}
+.search-bg {
+    background: $primary !important;
+    opacity: 1;
+}
+.close2 {
+    color: $light !important;
+    cursor: pointer;
+    font-size: 14px;
+}
+.search-bg a i {
+    color: $light !important;
+    font-size: 18px;
+}
+
+
+li a,
+.dropbtn {} li a:hover,
+.dropdown:hover .dropbtn {} li.dropdown {
+    display: inline-block;
+}
+.dropdown-content {
+    padding: 28px 0 0;
+    position: absolute;
+    right: -60px;
+    z-index: 999;
+    display: none;
+}
+.dropdown-content .cart-outer {
+    background-color: #222222;
+    min-width: 320px;
+    padding: 0 0 30px;
+    min-height: 766px;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.logo3 {
+    float: left;
+    margin-top: 10px;
+}
+
+h1#logo {
+    color: $secondary;
+    text-transform: uppercase;
+}
+h1#logo::first-letter {
+    color: $light;
+}
+
+.container-fliude {
+    padding: 20px 0;
+}
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: transparent;
+    color: $light !important;
+}
+.navbar.navbar-inverse.navbar-default {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+}
+.mega-menu {
+    left: -140px;
+    padding: 20px 0px 20px 5px;
+    width: 600px;
+}
+.navbar {
+    border: 1px solid $primary;
+    margin: auto;
+    min-height: 65px;
+    position: relative;
+    width: 628px;
+    z-index: 999;
+}
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 0;
+}
+.dropdown-menu > li > a {
+    font-weight: 500;
+    padding: 12px 20px;
+}
+.mega-menu ul {
+    float: left;
+    width: 50%;
+    padding: 0;
+}
+.mega-menu li {
+    display: list-item;
+    list-style: outside none none;
+    margin-bottom: 2px;
+}
+.mega-menu li a {
+    color: #606060;
+    text-decoration: none;
+}
+.mega-menu strong {
+    border-bottom: 1px solid #cccccc;
+    color: #282828;
+    float: left;
+    font-weight: 500;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    width: 84%;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: $primary;
+    font-family: 'Advent Pro', sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+.openmenu {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0;
+    box-shadow: none;
+    margin-top: 50px;
+}
+.openmenu .navbar-nav {
+    float: none;
+    margin: auto;
+    width: 50%;
+}
+.openmenu .dropdown-menu {
+    min-width: 100%;
+    padding: 10px 0;
+    box-shadow: none;
+    position: relative;
+    text-align: center;
+}
+.openmenu .dropdown-menu li {
+    margin-bottom: 5px;
+}
+.openmenu .navbar-nav > li::before {
+    // background: #272727 none repeat scroll 0 0;
+    // content: "";
+    // height: 1px;
+    // left: 35%;
+    // position: absolute;
+    // width: 100px;
+}
+.openmenu .navbar-nav > li:first-child::before {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+}
+.openmenu .dropdown-menu > li > a {
+    color: #474747;
+    display: inline;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+}
+.openmenu .navbar-nav > li > a {
+    color: $secondary !important;
+}
+.openmenu .navbar-nav > li {
+    float: none;
+    // text-align: center;
+    width: 100%;
+}
+.openmenu .active > a {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+    color: $light !important;
+}
+.openmenu .navbar-nav > li > a:hover {
+    background-color: transparent;
+    color: $light !important;
+}
+.openmenu li a {
+    text-transform: uppercase;
+}
+.openmenu .dropdown-menu > li > a:focus,
+.openmenu .dropdown-menu > li > a:hover {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    color: $light !important;
+    text-decoration: none;
+}
+
+
+
+.top-header-wrapper {
+    position: relative;
+    z-index: 999;
+}
+.top-header-wrapper ul {
+    padding: 10px 0;
+    float: right;
+}
+.top-header-wrapper ul li {
+    display: inline;
+    padding: 0 0 0 27px;
+    position: relative;
+}
+.top-header-wrapper a {
+    font-size: 12px;
+    color: $primary;
+    font-family: 'Advent Pro', sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+}
+.top-header-wrapper ul li:last-child {
+    border-right: none;
+}
+.cart-content {
+    border-bottom: 1px solid #222222;
+    display: table;
+    margin: auto;
+    padding: 20px 0;
+    width: 90%;
+}
+.cart-content .pro-text {
+    border: none;
+}
+.cart-content .pro-text a {
+    color: $secondary !important;
+    display: block;
+    padding: 0px;
+    font-size: 14px;
+}
+.cart-content .pro-text a:hover {
+    background: none;
+    color: $light !important;
+    display: block;
+    padding: 0px;
+    font-size: 14px;
+}
+.cart-btn {
+    border: none;
+    background: $light !important;
+    color: #222 !important;
+    display: table !important;
+    font-size: 12px !important;
+    font-weight: 600;
+    margin: 10px auto;
+    padding: 10pxpx 0 !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    width: 88%;
+    border-radius: 3px;
+}
+.cart-btn:hover {
+    background: $secondary !important;
+    color: $primary !important;
+}
+.cart-content .pro-text span {
+    color: #ccc;
+    display: inline-table;
+    margin: 10px 0;
+    font-size: 10px;
+}
+.total {
+    border-bottom: 0 none;
+    margin: auto;
+    padding: 20px 0;
+    width: 90%;
+    display: table;
+    color: #ddd;
+}
+.cart-content .pro-text strong {
+    color: $secondary !important;
+}
+.cart-content .close {
+    color: $light !important;
+    font-size: 13px;
+    font-weight: 100;
+    position: absolute;
+    right: 0;
+    opacity: 1;
+    top: 6px;
+}
+.search-outer input {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: $secondary !important;
+    font-size: 14px;
+    width: 100%;
+}
+.search-outer {
+    float: left;
+    margin-top: 100px;
+    padding-bottom: 16px;
+    width: 100%;
+}
+
+#product-search {
+    border-bottom: 1px solid #282828;
+}
+header {
+    position: relative;
+}
+.carousel-inner > .item {
+    height: 767px;
+    overflow: hidden;
+}
+.caption {
+    color: $primary !important;
+    display: block;
+    letter-spacing: 1.5px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 250px !important;
+    position: relative;
+    text-transform: uppercase;
+    width: 1172px;
+    z-index: 999;
+    color: $secondary !important;
+}
+.caption-outer {
+    float: right;
+    width: 55%;
+}
+.caption h2 {
+    font-size: 58px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 0;
+    text-transform: capitalize;
+    color: $secondary !important;
+    font-weight: 300;
+}
+.caption p {
+    font-size: 12px;
+    font-weight: 100;
+    margin: 40px 0;
+    text-transform: capitalize;
+    width: 80%;
+}
+.caption span {
+    color: $light !important;
+}
+.right-control {
+    right: 63px;
+    position: absolute;
+    top: 45%;
+    color: $light !important;
+    font-size: 45px;
+    text-decoration: none;
+}
+.left-control {
+    color: $light !important;
+    font-size: 45px;
+    left: 63px;
+    position: absolute;
+    top: 45%;
+    z-index: 999;
+    text-decoration: none;
+}
+.right-control:hover {
+    color: $secondary !important;
+    text-decoration: none;
+}
+.left-control:hover {
+    color: $secondary !important;
+    text-decoration: none;
+}
+.btn.get-start {
+    background: $light !important;
+    border: medium none;
+    border-radius: 0;
+    color: $secondary !important;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    padding: 20px 50px;
+    position: relative;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+.btn.get-start:hover {
+    background: #222;
+}
+.modal-dialog {
+    margin: 30px auto;
+    width: 1000px;
+}
+
+
+.banner-text {
+    bottom: 5%;
+    color: $secondary;
+    font-size: 12px;
+    left: 20px;
+    position: absolute;
+    width: 56%;
+}
+.banner-text > h2 {
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: $secondary !important;
+}
+.banner-text > a {
+    font-size: 18px;
+    font-weight: 400;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    z-index: 999;
+    color: $secondary !important;
+}
+.banner-img {
+    position: relative;
+}
+.banner-hover {
+    background: rgba(255, 255, 255, 0.95) none repeat scroll 0 0;
+    height: 100%;
+    line-height: 299px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    z-index: 999;
+    transition: all 0.6s ease 0s;
+}
+.banner-hover:hover {
+    opacity: 1;
+}
+.banner-hover > a {
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: $light !important;
+    position: relative;
+    z-index: 999;
+}
+.banner-hover::before {
+    border: 2px solid $light !important;
+    content: "";
+    height: 95%;
+    left: 9px;
+    position: absolute;
+    top: 9px;
+    width: 95%;
+}
+
+
+
+.new-arrivals {
+    padding: 50px 0 50px 0;
+}
+.owl-demo-outer {
+    position: relative;
+}
+.pro-img {
+    margin-bottom: 30px;
+    position: relative;
+}
+.hover-img {
+    background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+    height: 50%;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+// .hover-img::before {
+//     border: 2px solid $light;
+//     content: "";
+//     height: 105%;
+//     left: 9px;
+//     position: absolute;
+//     top: 9px;
+//     width: 93%;
+// }
+// .pro-text {
+//     border-bottom: 2px solid #cccccc;
+// }
+.pro-text:hover .pro-img .hover-img {
+    opacity: 1;
+    transition: all 0.3s ease 0s;
+    width: 100%;
+    height: 100%;
+}
+.pro-img .tage {
+    color: $secondary !important;
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+.flag {
+    background: rgba(0, 0, 0, 0) image-url("Archie/new-lable2.png") no-repeat scroll right 0;
+    color: $secondary;
+    font-size: 11px;
+    height: 43px;
+    line-height: 35px;
+    padding: 2px 10px;
+    position: absolute;
+    right: 28px;
+    top: 1px;
+}
+.pro-img .pert {
+    background: rgba(0, 0, 0, 0) image-url("Archie/new-lable.png") no-repeat scroll 0 -35px;
+    font-size: 11px;
+    height: 35px;
+    line-height: 26px;
+    padding: 2px 8px;
+    transform: rotate(-90deg);
+    float: left;
+}
+.pro-img .new {
+    background: image-url("Archie/new-lable.png") no-repeat scroll 0 0;
+    font-size: 10px;
+    height: 35px;
+    line-height: 26px;
+    padding: 2px 8px;
+    transform: rotate(-90deg);
+    float: left;
+}
+.pro-text a {
+    color: $primary !important;
+    display: block;
+    font-size: 14px;
+}
+.pro-text strong {
+    color: $primary !important;
+}
+
+
+.parollex-bg {
+    background: rgba(0, 0, 0, 0) image-url("Archie/shop-banner-px.jpg") no-repeat scroll 0 0 / cover;
+    margin-top: 100px;
+    padding: 150px 0 0 0;
+}
+.parollex-bg2 {
+    background: rgba(0, 0, 0, 0) image-url("Archie/easy-bg.jpg") no-repeat scroll 0 0 / cover;
+    padding: 50px 0;
+    color: $secondary !important;
+    text-align: center;
+}
+.parollex-bg2 h2 {
+    font-size: 24px;
+    font-weight: 400;
+}
+.parollex-bg .text-heading {
+    color: $secondary !important;
+    font-family: 'Advent Pro', sans-serif;
+    font-size: 58px;
+    font-weight: 300;
+    line-height: 70px;
+}
+.parollex-bg .text-heading span {
+    color: $light !important;
+}
+.parollex-bg p {
+    color: $secondary !important;
+    font-size: 16px;
+    margin: 20px 0;
+    text-transform: uppercase;
+}
+.parollex-bg .btn.get-start {
+    border: medium none;
+    border-radius: 3px;
+    color: $secondary !important;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+    padding: 15px 50px;
+    position: relative;
+    text-transform: uppercase;
+}
+.parollex-bg .btn.get-start:hover {
+    color: $secondary !important;
+}
+.model-img {
+    margin-top: -250px;
+}
+.model-img > img {
+    max-width: 665px;
+}
+
+
+
+.new-collection {
+    padding-top: 50px;
+}
+.new-collection .pad {
+    padding-left: 0;
+    padding-right: 30px;
+}
+.new-collection .pad2 {
+    padding-right: 0;
+}
+.new-collection .pad3 {
+    padding-right: 15;
+    padding-left: 0;
+}
+.new-collection .pro-text {
+    margin-bottom: 30px;
+}
+.hover-btn > a {
+    border: 1px solid $light !important;
+    color: $secondary !important;
+    display: inline-table;
+    margin-left: 10px;
+    padding: 5px;
+    width: 40px;
+    background: $light !important;
+}
+.hover-btn > a:hover {
+    border: 1px solid;
+    color: $secondary !important;
+    background: none;
+}
+.new-collection .pro-text {
+    border-bottom: 1px solid #ddd;
+    padding: 0 0 15px;
+}
+.hover-btn {
+    color: $secondary !important;
+    margin-top: 60%;
+    position: relative;
+    z-index: 99;
+}
+.hover-btn .add-btn {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    margin-top: 10px;
+    text-transform: uppercase;
+    width: auto;
+}
+.hover-btn .add-btn:hover {
+    border: none;
+    color: $light !important;
+}
+.new-collection .pro-text .disprice {
+    color: #d7d7d7;
+}
+.add-cart {
+    color: $light !important;
+    font-weight: 400;
+    text-transform: uppercase;
+    display: none;
+    transition: all 0.3s ease 0s;
+}
+.add-cart {
+    display: block;
+}
+.new-collection .pro-outer {
+    position: relative;
+}
+.new-collection .price-box {
+    bottom: 4%;
+    font-size: 16px;
+    font-weight: 100;
+    left: 100px;
+    position: absolute;
+}
+.new-collection .price-box span {
+    color: $light;
+    font-size: 22px;
+    font-weight: 400;
+}
+.new-collection .price-box > a {
+    background: $secondary none repeat scroll 0 0;
+    border-radius: 3px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    color: #222222;
+    display: inline-block;
+    font-weight: 500;
+    margin-top: 10px;
+    padding: 14px 20px;
+    text-transform: uppercase;
+}
+.new-collection .price-box h2 {
+    font-size: 58px;
+    font-weight: 600;
+    text-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+.in-stock {
+    background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
+    color: $secondary !important;
+    bottom: 0;
+    height: 30px;
+    line-height: 28px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+.out-stock {
+    background: rgba(169, 139, 105, 0.8) none repeat scroll 0 0;
+    color: $secondary !important;
+    bottom: 0;
+    height: 30px;
+    line-height: 28px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+
+
+.news-text {
+    padding: 10px 0;
+}
+.news-text a {
+    color: $primary !important;
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Advent Pro', sans-serif;
+    font-weight: 300;
+}
+.news-text > p {
+    margin-bottom: 5px;
+}
+.news-text a:hover {
+    color: $light !important;
+}
+.news-text-content {
+    padding: 15px 0 30px;
+}
+
+
+footer .weight span {
+    color: $secondary !important;
+}
+.f-sicon li {
+    display: inline;
+    padding: 0 10px;
+}
+.f-sicon a {
+    background: $secondary !important;
+    border-radius: 50%;
+    color: #222 !important;
+    float: left;
+    height: 25px;
+    text-align: center;
+    margin-right: 6px;
+    width: 25px;
+}
+.f-sicon a:hover {
+    background: $light !important;
+    border-radius: 50%;
+    color: $secondary !important;
+    float: left;
+    height: 25px;
+    text-align: center;
+    margin-right: 6px;
+    width: 25px;
+}
+.client-icon li {
+    display: inline;
+    float: left;
+    margin: 0 37px;
+    width: 10%;
+}
+.client-icon ul {
+    padding: 0;
+}
+.client-icon {
+    background: #f5f5f5;
+    float: left;
+    margin-top: 0;
+    padding: 50px 0;
+    width: 100%;
+}
+.client-icon .active img {
+    opacity: 1;
+}
+.client-icon img {
+    opacity: 0.5;
+}
+.client-icon img:hover {
+    opacity: 1;
+}
+.copayright {
+    padding: 15px;
+    margin-top: 100px;
+    background: $light !important;
+}
+footer {
+    float: left;
+    padding-top: 50px;
+    width: 100%;
+    background: #222;
+    font-size: 12px;
+    color: $secondary !important;
+}
+footer .weight h3 {
+    font-family: 'Advent Pro', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+footer .weight li {
+    list-style: outside none none;
+    margin-bottom: 10px;
+}
+footer .weight li a {
+    color: #cccccc !important;
+}
+footer .weight li a:hover {
+    color: $secondary !important;
+}
+.weight {
+    float: left;
+    margin-top: 25px;
+    width: 100%;
+}
+
+
+.f-sicon > ul {
+    padding: 0;
+}
+
+@media (min-width: 240px) and (max-width: 320px) {
+    .banner-text {
+        bottom: 5%;
+        color: $secondary;
+        font-size: 12px;
+        left: 20px;
+        position: absolute;
+        width: 56%;
+    }
+    .new-collection .price-box {
+        left: 25px;
+    }
+    .model-img {
+        margin-top: 50px;
+    }
+    .model-img > img {
+        max-width: 100%;
+    }
+    .navbar {
+        width: 100%;
+        min-height: 10px;
+    }
+    .caption-outer {
+        float: right;
+        width: 88%;
+    }
+    .menu_bar_hidden {
+        display: inline!important;
+    }
+    .image .img-responsive {
+    max-height: 260px;
+    }
+
+    .new-arrivals .pro-img .img-responsive {
+        max-height: 155px;
+    }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+    .image .img-responsive {
+        max-height: 175px;
+    }
+
+    .new-arrivals .pro-img .img-responsive {
+        max-height: 130px;
+    }
+    h1#logo99 { font-size: 22px!important; }
+    .tittle p {
+        width: 100%;
+    }
+    .caption span {
+        font-size: 22px;
+    }
+    .banner-hover {
+        line-height: 229px;
+    }
+    .hover-btn {
+        margin-top: 41%;
+    }
+    .hover-img::before {
+        left: 5px;
+        top: 5px;
+    }
+    .banner-hover::before {
+        left: 6px;
+        top: 6px;
+    }
+    .new-collection .hover-btn {
+        margin-top: 60%;
+    }
+    .banner-img {
+        margin-bottom: 30px;
+    }
+    .search-popup {
+        margin-top: 100px;
+    }
+    .dropdown-content {
+        right: -115px;
+    }
+    .banner-text {
+        bottom: 5%;
+        color: $secondary;
+        font-size: 12px;
+        left: 20px;
+        position: absolute;
+        width: 56%;
+    }
+    .new-collection .price-box {
+        left: 25px;
+    }
+    .model-img {
+        margin-top: 50px;
+    }
+    .model-img > img {
+        max-width: 100%;
+    }
+    .navbar {
+        width: 100%;
+        min-height: 10px;
+    }
+    .caption-outer {
+        float: right;
+        width: 88%;
+    }
+    .top-header-wrapper ul li {
+        padding: 0 10px;
+    }
+    .top-header-wrapper ul {
+        padding-top: 0px !important;
+        padding-bottom: 15px;
+        float: none;
+        margin: auto;
+        width: 267px;
+    }
+    .dropdown-content {
+        min-width: 238px;
+        z-index: 99999;
+    }
+    .caption {
+        width: 95%;
+        padding-top: 150px !important;
+    }
+    .caption h2 {
+        font-size: 22px;
+    }
+    .caption p {
+        width: 86%;
+    }
+    .carousel-inner > .item {
+        height: 650px;
+    }
+    .left-control {
+        background: rgba(0, 0, 0, 0) url("../images/left-arrow.png") no-repeat scroll left 8px / 40% auto;
+        padding: 0 0 0px 23px;
+        left: 7px;
+        font-size: 12px;
+        top: 50%;
+        z-index: 999;
+    }
+    .left-control:hover {
+        background: rgba(0, 0, 0, 0) url("../images/left-arrow.png") no-repeat scroll left -8px / 40% auto;
+    }
+    .right-control {
+        background: rgba(0, 0, 0, 0) url("../images/right-arrow.png") no-repeat scroll right 8px / 40% auto;
+        padding: 0 23px 0px 0;
+        right: 7px;
+        font-size: 12px;
+        top: 50%;
+        z-index: 999;
+    }
+    .right-control:hover {
+        background: rgba(0, 0, 0, 0) url("../images/right-arrow.png") no-repeat scroll right -8px / 40% auto;
+    }
+    .modal-dialog {
+        margin: 30px auto;
+        width: 93%;
+    }
+    .cart-btn {
+        margin: 10px 18px;
+        width: 86%;
+    }
+    .carousel-inner .item {
+        background-size: cover;
+    }
+    .parollex-bg .text-heading {
+        font-size: 50px;
+    }
+    h2 {
+        font-size: 25px;
+    }
+    .tittle::before {
+        left: 41.7%;
+    }
+    .client-icon li {
+        float: left;
+        margin: 0 0 34px;
+        text-align: center;
+        width: 100%;
+    }
+    .openmenu .navbar-nav > li::before {
+        left: 18%;
+    }
+    .f-sicon li {
+        display: inline;
+        padding: 0 9px;
+    }
+    .parollex-bg {
+        margin-top: 0;
+    }
+    .banner-hover > a {
+        position: relative;
+        z-index: 999;
+    }
+    .navbar-inverse .navbar-toggle .icon-bar {
+        background-color: #222;
+    }
+    .navbar-inverse .navbar-toggle:focus,
+    .navbar-inverse .navbar-toggle:hover {
+        background-color: #ccc;
+    }
+    .nav > li {
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+    .mega-menu ul {
+        position: relative;
+        z-index: 9999995;
+    }
+    .pro-text {
+        margin-bottom: 30px;
+        min-height: 253px;
+    }
+    .product {
+        min-height: 232px;
+    }
+    .menu_bar_hidden {
+        display: inline!important;
+    }
+}
+@media (min-width: 480px) and (max-width: 640px) {
+    h1#logo99 { font-size: 22px!important; }
+    .tittle p {
+        width: 100%;
+    }
+    .caption span {
+        font-size: 22px;
+    }
+    .banner-hover {
+        line-height: 229px;
+    }
+    .hover-btn {
+        margin-top: 41%;
+    }
+    .hover-img::before {
+        left: 5px;
+        top: 5px;
+    }
+    .banner-hover::before {
+        left: 6px;
+        top: 6px;
+    }
+    .new-collection .hover-btn {
+        margin-top: 60%;
+    }
+    .banner-img {
+        margin-bottom: 30px;
+    }
+    .search-popup {
+        margin-top: 100px;
+    }
+    .dropdown-content {
+        right: -115px;
+    }
+    .banner-text {
+        bottom: 5%;
+        color: $secondary;
+        font-size: 12px;
+        left: 20px;
+        position: absolute;
+        width: 56%;
+    }
+    .new-collection .price-box {
+        left: 25px;
+    }
+    .model-img {
+        margin-top: 50px;
+    }
+    .model-img > img {
+        max-width: 100%;
+    }
+    .navbar {
+        width: 100%;
+        min-height: 10px;
+    }
+    .caption-outer {
+        float: right;
+        width: 88%;
+    }
+    .top-header-wrapper ul li {
+        padding: 0 10px;
+    }
+    .top-header-wrapper ul {
+        padding-top: 0px !important;
+        padding-bottom: 15px;
+        float: none;
+        margin: auto;
+        width: 280px;
+    }
+    .dropdown-content {
+        min-width: 238px;
+        z-index: 99999;
+    }
+    .caption {
+        width: 95%;
+        padding-top: 150px !important;
+    }
+    .caption h2 {
+        font-size: 22px;
+    }
+    .caption p {
+        width: 86%;
+    }
+    .carousel-inner > .item {
+        height: 650px;
+    }
+    .left-control {
+        background: rgba(0, 0, 0, 0) url("../images/left-arrow.png") no-repeat scroll left 8px / 40% auto;
+        padding: 0 0 0px 23px;
+        left: 7px;
+        font-size: 12px;
+        top: 50%;
+        z-index: 999;
+    }
+    .left-control:hover {
+        background: rgba(0, 0, 0, 0) url("../images/left-arrow.png") no-repeat scroll left -8px / 40% auto;
+    }
+    .right-control {
+        background: rgba(0, 0, 0, 0) url("../images/right-arrow.png") no-repeat scroll right 8px / 40% auto;
+        padding: 0 23px 0px 0;
+        right: 7px;
+        font-size: 12px;
+        top: 50%;
+        z-index: 999;
+    }
+    .right-control:hover {
+        background: rgba(0, 0, 0, 0) url("../images/right-arrow.png") no-repeat scroll right -8px / 40% auto;
+    }
+    .modal-dialog {
+        margin: 30px auto;
+        width: 93%;
+    }
+    .cart-btn {
+        margin: 10px 18px;
+        width: 86%;
+    }
+    .carousel-inner .item {
+        background-size: cover;
+    }
+    .parollex-bg .text-heading {
+        font-size: 50px;
+    }
+    h2 {
+        font-size: 25px;
+    }
+    .tittle::before {
+        left: 41.7%;
+    }
+    .client-icon li {
+        float: left;
+        margin: 0 0 34px;
+        text-align: center;
+        width: 100%;
+    }
+    .openmenu .navbar-nav > li::before {
+        left: 18%;
+    }
+    .f-sicon li {
+        display: inline;
+        padding: 0 9px;
+    }
+    .parollex-bg {
+        margin-top: 0;
+    }
+    .banner-hover > a {
+        position: relative;
+        z-index: 999;
+    }
+    .navbar-inverse .navbar-toggle .icon-bar {
+        background-color: #222;
+    }
+    .navbar-inverse .navbar-toggle:focus,
+    .navbar-inverse .navbar-toggle:hover {
+        background-color: #ccc;
+    }
+    .navbar-inverse .navbar-toggle {
+        background-color: $primary !important;
+    }
+    .nav > li {
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+    .mega-menu ul {
+        position: relative;
+        z-index: 9999995;
+    }
+    .pro-text {
+        margin-bottom: 30px;
+    }
+    .menu_bar_hidden {
+        display: inline!important;
+    }
+}
+@media (min-width: 640px) and (max-width: 740px) {
+    h1#logo99 { font-size: 22px!important; }
+    .tittle p {
+        width: 100%;
+    }
+    .caption span {
+        font-size: 22px;
+    }
+    .banner-hover {
+        line-height: 229px;
+    }
+    .hover-btn {
+        margin-top: 41%;
+    }
+    .hover-img::before {
+        left: 5px;
+        top: 5px;
+    }
+    .banner-hover::before {
+        left: 6px;
+        top: 6px;
+    }
+    .new-collection .hover-btn {
+        margin-top: 60%;
+    }
+    .banner-img {
+        margin-bottom: 30px;
+    }
+    .search-popup {
+        margin-top: 100px;
+    }
+    .dropdown-content {
+        right: -115px;
+    }
+    .banner-text {
+        bottom: 5%;
+        color: $secondary;
+        font-size: 12px;
+        left: 20px;
+        position: absolute;
+        width: 56%;
+    }
+    .new-collection .price-box {
+        left: 25px;
+    }
+    .model-img {
+        margin-top: 50px;
+    }
+    .model-img > img {
+        max-width: 100%;
+    }
+    .navbar {
+        width: 100%;
+        min-height: 10px;
+    }
+    .caption-outer {
+        float: right;
+        width: 88%;
+    }
+    .top-header-wrapper ul li {
+        padding: 0 10px;
+    }
+    .top-header-wrapper ul {
+        padding-top: 0px !important;
+        padding-bottom: 15px;
+        float: none;
+        margin: auto;
+        width: 280px;
+    }
+    .dropdown-content {
+        min-width: 238px;
+        z-index: 99999;
+    }
+    .caption {
+        width: 95%;
+        padding-top: 150px !important;
+    }
+    .caption h2 {
+        font-size: 22px;
+    }
+    .caption p {
+        width: 86%;
+    }
+    .carousel-inner > .item {
+        height: 650px;
+    }
+    .left-control {
+        background: rgba(0, 0, 0, 0) url("../images/left-arrow.png") no-repeat scroll left 8px / 40% auto;
+        padding: 0 0 0px 23px;
+        left: 7px;
+        font-size: 12px;
+        top: 50%;
+        z-index: 999;
+    }
+    .left-control:hover {
+        background: rgba(0, 0, 0, 0) url("../images/left-arrow.png") no-repeat scroll left -8px / 40% auto;
+    }
+    .right-control {
+        background: rgba(0, 0, 0, 0) url("../images/right-arrow.png") no-repeat scroll right 8px / 40% auto;
+        padding: 0 23px 0px 0;
+        right: 7px;
+        font-size: 12px;
+        top: 50%;
+        z-index: 999;
+    }
+    .right-control:hover {
+        background: rgba(0, 0, 0, 0) url("../images/right-arrow.png") no-repeat scroll right -8px / 40% auto;
+    }
+    .modal-dialog {
+        margin: 30px auto;
+        width: 93%;
+    }
+    .cart-btn {
+        margin: 10px 18px;
+        width: 86%;
+    }
+    .carousel-inner .item {
+        background-size: cover;
+    }
+    .parollex-bg .text-heading {
+        font-size: 50px;
+    }
+    h2 {
+        font-size: 25px;
+    }
+    .tittle::before {
+        left: 41.7%;
+    }
+    .client-icon li {
+        float: left;
+        margin: 0 0 34px;
+        text-align: center;
+        width: 100%;
+    }
+    .openmenu .navbar-nav > li::before {
+        left: 18%;
+    }
+    .f-sicon li {
+        display: inline;
+        padding: 0 9px;
+    }
+    .parollex-bg {
+        margin-top: 0;
+    }
+    .banner-hover > a {
+        position: relative;
+        z-index: 999;
+    }
+    .navbar-inverse .navbar-toggle .icon-bar {
+        background-color: #222;
+    }
+    .navbar-inverse .navbar-toggle:focus,
+    .navbar-inverse .navbar-toggle:hover {
+        background-color: #ccc;
+    }
+    .nav > li {
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+    .mega-menu ul {
+        position: relative;
+        z-index: 9999995;
+    }
+    .pro-text {
+        margin-bottom: 30px;
+    }
+    .menu_bar_hidden {
+        display: inline!important;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    h1#logo99 { font-size: 20px!important; }
+    .navbar {
+        width: 100%;
+        min-height: 10px;
+    }
+    .navbar-inverse .navbar-nav > li > a {
+        font-size: 10px;
+        padding: 10px 7px;
+    }
+    .model-img {
+        margin-top: 0;
+    }
+    .dropdown-content {
+        right: -38px;
+    }
+    .new-collection .hover-img::before {
+        left: 25px;
+        top: 25px;
+    }
+    .pro-outer > img {
+        width: 100%;
+    }
+    .banner-hover {
+        line-height: 205px;
+    }
+    .banner-text {
+        bottom: 10%;
+        font-size: 9px;
+        left: 20px;
+        line-height: 17px;
+    }
+    .banner-text > a {
+        font-size: 12px;
+    }
+    .top-header-wrapper ul li {
+        padding: 0 10px;
+    }
+    .top-header-wrapper ul {
+        padding-top: 0px !important;
+        padding-bottom: 15px;
+    }
+    .top-header-wrapper a {
+        font-size: 15px;
+    }
+    .caption {
+        width: 52%;
+    }
+    .caption-outer {
+        float: right;
+        width: 82%;
+    }
+    .caption h2 {
+        font-size: 38px;
+    }
+    .caption p {
+        width: 80%;
+    }
+    .pro-img > img {
+        // width: 100%;
+    }
+    .client-icon li {
+        margin: 0 24px;
+        width: 10%;
+    }
+    .f-sicon li {
+        width: 20%;
+        float: left;
+    }
+    .openmenu .navbar-nav > li::before {
+        left: 36%;
+    }
+    .modal-dialog {
+        width: 85%;
+    }
+    .menu_bar_hidden {
+        display: none!important;
+    }
+}
+@media (min-width: 1023px) and (max-width: 1045px) {
+    .model-img > img {
+        margin-left: -107px;
+        max-width: 568px;
+    }
+    .top-header-wrapper ul li {
+        padding: 0 10px;
+    }
+    .modal-dialog {
+        width: 85%;
+    }
+    .openmenu .navbar-nav > li::before {
+        left: 40%;
+    }
+    .caption {
+        width: 52%;
+    }
+    .caption h2 {
+        font-size: 28px;
+    }
+    .caption p {
+        width: 80%;
+    }
+    .caption span {
+        font-size: 16px;
+    }
+    .pro-img > img {
+        // width: 100%;
+    }
+    .client-icon li {
+        display: inline;
+        float: left;
+        margin: 0 34px;
+        width: 12%;
+    }
+    .menu_bar_hidden {
+        display: none!important;
+    }
+}
+
+h1#logo99 {
+    font-size: 30px;
+    color: $primary !important;
+    font-family: 'Advent Pro', sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+}
+.logo_footer {
+    h1#logo99 {
+        color: $secondary !important;
+    }
+}
+
+h1#logo99::first-letter {
+    color: $light;
+}
+
+.navbar-inverse .navbar-toggle {
+    background-color: $secondary;
+    color: $secondary;
+
+}
+
+.full-bg {
+    background-image: url("../images/full-bg.jpg");
+}
+
+
+@media screen and (min-width: 1024px) {
+    .menu_bar_hidden {
+        display: none!important;
+    }
+}
+
+.z_navbar {
+    background: $secondary;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.3);
+    height: 80px;
+}
+
+.modal-backdrop {
+    z-index: 1;
+}
+
+.logo-img {
+    height: 50px;
+}
+
+.header-logo {
+    display:  -webkit-inline-box;
+    line-height: 3em;
+    font-family:  'Advent Pro', sans-serif;
+    letter-spacing: 2px;
+}

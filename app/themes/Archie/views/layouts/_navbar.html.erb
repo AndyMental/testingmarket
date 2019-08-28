@@ -1,0 +1,128 @@
+<header id= "mainNav" class="z_navbar" data-component="IndexNavbar">
+  <div class="container-fliude">
+    <div class="col-xs-6 col-sm-3 col-md-3">
+        <%= link_to root_path, class: "header-logo" do %>
+            <img src="<%=asset_url('Archie/logo_dark.png') %>" alt="Banner1" class="img-responsive logo-img" />&nbsp;&nbsp; THE ART PEOPLE
+        <% end %>
+    </div>
+    <div class="hidden-xs col-sm-6 col-md-6">
+      <nav class="navbar navbar-inverse navbar-default">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" data-hover="dropdown" data-animations="fadeIn fadeInLeft fadeInUp fadeInRight">
+          <ul class="nav navbar-nav">
+            <li>
+              <%=link_to "Wall Decor", products_path %>
+            </li>
+            <li>
+              <%=link_to "Bags", products_path %>
+            </li>
+            <li>
+              <%=link_to "Complete Collection", products_path %>
+            </li>
+            <li>
+              <%= link_to "About Us", about_path %>
+            </li>
+            <li>
+              <%= link_to contact_path do%>Say Hello!
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3">
+      <div class="top-header-wrapper">
+        <ul>
+          <li>
+            <a href="#" data-toggle="modal" data-target=".popup1" aria-label="Search">
+              <i class="fa fa-search" aria-hidden="true">
+              </i>
+            </a>
+          </li>
+          <li>
+            My Account
+              <i class="fa fa-user" aria-hidden="true"></i>
+          </li>
+          <li class="dropdown">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              Cart
+          </li>
+          <li class="menu_bar_hidden">
+            <a href="#" data-toggle="modal" data-target=".menu-popup" aria-label="Menu">
+              <i class="fa fa-bars" aria-hidden="true">
+              </i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg search-bg popup1" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content search-popup">
+          <form action="<%= products_path %>" method="get" class="form-search">
+            <div class="text-center">
+            <a href="#" class="close2" data-dismiss="modal" aria-label="Close">
+              × close</a>
+          </div>
+          <div class="search-outer">
+
+              <input type="text" id="product-search" value="<%= params[:search] %>" name="search" placeholder="Search for products...">
+              <br>
+              <br>
+              <button type="submit" class="btn btn-default"><%= t 'navigation.search' %><i class="icon-search"></i></button>
+
+
+          </div>
+
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg search-bg menu-popup" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content search-popup">
+          <nav class="navbar navbar-inverse openmenu">
+            <ul class="nav navbar-nav">
+              <li class="active">
+                <a href="#" class="closebtn" data-dismiss="modal" aria-label="Close">
+                  &times; close</a>
+              </li>
+              <li class="dropdown">
+                <%= link_to root_path do%>
+                  <span>HOME </span>
+                <% end %>
+              </li>
+              <li>
+                <%=link_to "Wall Decor", products_path %>
+              </li>
+              <li>
+                <%=link_to "Bags", products_path %>
+              </li>
+              <li>
+                <%=link_to "Complete Collection", products_path %>
+              </li>
+              <li>
+                <%= link_to "About Us", about_path %>
+              </li>
+              <li>
+                <%= link_to contact_path do%>Say Hello
+                <% end %>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

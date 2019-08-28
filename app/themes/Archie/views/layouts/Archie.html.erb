@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= render 'layouts/manifest' %>
+    <%= csrf_meta_tags %>
+    <title>Some store</title>
+    <%= render 'components/seo_others' %>
+    <%= javascript_include_tag "Archie/jquery_required", async: Rails.env.production? %>
+    <%= stylesheet_link_tag "Archie/all", media: "all" %>
+  </head>
+  <body class="z-default">
+    <div class="main">
+      <%#= raw @seo_option_code.body_code %>
+      <%= render 'layouts/navbar' %>
+      <%= render 'layouts/messages' %>
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+      <%#= raw @seo_option_code.footer_code %>
+    </div>
+    <%= javascript_include_tag "Archie/all", async: Rails.env.production? %>
+  </body>
+</html>

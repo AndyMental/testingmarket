@@ -1,0 +1,29 @@
+<%= form_with(model: [:admin, @market_org], local: true) do |form| %>
+  <div class='form-group'>
+    <%= form.label 'Token' %>
+    <%= form.text_field :repdesk_token,  class: 'form-control' %>
+  </div>
+  <div class='form-group'>
+    <%= form.label 'API Gateway' %>
+    <%= form.text_field :api_url,  class: 'form-control' %>
+  </div>
+  <div class='form-group'>
+    <%= form.label 'Rep Group' %>
+    <%= form.text_field :rep_group,  class: 'form-control' %>
+  </div>
+  <div class='form-group'>
+    <%= form.label 'Template' %>
+    <% if params[:id].nil? %>
+      <%= form.select :theme, options_for_select(@list_of_themes), {}, { class: 'form-control' } %>
+    <% else %>
+      <%= form.select :theme, options_for_select(@list_of_themes, selected: MarketOrg.find(params[:id]).theme), {}, { class: 'form-control' } %>
+    <% end %>
+  </div>
+  <div class='form-group'>
+    <%= form.label :domain %>
+    <%= form.text_field :domain,  class: 'form-control' %>
+  </div>
+  <div class='actions'>
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

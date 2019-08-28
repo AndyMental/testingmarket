@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name=“viewport” content="width=device-width, initial-scale=1">
+
+	<title>Genics</title>
+	<%= csrf_meta_tags %>
+	<%= stylesheet_link_tag    "Genics/all", media: "all", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "Genics/all", "data-turbolinks-track" => true %>
+	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+</head>
+<body class="z-default">
+	<%= render "layouts/navbar" %>
+	<%= render "layouts/messages" %>
+	<%= yield %>
+	<%= render "layouts/footer" %>
+</body>
+</html>
+
+
+
