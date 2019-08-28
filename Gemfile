@@ -64,7 +64,7 @@ group :test do
 end
 
 group :production do
-  gem 'tiny_tds', '~> 2.1', '>= 2.1.2'
+  gem 'tiny_tds'
   gem 'activerecord-sqlserver-adapter'
 end
 

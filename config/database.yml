@@ -25,16 +25,10 @@ production:
   <<: *default
   adapter: sqlserver
   mode: dblib
-  # port: <%= ENV['DB_PORT'] %>
-  # dataserver: <%= ENV['DB_DATASERVER'] %>
-  # host: <%= ENV['DB_DATASERVER'] %>
-  # database: <%= ENV['DB_DATABASE'] %>
-  # username: <%= ENV['DB_USERNAME'] %>
-  # password: <%= ENV['DB_PASSWORD'] %>
   port: 1433
-  dataserver: market-ruby.database.windows.net
-  host: market-ruby.database.windows.net
-  database: market-m3
+  dataserver: marketruby.database.windows.net
+  host: marketruby.database.windows.net
+  database: market3
   username: ruby19827
   password: 8sduSkKmWt@G
   timeout: 5000
