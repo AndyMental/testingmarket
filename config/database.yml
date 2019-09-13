@@ -25,8 +25,11 @@ test:
 production:
   <<: *default
   adapter: postgresql
-  host: market-m3.postgres.database.azure.com
+  host: market3ruby.postgres.database.azure.com
   port: 5432
   database: market3
-  username: ruby19828@market-m3
-  password: cJzsb98yqZ4Q
+  username: ruby19827@market3ruby
+  password: 8sduSkKmWt@G
+
+  # host=market3ruby.postgres.database.azure.com; dbname={your_database} user=ruby19827@market3ruby password={your_password} port=5432 sslmode=require
+  
