@@ -72,7 +72,7 @@ gem 'jquery-rails'
 gem 'bootstrap'
 # gem 'simple_form'
 # gem 'bootstrap-sass', '~> 3.4.1'
-gem 'sassc-rails', '>= 2.1.0'
+gem 'sassc-rails'
 gem 'country_select', '~> 4.0'
 # gem 'will_paginate'
 
