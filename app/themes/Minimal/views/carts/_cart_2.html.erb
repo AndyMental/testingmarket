@@ -1,0 +1,82 @@
+<% if @raw_cartitems.c.v == [] %>
+  <div class="py-5 text-center">
+    <h2>Your cart is empty</h2>
+  </div>
+<% else %>
+  <div class="_shoppingCartContent">
+    <div class="container" data-rel="shopping-cart">
+      <div class="row">
+        <div class="col text-center border-bottom border-secondary mb-1">
+          <span class="text-dark h5">Your Cart</span>
+        </div>
+      </div>
+      <% vendor_level_total = 0 %>
+      <% @raw_cartitems.c.v.each_with_index do |vendor,index| %>
+        <div class="row">
+          <div class="col text-nowrap">
+            <span class="text-dark"><%= vendor.n %></span>
+          </div>
+          <div class="col text-right">
+            <a href="/checkout?vid=<%= vendor.vid %>" rel="nofollow" class="btn btn-dark my-0 btn-sm">
+              BUY ITEMS
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <table class="table table-sm">
+            <thead class="thead-primary">
+              <tr>
+                <th scope="col">Part Number</th>
+                <th scope="col" class="text-right">Qty</th>
+                <th scope="col" class="text-right">Unit Price</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% sub_total = 0 %>
+              <% @raw_cartitems.c.i.each_with_index do |product, p_index|  %>
+                <% if product.v == vendor.vid %>
+                  <tr scope="row">
+                    <td><%= product.p %></td>
+                    <td class="text-right"><%= product.q %></td>
+                    <td class="text-right"><%= number_to_currency(product.up) %></td>
+                    <td><a data-cmd="edit-item" data-toggle="modal" data-target="#update_item" data-sid="<%= product.sid %>" data-pn="<%= product.p %>" data-vid="<%= product.v %>" data-sqty="<%= product.q %>"><i class="fa fa-edit" title="Edit"></i></a></td>
+                    <% sub_total += product.q * product.up %>
+                  </tr>
+                <% end %>
+              <% end %>
+              <% vendor_level_total += sub_total %>
+            </tbody>
+            <tfoot class="table-secondary">
+              <tr>
+                <th>Sub Total</th>
+                <td></td>
+                <td class="text-right"><%= number_to_currency(@raw_cartitems.c.i.select {|product| vendor.vid == product.v}.inject(0) { |sum, x| sum + (x.q * x.up) }) %></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      <% end %>
+      <div class="row">
+        <table class="table table-primary table-sm">
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <td></td>
+              <td class="text-right"><%= number_to_currency(vendor_level_total) %></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col text-right">
+          <a href="/checkout" rel="nofollow" class="btn btn-dark btn-sm">
+            BUY ALL
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

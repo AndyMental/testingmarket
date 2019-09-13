@@ -1,0 +1,19 @@
+<!-- Modal -->
+<div class="modal fade" id="update_item" tabindex="-1" role="dialog" aria-labelledby="Edit Item" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <div class="col-1"></div>
+        <h4 id="title" class="modal-title col-10">Edit Item</h4>
+        <div class="col-1 px-0">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body text-center mx-3" data-rel="item_info_form">
+        <%= render 'carts/catalog_item_info' %>
+      </div>
+    </div>
+  </div>
+</div>

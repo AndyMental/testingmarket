@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="row text-center">
+    <div class="col"><%= link_to "<< Return to Order History", orders_path %></div>
+    <div class="col">
+      <h2>Order details</h2>
+    </div>
+    <div class="col"><%= link_to "Return to Shopping >>", products_path %></div>
+  </div>
+  <div class="row">
+    <%= form_with(url: url_for(:controller => 'carts', :action => 'reorder'), method: "post") do |f| %>
+      <%= f.hidden_field :sid, value: params[:sid] %>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Discount</th>
+            <th>Net Price</th>
+            <th>Total</th>
+            <th class="text-center py-0">
+              <div class="form-check form-check-inline text-center">
+                <input type="checkbox" class="form-check-input filled-in" id="selectAll" checked="">
+                <label class="form-check-label" for="selectAll"></label>
+              </div>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <% @order_detail.s.si.each_with_index do |saleitem,index| %>
+          <tbody>
+            <tr>
+              <td>
+                <img class="img-100x100" src="<%= saleitem.iu + saleitem.im2 %>" alt="Product">
+              </td>
+              <td>
+                <%= saleitem.i.p %>
+              </td>
+              <td class="text-left">
+                <%= saleitem.i.d %>
+                <span class="text-left">UPC: <%= saleitem.i.u %></span>
+              </td>
+              <td>
+                <%= saleitem.i.q %>
+              </td>
+              <td>
+                <%= number_to_currency(saleitem.i.up) %>
+              </td>
+              <td>
+                <%= number_to_currency(saleitem.i.ud) %>
+              </td>
+              <td>
+                <%= number_to_currency(saleitem.i.up - saleitem.i.ud) %>
+              </td>
+              <td>
+                <%= number_to_currency(saleitem.i.up * saleitem.i.q) %>
+              </td>
+              <td class="text-center">
+                <div class="form-check form-check-inline">
+                  <div class="form-check-inline">
+                  	<%= f.check_box :ccrd_use4all, checked: "checked", class: "form-check-input", "data-rel": "item_cb", id: "Item_#{saleitem.i.i}", name: "si[#{saleitem.i.i}]Checked" %>
+                    <div class="pb-1">
+                      <% getcatalogiteminfo_response = MarketAPI.new({baseurl: @market_org.api_url.to_s, xidentity: xidentity, data: {:PartId => "",:VendorId => saleitem.i.vi,:PartNum => saleitem.i.p}}).GetCatalogItemInfo %>
+                      <% thisproduct = JSON.parse(getcatalogiteminfo_response.body, object_class: OpenStruct) %>
+                      <%= f.text_field :qty, value: saleitem.i.q, min: thisproduct.QtyMin, name: "si[#{saleitem.i.i}]Qty" %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan="6"></td>
+            <td style="text-align: right;">
+              <strong>TOTAL:</strong>
+            </td>
+            <td>
+              <strong>$10.20</strong>
+            </td>
+            <td class="text-center">
+              <button type="submit" class="btn btn-sm btn-dark _reorderAllButton waves-effect waves-light">Reorder</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
+<script>
+  $('input[data-rel*="item_cb"]').change(function() {
+        $('#selectAll').prop('checked', false);
+        var relInput = $(this).attr('name').replace('Checked', 'Qty');
+        if($(this).is(":checked")) {
+          $('[name="' + relInput + '"]').attr("disabled", false);
+        } else {
+          $('[name="' + relInput + '"]').attr("disabled", true);
+        }
+    });
+  $('#selectAll').change(function() {
+        if($(this).is(":checked")) {
+          $('input[data-rel*="item_cb"]').each(function() {
+            $(this).prop('checked', true);
+            var relInput = $(this).attr('name').replace('Checked', 'Qty');
+            $('[name="' + relInput + '"]').attr("disabled", false);
+          });
+        } else {
+          $('input[data-rel*="item_cb"]').each(function() {
+            $(this).prop('checked', false);
+            var relInput = $(this).attr('name').replace('Checked', 'Qty');
+            $('[name="' + relInput + '"]').attr("disabled", true);
+          });
+        }
+    });
+</script>

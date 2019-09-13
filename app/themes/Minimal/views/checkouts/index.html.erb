@@ -1,0 +1,10 @@
+<div class="container">
+  <%= render 'checkout_style1' %>
+</div>
+<%= render 'products/edit_item' %>
+<script>
+  $('#update_item').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    $('div[data-rel*="item_info_form"]').load('/carts/catalog_item_info?actn=updateitem&vid=' + button.data('vid') + '&pn=' + button.data('pn') + '&sqty=' + button.data('sqty') + '&sid=' + button.data('sid'));
+  })
+</script>

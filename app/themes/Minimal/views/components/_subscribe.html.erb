@@ -1,0 +1,43 @@
+<a role="button" href="#" data-toggle="modal" class="btn btn-lg btn-primary subscribe_btn" data-target="#subscribe" role="button">Subscribe Us</a>
+
+<div class="modal fade" id="subscribe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-smll" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-center" style="background: #666;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h2 class="modal-title" id="myModalLabel">Subscribe to our Newsletter.</h2>
+                <p>We promise we will not spam you.</p>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                	<%= simple_form_for Subscription.new, class: "form--merge form--no-labels" do |f| %>
+			          <%= f.error_notification %>
+			            <%= f.input_field :email, placeholder: "your@email.com", class: "form-control text-center"%>
+			            <br />
+                        <%= f.hidden_field :shop_id, value: @shop.id %>
+			            <%= f.button :submit, "Subscribe", class: "btn btn-primary btn-lg subscribe center-block"%>
+			    	<% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.subscribe_btn {
+	position: fixed;
+    transform: rotate(270deg);
+    z-index: 999;
+    right: -80px;
+    bottom: 45%;
+    background: #666!important;
+    border-radius: 0px;
+    border: #666;
+}
+
+.subscribe {
+	background: #666!important;
+    border-radius: 0px;
+    border: #666;
+}
+</style>

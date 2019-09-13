@@ -1,0 +1,931 @@
+<div class="container">
+  <div class="mx-1 m-lg-5">
+    <ul class="stepper linear pt-0 order-details-page" id="shoppingCartStepper">
+      <li class="step active" id="checkOutStep">
+        <div class="step-title ">Check Out</div>
+        <div class="step-new-content" style="display: block;">
+          <div class="md-form mt-0 ml-auto">
+            <div class="_shoppingCartList">
+              <% vendor_level_total = 0 %>
+              <% @raw_cartitems.c.v.sort_by { |st| -st['vid'].to_i }.each_with_index do |vendor,index| %>
+                <div class="text-nowrap px-0">
+                  <h4><%= vendor.n %></h4>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th class="px-0" style="width: 100px"></th>
+                        <th class="px-0" style="width: 10%">Item</th>
+                        <th class="px-0" style="width: 50%">Description</th>
+                        <th class="px-0" style="width: 10%">Qty</th>
+                        <th class="px-0" style="width: 10%">Unit Price</th>
+                        <th class="px-0" style="width: 10%">Total</th>
+                        <th style="width: 10%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% sub_total = 0 %>
+                      <% @raw_cartitems.c.i.each_with_index do |product, p_index|  %>
+                        <% if product.v == vendor.vid %>
+                          <tr data-sitemid="<%= product.sid %>" data-vid="<%= product.v %>" data-singlevendor="False" data-partnum="<%= product.p %>" data-qty="<%= product.q %>">
+                            <td>
+                              <img class="img-100x100 img-fluid centerImage" src="<%= product.thmb %>" onerror="this.src='<%= asset_url 'no-image-available.jpg' %>';" alt="Product">
+                            </td>
+                            <td><%= product.p %></td>
+                            <td>
+                              <%= product.d %>
+                              <span class="item-upc" title="UPC code">UPC: <%= product.u %></span>
+                            </td>
+                            <td><%= product.q %></td>
+                            <td><%= number_to_currency(product.up) %></td>
+                            <td><%= number_to_currency(product.q * product.up) %></td>
+                            <td class="text-center"><a data-cmd="edit-item"><i class="fa fa-edit" title="Edit"></i></a></td>
+                            <% sub_total += product.q * product.up %>
+                          </tr>
+                        <% end %>
+                      <% end %>
+                      <% vendor_level_total += sub_total %>
+                      <tr>
+                        <th colspan="5">
+                          <div>
+                            subtotal
+                          </div>
+                        </th>
+                        <td><%= number_to_currency(sub_total) %></td>
+                        <th></th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              <% end %>
+            </div>
+            <table class="table table-sm" style="table-layout: fixed">
+              <thead>
+                <tr>
+                  <th class="px-0" style="width: 100px"></th>
+                  <th class="px-0" style="width: 10%"></th>
+                  <th class="px-0" style="width: 50%"></th>
+                  <th class="px-0" style="width: 10%"></th>
+                  <th class="px-0" style="width: 10%"></th>
+                  <th class="px-0" style="width: 10%"></th>
+                  <th style="width: 10%"></th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th colspan="5">
+                    Total
+                  </th>
+                  <td><strong><%= number_to_currency(vendor_level_total) %></strong></td>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="step-actions">
+            <button class="btn btn-primary btn-sm next-step ">CONTINUE</button>
+          </div>
+        </div>
+      </li>
+      <li class="step">
+        <div id="shippingAddressStep" class="step-title ">Shipping Address</div>
+        <div class="step-new-content">
+          <%= form_with(url: url_for(:controller => 'checkouts', :action => 'update_shipping_address'), method: "post") do |f| %>
+            <div class="mt-0 ml-auto">
+              <%= f.hidden_field :cartid, value: @raw_cartitems.c.sci %>
+              <div class="row my-4">
+                <div class="col">
+                  <%= f.text_field :fname, class: "form-control rounded-0 _required", name: "fname_i", placeholder: "First Name", value: @raw_cartitems.c.s2.fn %>
+                </div>
+                <div class="col">
+                  <%= f.text_field :lname, class: "form-control rounded-0 _required", name: "lname_i", placeholder: "Last Name", value: @raw_cartitems.c.s2.ln %>
+                </div>
+              </div>
+              <div class="row my-4">
+                <div class="col">
+                  <%= f.text_field :company, class: "form-control rounded-0 _required", name: "company_i", placeholder: "Company", value: @raw_cartitems.c.s2.c %>
+                </div>
+                <div class="col">
+                  <%= f.text_field :tel, class: "form-control rounded-0 _required", name: "tel_i", placeholder: "Phone Number", value: @raw_cartitems.c.s2.t %>
+                </div>
+              </div>
+              <div class="row my-4">
+                <div class="col">
+                  <%= f.text_area :address, class: "form-control rounded-0 _required", rows: "4", cols: "20", name: "address_i", placeholder: "Address", value: @raw_cartitems.c.s2.a %>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <%= f.text_field :city, class: "form-control rounded-0 _required", name: "city_i", placeholder: "City", value: @raw_cartitems.c.s2.ct %>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col">
+                      <%= f.text_field :state, class: "form-control rounded-0 _required", name: "state_i", placeholder: "State/Province", value: @raw_cartitems.c.s2.s %>
+                    </div>
+                    <div class="col">
+                      <%= f.text_field :zip, class: "form-control rounded-0 _required", name: "zip_i", placeholder: "Zip/Postal Code", value: @raw_cartitems.c.s2.z %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-4">
+                <div class="col">
+                  <%#= f.country_select :country_code, { class: "browser-default custom-select rounded-0" } %>
+                  <%= f.country_select(:country, { include_blank: 'Select a country', selected: @raw_cartitems.c.s2.ctr }, { class: 'browser-default custom-select rounded-0' }) %>
+                </div>
+                <div class="col align-content-center">
+                  <%= f.check_box :residential, name: "residential_i", class: "form-check-input", id: "cbResidential" %>
+                  <label class="form-check-label" for="cbResidential">Check if this is a residential address</label>
+                </div>
+              </div>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-primary btn-sm previous-step ">BACK</button>
+              <%= f.submit "CONTINUE", class: "btn btn-primary btn-sm next-step", "data-feedback": "validationFunction" %>
+            </div>
+          <% end %>
+        </div>
+      </li>
+      <li class="step">
+        <div id="paymentMethodStep" class="step-title ">Payment Method</div>
+        <div class="step-new-content">
+          <!-- <form action="/OrchardLocal/market/checkout/deliveryandpaymentoptions-confirm" method="post">                             -->
+          <form action="" method="post">
+            <div class="mt-0 ml-auto">
+              <div>
+                <div class="mt-4">
+                  <h4>
+                    YOUNGS
+                  </h4>
+                  <div class="px-0 py-0">
+                    <input id="sv_0__vid" name="sv[0].vid" type="hidden" value="476749724630.15836">
+                    <div class="row">
+                      <div class="col">
+                        <label class="mt-2 mb-1 active">Purchase Order Number</label>
+                        <input class="form-control rounded-0 _required" id="sv_0__po" name="sv[0].po" type="text" value="200-111">
+                        <label class="mt-2 mb-1 active">Shipment Method</label>
+                        <select name="sv[0].shipmentMethod" class="browser-default custom-select rounded-0 _required">
+                          <option value="">Please Select</option>
+                          <option value="CHEAPEST &amp; BEST WAY" selected="">CHEAPEST &amp; BEST WAY</option>
+                          <option value="Fed Ex only">Fed Ex only</option>
+                          <option value="SEE NOTES">SEE NOTES</option>
+                          <option value="UPS only">UPS only</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Payment Method</label>
+                        <select class="_payterms browser-default custom-select rounded-0 _required" index="0" title="Select payment method" name="sv[0].payterms" id="pt0">
+                          <option value="">Select one</option>
+                          <option value=".VISA/MC/AMEX/DISC" ccrd="ccrd">.VISA/MC/AMEX/DISC</option>
+                          <option value="NET 30" selected="">NET 30</option>
+                          <option value="NET 60">NET 60</option>
+                          <option value="NET 90">NET 90</option>
+                          <option value="SEE NOTES">SEE NOTES</option>
+                        </select>
+                        <div class="_cardinfo0 _cardInfo" style="display:none;">
+                          <div class="_cardnum">
+                            <label class="mt-2 mb-1">Card Number</label>
+                            <input type="password" class="form-control rounded-0 _cardNumber _required" name="sv[0].ccrd.number" data-value="" value="" autocomplete="off">
+                          </div>
+                          <label class="mt-2 mb-1">Name on Card</label>
+                          <input type="text" class="form-control rounded-0 _nameOnCard _required" name="sv[0].ccrd.cardholder" data-value="" value="">
+                          <div class="row">
+                            <div class="col-8">
+                              <label class="mt-2 mb-1">Expiration Date</label>
+                              <div class="row">
+                                <div class="col pr-1">
+                                  <select name="sv[0].ccrd.expm" class="browser-default custom-select rounded-0 _expDateMonth _required">
+                                    <option value=""></option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                  </select>
+                                </div>
+                                <div class="col pl-1">
+                                  <select name="sv[0].ccrd.expy" class="floatleft browser-default custom-select rounded-0 _expDateYear _required">
+                                    <option value=""></option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <label class="mt-2 mb-1">CVV</label>
+                              <input type="password" class="form-control rounded-0 _cvv _required" name="sv[0].ccrd.cvv" data-value="" value="" autocomplete="off">
+                            </div>
+                          </div>
+                          <label class="mt-2 mb-1">Billing Address</label>
+                          <textarea class="form-control rounded-0 _billingAddress _required" name="sv[0].ccrd.billingaddr" data-value="" value="" rows="3"></textarea>
+                          <div class="mt-2">
+                            <input id="cbCreditCardAll0" type="checkbox" class="form-check-input _useForAll">
+                            <label class="form-check-label" for="cbCreditCardAll0">Use this card for all vendors</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Notes</label>
+                        <textarea class="form-control rounded-0" cols="20" id="sv_0__notes" name="sv[0].notes" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <h4>
+                    SPECIAL T IMPORTS
+                  </h4>
+                  <div class="px-0 py-0">
+                    <input id="sv_1__vid" name="sv[1].vid" type="hidden" value="495579187073.57861">
+                    <div class="row">
+                      <div class="col">
+                        <label class="mt-2 mb-1 active">Purchase Order Number</label>
+                        <input class="form-control rounded-0 _required" id="sv_1__po" name="sv[1].po" type="text" value="200-109">
+                        <label class="mt-2 mb-1 active">Shipment Method</label>
+                        <select name="sv[1].shipmentMethod" class="browser-default custom-select rounded-0 _required">
+                          <option value="">Please Select</option>
+                          <option value="CHEAPEST &amp; BEST WAY" selected="">CHEAPEST &amp; BEST WAY</option>
+                          <option value="FED EX ONLY">FED EX ONLY</option>
+                          <option value="SEE NOTES">SEE NOTES</option>
+                          <option value="UPS ONLY">UPS ONLY</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Payment Method</label>
+                        <select class="_payterms browser-default custom-select rounded-0 _required" index="1" title="Select payment method" name="sv[1].payterms" id="pt1">
+                          <option value="">Select one</option>
+                          <option value=".VISA/MC/AMEX/DISC" ccrd="ccrd">.VISA/MC/AMEX/DISC</option>
+                          <option value="Net 30" selected="">Net 30</option>
+                          <option value="Net 60">Net 60</option>
+                          <option value="Net 90">Net 90</option>
+                          <option value="See notes">See notes</option>
+                        </select>
+                        <div class="_cardinfo1 _cardInfo" style="display:none;">
+                          <div class="_cardnum">
+                            <label class="mt-2 mb-1">Card Number</label>
+                            <input type="password" class="form-control rounded-0 _cardNumber _required" name="sv[1].ccrd.number" data-value="" value="" autocomplete="off">
+                          </div>
+                          <label class="mt-2 mb-1">Name on Card</label>
+                          <input type="text" class="form-control rounded-0 _nameOnCard _required" name="sv[1].ccrd.cardholder" data-value="" value="">
+                          <div class="row">
+                            <div class="col-8">
+                              <label class="mt-2 mb-1">Expiration Date</label>
+                              <div class="row">
+                                <div class="col pr-1">
+                                  <select name="sv[1].ccrd.expm" class="browser-default custom-select rounded-0 _expDateMonth _required">
+                                    <option value=""></option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                  </select>
+                                </div>
+                                <div class="col pl-1">
+                                  <select name="sv[1].ccrd.expy" class="floatleft browser-default custom-select rounded-0 _expDateYear _required">
+                                    <option value=""></option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <label class="mt-2 mb-1">CVV</label>
+                              <input type="password" class="form-control rounded-0 _cvv _required" name="sv[1].ccrd.cvv" data-value="" value="" autocomplete="off">
+                            </div>
+                          </div>
+                          <label class="mt-2 mb-1">Billing Address</label>
+                          <textarea class="form-control rounded-0 _billingAddress _required" name="sv[1].ccrd.billingaddr" data-value="" value="" rows="3"></textarea>
+                          <div class="mt-2">
+                            <input id="cbCreditCardAll1" type="checkbox" class="form-check-input _useForAll">
+                            <label class="form-check-label" for="cbCreditCardAll1">Use this card for all vendors</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Notes</label>
+                        <textarea class="form-control rounded-0" cols="20" id="sv_1__notes" name="sv[1].notes" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <h4>
+                    V1
+                  </h4>
+                  <div class="px-0 py-0">
+                    <input id="sv_2__vid" name="sv[2].vid" type="hidden" value="599320350203.99753">
+                    <div class="row">
+                      <div class="col">
+                        <label class="mt-2 mb-1 active">Purchase Order Number</label>
+                        <input class="form-control rounded-0 _required" id="sv_2__po" name="sv[2].po" type="text" value="200-110">
+                        <label class="mt-2 mb-1 active">Shipment Method</label>
+                        <select name="sv[2].shipmentMethod" class="browser-default custom-select rounded-0 _required">
+                          <option value="" selected="">Please Select</option>
+                          <option value="BEST">BEST</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Payment Method</label>
+                        <select class="_payterms browser-default custom-select rounded-0 _required" index="2" title="Select payment method" name="sv[2].payterms" id="pt2">
+                          <option value="" selected="">Select one</option>
+                          <option value="CREDIT CARD" ccrd="ccrd">CREDIT CARD</option>
+                          <option value="NET30">NET30</option>
+                        </select>
+                        <div class="_cardinfo2 _cardInfo" style="display:none;">
+                          <div class="_cardnum">
+                            <label class="mt-2 mb-1">Card Number</label>
+                            <input type="password" class="form-control rounded-0 _cardNumber _required" name="sv[2].ccrd.number" data-value="" value="" autocomplete="off">
+                          </div>
+                          <label class="mt-2 mb-1">Name on Card</label>
+                          <input type="text" class="form-control rounded-0 _nameOnCard _required" name="sv[2].ccrd.cardholder" data-value="" value="">
+                          <div class="row">
+                            <div class="col-8">
+                              <label class="mt-2 mb-1">Expiration Date</label>
+                              <div class="row">
+                                <div class="col pr-1">
+                                  <select name="sv[2].ccrd.expm" class="browser-default custom-select rounded-0 _expDateMonth _required">
+                                    <option value=""></option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                  </select>
+                                </div>
+                                <div class="col pl-1">
+                                  <select name="sv[2].ccrd.expy" class="floatleft browser-default custom-select rounded-0 _expDateYear _required">
+                                    <option value=""></option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <label class="mt-2 mb-1">CVV</label>
+                              <input type="password" class="form-control rounded-0 _cvv _required" name="sv[2].ccrd.cvv" data-value="" value="" autocomplete="off">
+                            </div>
+                          </div>
+                          <label class="mt-2 mb-1">Billing Address</label>
+                          <textarea class="form-control rounded-0 _billingAddress _required" name="sv[2].ccrd.billingaddr" data-value="" value="" rows="3"></textarea>
+                          <div class="mt-2">
+                            <input id="cbCreditCardAll2" type="checkbox" class="form-check-input _useForAll">
+                            <label class="form-check-label" for="cbCreditCardAll2">Use this card for all vendors</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Notes</label>
+                        <textarea class="form-control rounded-0" cols="20" id="sv_2__notes" name="sv[2].notes" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <h4>
+                    PBK
+                  </h4>
+                  <div class="px-0 py-0">
+                    <input id="sv_3__vid" name="sv[3].vid" type="hidden" value="616810769074.65607">
+                    <div class="row">
+                      <div class="col">
+                        <label class="mt-2 mb-1 active">Purchase Order Number</label>
+                        <input class="form-control rounded-0 _required" id="sv_3__po" name="sv[3].po" type="text" value="200-106">
+                        <label class="mt-2 mb-1 active">Shipment Method</label>
+                        <select name="sv[3].shipmentMethod" class="browser-default custom-select rounded-0 _required">
+                          <option value="" selected="">Please Select</option>
+                          <option value="BEST">BEST</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Payment Method</label>
+                        <select class="_payterms browser-default custom-select rounded-0 _required" index="3" title="Select payment method" name="sv[3].payterms" id="pt3">
+                          <option value="" selected="">Select one</option>
+                          <option value="CREDIT CARD" ccrd="ccrd">CREDIT CARD</option>
+                          <option value="NET30">NET30</option>
+                        </select>
+                        <div class="_cardinfo3 _cardInfo" style="display:none;">
+                          <div class="_cardnum">
+                            <label class="mt-2 mb-1">Card Number</label>
+                            <input type="password" class="form-control rounded-0 _cardNumber _required" name="sv[3].ccrd.number" data-value="" value="" autocomplete="off">
+                          </div>
+                          <label class="mt-2 mb-1">Name on Card</label>
+                          <input type="text" class="form-control rounded-0 _nameOnCard _required" name="sv[3].ccrd.cardholder" data-value="" value="">
+                          <div class="row">
+                            <div class="col-8">
+                              <label class="mt-2 mb-1">Expiration Date</label>
+                              <div class="row">
+                                <div class="col pr-1">
+                                  <select name="sv[3].ccrd.expm" class="browser-default custom-select rounded-0 _expDateMonth _required">
+                                    <option value=""></option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                  </select>
+                                </div>
+                                <div class="col pl-1">
+                                  <select name="sv[3].ccrd.expy" class="floatleft browser-default custom-select rounded-0 _expDateYear _required">
+                                    <option value=""></option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <label class="mt-2 mb-1">CVV</label>
+                              <input type="password" class="form-control rounded-0 _cvv _required" name="sv[3].ccrd.cvv" data-value="" value="" autocomplete="off">
+                            </div>
+                          </div>
+                          <label class="mt-2 mb-1">Billing Address</label>
+                          <textarea class="form-control rounded-0 _billingAddress _required" name="sv[3].ccrd.billingaddr" data-value="" value="" rows="3"></textarea>
+                          <div class="mt-2">
+                            <input id="cbCreditCardAll3" type="checkbox" class="form-check-input _useForAll">
+                            <label class="form-check-label" for="cbCreditCardAll3">Use this card for all vendors</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label class="mt-2 mb-1">Notes</label>
+                        <textarea class="form-control rounded-0" cols="20" id="sv_3__notes" name="sv[3].notes" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-primary btn-sm previous-step ">BACK</button>
+              <button class="btn btn-primary btn-sm next-step " data-feedback="validationFunction">CONTINUE</button>
+            </div>
+          </form>
+        </div>
+      </li>
+      <li class="step" data-last="true">
+        <div id="reviewOrderStep" class="step-title ">Review Order</div>
+        <div class="step-new-content">
+          <!-- <form action="/OrchardLocal/market/checkout/placeorder" data-rel="edit-item" method="post">                         -->
+          <form action="" data-rel="edit-item" method="post">
+            <input type="hidden" name="vid">
+            <div class="mt-0 ml-auto">
+              <div id="content">
+                <div id="orderReview">
+                  <div class="mt-4">
+                    <h4>
+                      Billing &amp; Shipping Info
+                    </h4>
+                    <div class="row">
+                      <div class="col-4">
+                        <dl>
+                          <dt>Bill To:</dt>
+                          <dd> </dd>
+                          <dd>c/o Andy Padia</dd>
+                          <dd></dd>
+                          <dd>,   </dd>
+                        </dl>
+                      </div>
+                      <div class="col-4">
+                        <dl>
+                          <dt>Ship To:</dt>
+                          <dd>Andy Andy</dd>
+                          <dd>c/o Andy</dd>
+                          <dd>Andy</dd>
+                          <dd>Andy, Andy Andy </dd>
+                        </dl>
+                      </div>
+                      <div class="col-4">
+                        <dl>
+                          <dt>Notes:</dt>
+                          <dd>
+                            <textarea id="notes_i" rows="3" class="form-control rounded-0"></textarea>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-4">
+                    <h4>
+                      Payment Methods
+                    </h4>
+                    <div class="row mt-2">
+                      <div class="col">
+                        <strong>PBK</strong>
+                      </div>
+                      <div class="col">
+                        <div>
+                          <span>PO#: 200-106</span>
+                        </div>
+                        <div>
+                          <span>Delivery: </span>
+                        </div>
+                        <div>
+                          <span>Payment: </span>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <span>Notes: </span>
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col">
+                        <strong>SPECIAL T IMPORTS</strong>
+                      </div>
+                      <div class="col">
+                        <div>
+                          <span>PO#: 200-109</span>
+                        </div>
+                        <div>
+                          <span>Delivery: CHEAPEST &amp; BEST WAY</span>
+                        </div>
+                        <div>
+                          <span>Payment: Net 30</span>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <span>Notes: </span>
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col">
+                        <strong>V1</strong>
+                      </div>
+                      <div class="col">
+                        <div>
+                          <span>PO#: 200-110</span>
+                        </div>
+                        <div>
+                          <span>Delivery: </span>
+                        </div>
+                        <div>
+                          <span>Payment: </span>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <span>Notes: </span>
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col">
+                        <strong>YOUNGS</strong>
+                      </div>
+                      <div class="col">
+                        <div>
+                          <span>PO#: 200-111</span>
+                        </div>
+                        <div>
+                          <span>Delivery: CHEAPEST &amp; BEST WAY</span>
+                        </div>
+                        <div>
+                          <span>Payment: NET 30</span>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <span>Notes: </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-4">
+                    <h4>
+                      Order Details
+                    </h4>
+                    <div class="_shoppingCartList">
+                      <div class="text-nowrap px-0">
+                        <h4>PBK</h4>
+                      </div>
+                      <div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th class="px-0" style="width: 100px"></th>
+                              <th class="px-0" style="width: 10%">Item</th>
+                              <th class="px-0" style="width: 50%">Description</th>
+                              <th class="px-0" style="width: 10%">Qty</th>
+                              <th class="px-0" style="width: 10%">Unit Price</th>
+                              <th class="px-0" style="width: 10%">Total</th>
+                              <th style="width: 10%"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr data-sitemid="620515407587.69845" data-vid="616810769074.65607" data-singlevendor="False" data-partnum="100058" data-qty="12">
+                              <td>
+                                <img class="img-100x100" src="https://www.primitivesbykathy.com/globalassets/product-images/100058.jpg?width=250&amp;height=250&amp;mode=pad&amp;scale=upscalecanvas" alt="Product">
+                              </td>
+                              <td>100058</td>
+                              <td>
+                                Bottle Tag - Hallowasted (Date Avail: 02/26/2019) [3" x 6"]
+                                <span class="item-upc" title="UPC code">UPC: 190134000585</span>
+                              </td>
+                              <td>12</td>
+                              <td>$0.38</td>
+                              <td>$4.56</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-i4GFWQsA77bh" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-i4GFWQsA77bh">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr data-sitemid="620515453032.44884" data-vid="616810769074.65607" data-singlevendor="False" data-partnum="100171" data-qty="4">
+                              <td>
+                                <img class="img-100x100" src="https://www.primitivesbykathy.com/globalassets/product-images/100171.jpg?width=250&amp;height=250&amp;mode=pad&amp;scale=upscalecanvas" alt="Product">
+                              </td>
+                              <td>100171</td>
+                              <td>
+                                Block Sign - My Grandma (Date Avail: 02/26/2019) [6" x 6" x 1"]
+                                <span class="item-upc" title="UPC code">UPC: 190134001711</span>
+                              </td>
+                              <td>4</td>
+                              <td>$5.00</td>
+                              <td>$20.00</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-5p3gz0hYcwcc" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-5p3gz0hYcwcc">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr data-sitemid="620515458442.71994" data-vid="616810769074.65607" data-singlevendor="False" data-partnum="100179" data-qty="4">
+                              <td>
+                                <img class="img-100x100" src="https://www.primitivesbykathy.com/globalassets/product-images/100179.jpg?width=250&amp;height=250&amp;mode=pad&amp;scale=upscalecanvas" alt="Product">
+                              </td>
+                              <td>100179</td>
+                              <td>
+                                Hinged Box - The Best Moms (Date Avail: 02/26/2019) [4" x 4" x 2.75"]
+                                <span class="item-upc" title="UPC code">UPC: 190134001797</span>
+                              </td>
+                              <td>4</td>
+                              <td>$5.50</td>
+                              <td>$22.00</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-NHhfJRJNQ9yI" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-NHhfJRJNQ9yI">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr>
+                              <th colspan="5">
+                                <div>
+                                  subtotal
+                                </div>
+                              </th>
+                              <td>$46.56</td>
+                              <th></th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="text-nowrap px-0">
+                        <h4>SPECIAL T IMPORTS</h4>
+                      </div>
+                      <div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th class="px-0" style="width: 100px"></th>
+                              <th class="px-0" style="width: 10%">Item</th>
+                              <th class="px-0" style="width: 50%">Description</th>
+                              <th class="px-0" style="width: 10%">Qty</th>
+                              <th class="px-0" style="width: 10%">Unit Price</th>
+                              <th class="px-0" style="width: 10%">Total</th>
+                              <th style="width: 10%"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr data-sitemid="620515498241.95182" data-vid="495579187073.57861" data-singlevendor="False" data-partnum="C15002" data-qty="8">
+                              <td>
+                                <img class="img-100x100" src="http://images.linesyte.com/agencies/sb/gs/specialt/C15002.jpg" alt="Product">
+                              </td>
+                              <td>C15002</td>
+                              <td>
+                                MetalHolidaySign4Asst
+                                <span class="item-upc" title="UPC code">UPC: 630125429532</span>
+                              </td>
+                              <td>8</td>
+                              <td>$2.50</td>
+                              <td>$20.00</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-2xsBSh7iv6ew" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-2xsBSh7iv6ew">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr data-sitemid="620515502095.07021" data-vid="495579187073.57861" data-singlevendor="False" data-partnum="C15008" data-qty="3">
+                              <td>
+                                <img class="img-100x100" src="http://images.linesyte.com/agencies/sb/gs/specialt/C15008.jpg" alt="Product">
+                              </td>
+                              <td>C15008</td>
+                              <td>
+                                Metal/MDF Vintage Santa Wall Sign 3 Asst
+                                <span class="item-upc" title="UPC code">UPC: 630125429594</span>
+                              </td>
+                              <td>3</td>
+                              <td>$12.00</td>
+                              <td>$36.00</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-759AOpcM0EAa" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-759AOpcM0EAa">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr>
+                              <th colspan="5">
+                                <div>
+                                  subtotal
+                                </div>
+                              </th>
+                              <td>$56.00</td>
+                              <th></th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="text-nowrap px-0">
+                        <h4>V1</h4>
+                      </div>
+                      <div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th class="px-0" style="width: 100px"></th>
+                              <th class="px-0" style="width: 10%">Item</th>
+                              <th class="px-0" style="width: 50%">Description</th>
+                              <th class="px-0" style="width: 10%">Qty</th>
+                              <th class="px-0" style="width: 10%">Unit Price</th>
+                              <th class="px-0" style="width: 10%">Total</th>
+                              <th style="width: 10%"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr data-sitemid="620515523763.90665" data-vid="599320350203.99753" data-singlevendor="False" data-partnum="1100BRNF" data-qty="12">
+                              <td>
+                                <img class="img-100x100" src="https://cdn.shopify.com/s/files/1/1062/6604/products/1100BRNF_7d0fb0c1-82f1-4ff4-bccb-8b298e190010.jpg?v=1527700181" alt="Product">
+                              </td>
+                              <td>1100BRNF</td>
+                              <td>
+                                Brown Frame
+                                <span class="item-upc" title="UPC code">UPC: 818186016353</span>
+                              </td>
+                              <td>12</td>
+                              <td>$8.50</td>
+                              <td>$102.00</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-d3k2sp9ltkJB" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-d3k2sp9ltkJB">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr>
+                              <th colspan="5">
+                                <div>
+                                  subtotal
+                                </div>
+                              </th>
+                              <td>$102.00</td>
+                              <th></th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="text-nowrap px-0">
+                        <h4>YOUNGS</h4>
+                      </div>
+                      <div>
+                        <span class="font-small"><span>Min Order:</span> $150.00</span>
+                        <span class="font-small" style="float: right"><span>Re-Order:</span> $100.00</span>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th class="px-0" style="width: 100px"></th>
+                              <th class="px-0" style="width: 10%">Item</th>
+                              <th class="px-0" style="width: 50%">Description</th>
+                              <th class="px-0" style="width: 10%">Qty</th>
+                              <th class="px-0" style="width: 10%">Unit Price</th>
+                              <th class="px-0" style="width: 10%">Total</th>
+                              <th style="width: 10%"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr data-sitemid="620515768405.34759" data-vid="476749724630.15836" data-singlevendor="False" data-partnum="10616" data-qty="1">
+                              <td>
+                                <img class="img-100x100" src="https://www.youngsinc.com/images/10616.jpg" alt="Product">
+                              </td>
+                              <td>10616</td>
+                              <td>
+                                Resin Reading Cat
+                                <span class="item-upc" title="UPC code">UPC: 096587106167</span>
+                              </td>
+                              <td>1</td>
+                              <td>$15.80</td>
+                              <td>$15.80</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-ZPvLdIIK0Upk" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-ZPvLdIIK0Upk">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr data-sitemid="620515775598.48381" data-vid="476749724630.15836" data-singlevendor="False" data-partnum="11038" data-qty="1">
+                              <td>
+                                <img class="img-100x100" src="https://www.youngsinc.com/images/11038.jpg" alt="Product">
+                              </td>
+                              <td>11038</td>
+                              <td>
+                                Wood rack
+                                <span class="item-upc" title="UPC code">UPC: 096587110386</span>
+                              </td>
+                              <td>1</td>
+                              <td>$7.00</td>
+                              <td>$7.00</td>
+                              <td class="text-center"><a data-cmd="edit-item"><svg class="svg-inline--fa fa-edit fa-w-18" title="Edit" aria-labelledby="svg-inline--fa-title-Y6QAZhGpOrJg" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><title id="svg-inline--fa-title-Y6QAZhGpOrJg">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg><!-- <i class="fas fa-edit" title="Edit"></i> --></a></td>
+                            </tr>
+                            <tr>
+                              <th colspan="5">
+                                <div>
+                                  subtotal
+                                </div>
+                                <div>
+                                  <strong class="red-text">Please make sure minimum order amount requirement is met</strong>
+                                </div>
+                              </th>
+                              <td>$22.80</td>
+                              <th></th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <table class="table table-sm" style="table-layout: fixed">
+                          <thead>
+                            <tr>
+                              <th class="px-0" style="width: 100px"></th>
+                              <th class="px-0" style="width: 10%"></th>
+                              <th class="px-0" style="width: 50%"></th>
+                              <th class="px-0" style="width: 10%"></th>
+                              <th class="px-0" style="width: 10%"></th>
+                              <th class="px-0" style="width: 10%"></th>
+                              <th style="width: 10%"></th>
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <tr>
+                              <th colspan="5">
+                                Total
+                              </th>
+                              <td><strong>$227.36</strong></td>
+                              <th></th>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step-actions">
+              <button class="btn btn-primary btn-sm previous-step ">BACK</button>
+              <button id="submitButton" class="btn btn-primary btn-sm ">SUBMIT</button>
+            </div>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<%= render 'checkouts/checkout_js' %>

@@ -1,8 +1,0 @@
-<%= render 'product_page_style2' %>
-<%= render 'add_to_cart' %>
-<script>
-  $('#add_to_cart').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    $('div[data-rel*="item_info_form"]').load('/carts/catalog_item_info?vid=' + button.data('pid'));
-  })
-</script>

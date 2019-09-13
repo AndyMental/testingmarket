@@ -1,0 +1,19 @@
+<div class="form-inline my-0 w-100 d-flex justify-content-center justify-content-sm-center justify-content-md-end justify-content-lg-end justify-content-xl-end">
+  <div class="form-group mr-2 d-none d-sm-block">
+    Total items found: <%= @raw_products.c %>
+  </div>
+  <div class="form-group mr-1">
+    Results per page:
+  </div>
+  <div class="form-group">
+    <select id="itemsPerPage" class="browser-default custom-select rounded-0">
+      <% ['32', '64', '128'].each do |pc| %>
+        <% if params[:pz].present? && pc == params[:pz] %>
+          <option value="<%= pc %>" selected data-edit-url='<%= products_path(pi: "#{params[:pi]}", pz: "#{pc}", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}") %>'><%= pc %></option>
+        <% else %>
+          <option value="<%= pc %>" data-edit-url='<%= products_path(pi: "#{params[:pi]}", pz: "#{pc}", search: "#{params[:search]}", rg: "#{params[:rg]}", vid: "#{params[:vid]}") %>'><%= pc %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+</div>

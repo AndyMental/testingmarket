@@ -1,0 +1,24 @@
+<% if current_user %>
+  <li class="nav-item cta cta-colored">
+    <%= link_to cart_path, class: "nav-link" do %>
+      <span class="fa fa-shopping-cart"></span>
+    <% end %>
+  </li>
+  <li class="nav-item dropdown">
+    <%= link_to "Account", vendors_path, class: "nav-link dropdown-toggle", "id": "dropdown04", "data-toggle":"dropdown", "aria-haspopup":"true", "aria-expanded":"false" %>
+    <div class="dropdown-menu" aria-labelledby="dropdown04">
+      <%= link_to "Log Out", logout_path, class: "dropdown-item" %>
+      <%= link_to "Change Password", account_path, class: "dropdown-item" %>
+    </div>
+  </li>
+  <li class="nav-item cta cta-colored">
+    
+  </li>
+<% else %>
+  <li class="nav-item cta cta-colored">
+    <%= link_to "Sign Up", register_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item cta cta-colored">
+    <%= link_to "Log In", login_path, class: "nav-link" %>
+  </li>
+<% end %>

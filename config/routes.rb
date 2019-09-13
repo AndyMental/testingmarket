@@ -8,18 +8,34 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
 
   get 'pages/index'
+
   get 'about', to: 'pages#about', as: 'about'
   get 'contact', to: 'pages#contact', as: 'contact'
   get 'terms', to: 'pages#tandc', as: 'tandc'
   get 'policy', to: 'pages#policy', as: 'policy'
   get 'cart', to: 'carts#index', as: 'cart'
+  get 'orders', to: 'pages#orders', as: 'orders'
   
+  get 'order_details', to: 'pages#order_details', as: 'order_details'
+
+  get 'checkout', to: 'checkouts#index', as: 'checkout'
+  get 'payment', to: 'checkouts#payment', as: 'payment'
+  get 'confirm', to: 'checkouts#confirm', as: 'confirm'
+  get 'thankyou', to: 'checkouts#thankyou', as: 'thankyou'
+
+  post 'checkouts/update_shipping_address'
+  post 'checkouts/update_payment'
+  post 'checkouts/confirm_checkout'
+
   get 'carts/cart_items'
   get 'carts/catalog_item_info'
-  get 'carts/delete'  
-  get 'carts/update'
 
-  post 'carts/add_items'
+  post 'carts/prod_crud'
+  post 'carts/add_items'  
+  post 'carts/update_item'
+  post 'carts/reorder'
+  
+  get 'carts/delete_item'
 
   resources :sessions, only: [:new, :create, :destroy]
   

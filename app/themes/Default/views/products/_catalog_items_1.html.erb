@@ -1,0 +1,48 @@
+<% if @products != [] %>
+  <% @products.each_slice(4).with_index do |products, id | %>
+    <div class="row">
+      <% products.each_with_index do |product, index| %>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+          <div class="product text-center">
+            <% if product.i2 != "" %>
+              <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                <img src="<%= product_image_path(product) %>" onerror="this.src='<%= asset_url 'no-image-available.jpg' %>';" class="img-fluid" alt="<%= product.pn %>">
+              <% end %>
+            <% else %>
+              <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                <img src="<%= asset_path 'no-image-available.jpg' %>" class="img-fluid" alt="<%= product.pn %>">
+              <% end %>
+            <% end %>
+            <div class="text-center py-3 px-3">
+              <span class="prod-text">SKU: <%= product.pn %></span>
+              <span class="prod-text prod-text-alt"><%= product.vn %></span>
+              <span class="prod-text prod-text-alt"><%= product.upc %></span>
+              <span class="prod-text"><%= product.d %></span>
+              <% if current_user %>
+                <div class="card-footer px-1">
+                  <div class="row">
+                    <span class="float-left font-weight-light mx-3">
+                      <%= number_to_currency(product.p.p) %>
+                    </span>
+                    <span class="float-left">Min Qty: product.qm</span>
+                  </div>
+                  <div class="row">
+                    <div class="col w-100 text-center">
+                      <button class="btn btn-primary btn-sm waves-effect waves-light px-2 _addToCart" data-toggle="modal" data-target="#add_to_cart" data-pid="<%= product.pid %>">Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="row">
+    <div class="col">
+      <div class="text-center">No Products Found.</div>
+    </div>
+  </div>
+<% end %>

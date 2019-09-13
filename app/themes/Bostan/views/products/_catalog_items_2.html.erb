@@ -1,0 +1,54 @@
+<% if @products != [] %>
+  <div class="row mb-4">
+    <% @products.each_with_index do |product, index| %>
+      <div class="col-3">
+        <div class="card card-ecommerce h-100 _product">
+          <div class="view overlay">
+            <% if product.i2 != "" %>
+              <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                <img src="<%= product_image_path(product) %>" onerror="this.src='<%= asset_url 'no-image-available.jpg' %>';" class="img-fluid" alt="<%= product.pn %>">
+              <% end %>
+            <% else %>
+              <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{product.vid}"), class: "img-prod" do %>
+                <img src="<%= asset_path 'no-image-available.jpg' %>" class="img-fluid" alt="<%= product.pn %>">
+              <% end %>
+            <% end %>
+          </div>
+          <div class="card-body card-body-cascade text-center">
+            <div>
+              <span class="text-secondary" title="<%= product.vn %>"><%= product.vn %></span>
+            </div>
+            <div>
+              <strong class="text-info" title="<%= product.pn %>">SKU: <%= product.pn %></strong>
+            </div>
+            <div>
+              <span class="text-nowrap small text-danger" title="UPC Code">UPC: <%= product.upc %></span>
+            </div>
+            <p><small><%= product.d %></small></p>
+          </div>
+          <% if current_user %>
+            <div class="card-footer px-1">
+              <div class="row">
+                <small class="col-5">
+                  <%= number_to_currency(product.p.p) %>
+                </small>
+                <small class="col-7">Min Qty: <%= product.qm %></small>
+              </div>
+              <div class="row">
+                <div class="col w-100 text-center">
+                  <button class="btn btn-info btn-sm waves-effect waves-light px-2 _addToCart" data-toggle="modal" data-target="#add_to_cart" data-pid="<%= product.pid %>">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col">
+      <div class="text-center">No Products Found.</div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,235 @@
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>Checkout : Review Order</h2>
+  </div>
+  <%= form_with(url: url_for(:controller => 'checkouts', :action => 'confirm_checkout'), method: "post") do |f| %>
+    <%= f.hidden_field :cartid, value: @raw_cartitems.c.sci %>
+    <%= f.hidden_field :vid, value: params[:vid] %>
+    <div class="mt-0 ml-auto">
+      <div class="mt-4 text-dark">
+        <h4>
+          Billing &amp; Shipping Info
+        </h4>
+        <div class="row">
+          <div class="col-4">
+            <dl>
+              <dt>Bill To:</dt>
+              <dd><%= @raw_cartitems.c.b2.fn %> <%= @raw_cartitems.c.b2.ln %></dd>
+              <% if @raw_cartitems.c.b2.c != nil %>
+                <dd>c/o <%= @raw_cartitems.c.b2.c %></dd>
+              <% end %>
+              <dd><%= @raw_cartitems.c.b2.a %></dd>
+              <dd><%= @raw_cartitems.c.b2.ct %>,<%= @raw_cartitems.c.b2.s %> <%= @raw_cartitems.c.b2.z %> <%= @raw_cartitems.c.b2.ctr %></dd>
+            </dl>
+          </div>
+          <div class="col-4">
+            <dl>
+              <dt>Ship To:</dt>
+              <dd><%= @raw_cartitems.c.s2.fn %> <%= @raw_cartitems.c.s2.ln %></dd>
+              <% if @raw_cartitems.c.b2.c != nil %>
+                <dd>c/o <%= @raw_cartitems.c.s2.c %></dd>
+              <% end %>
+              <dd><%= @raw_cartitems.c.s2.a %></dd>
+              <dd><%= @raw_cartitems.c.s2.ct %>,<%= @raw_cartitems.c.s2.s %> <%= @raw_cartitems.c.s2.z %> <%= @raw_cartitems.c.s2.ctr %></dd>
+            </dl>
+          </div>
+          <div class="col-4">
+            <dl>
+              <dt>Notes:</dt>
+              <dd>
+                <%= f.text_area :notes, class: "form-control", rows: "3", cols: "20" %>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 text-dark">
+        <h4>
+          Payment Methods
+        </h4>
+        <% @raw_cartitems.c.v.each do |vendor| %>
+          <% if params[:vid].present? %>
+            <% if params[:vid] == vendor.vid %>
+              <div class="row mt-2">
+                <div class="col">
+                  <span class="text-dark"><%= vendor.n %></span>
+                </div>
+                <div class="col">
+                  <div>
+                    <span>PO#: <%= vendor.po %></span>
+                  </div>
+                  <div>
+                    <span>Delivery: <%= vendor.d %></span>
+                  </div>
+                  <div>
+                    <span>Payment: <%= vendor.p %></span>
+                  </div>
+                </div>
+                <div class="col">
+                  <span>Notes: <%= vendor.nts %></span>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="row mt-2">
+              <div class="col">
+                <span class="text-dark"><%= vendor.n %></span>
+              </div>
+              <div class="col">
+                <div>
+                  <span>PO#: <%= vendor.po %></span>
+                </div>
+                <div>
+                  <span>Delivery: <%= vendor.d %></span>
+                </div>
+                <div>
+                  <span>Payment: <%= vendor.p %></span>
+                </div>
+              </div>
+              <div class="col">
+                <span>Notes: <%= vendor.nts %></span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="mt-4 text-dark">
+        <h4>
+          Order Details
+        </h4>
+        <% vendor_level_total = 0 %>
+        <% @raw_cartitems.c.v.each_with_index do |vendor,index| %>
+          <% if params[:vid].present? %>
+            <% if params[:vid] == vendor.vid %>
+              <div class="row">
+                <div class="col text-nowrap align-middle">
+                  <span class="text-dark"><%= vendor.n %></span>
+                </div>
+                <div class="col text-right">
+                  <a href="/checkout?vid=<%= vendor.vid %>" rel="nofollow">
+                    BUY ITEMS
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <table class="table table-responsive-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Item</th>
+                      <th scope="col">Description</th>
+                      <th scope="col" class="text-right">Qty</th>
+                      <th scope="col" class="text-right">Unit Price</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% sub_total = 0 %>
+                    <% @raw_cartitems.c.i.each_with_index do |product, p_index|  %>
+                      <% if product.v == vendor.vid %>
+                        <tr scope="row">
+                          <td class="align-middle"><img src="<%= product.thmb %>" onerror="this.src='<%= asset_url 'no-image-available100.jpg' %>';" class="img-100x100 img-fluid" alt="<%= product.pn %>"></td>
+                          <td class="align-middle"><%= product.p %></td>
+                          <td class="align-middle"><%= product.d %></td>
+                          <td class="text-right align-middle"><%= product.q %></td>
+                          <td class="text-right align-middle"><%= number_to_currency(product.up) %></td>
+                          <td class="align-middle"><a data-cmd="edit-item" data-toggle="modal" data-target="#update_item" data-sid="<%= product.sid %>" data-pn="<%= product.p %>" data-vid="<%= product.v %>" data-sqty="<%= product.q %>"><i class="fa fa-edit" title="Edit"></i></a></td>
+                          <% sub_total += product.q * product.up %>
+                        </tr>
+                      <% end %>
+                    <% end %>
+                    <% vendor_level_total += sub_total %>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Sub Total</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th class="text-right"><%= number_to_currency(@raw_cartitems.c.i.select {|product| vendor.vid == product.v}.inject(0) { |sum, x| sum + (x.q * x.up) }) %></th>
+                      <th></th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="row">
+              <div class="col text-nowrap align-middle">
+                <span class="text-dark"><%= vendor.n %></span>
+              </div>
+              <div class="col text-right">
+                <a href="/checkout?vid=<%= vendor.vid %>" rel="nofollow">
+                  BUY ITEMS
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <table class="table table-responsive-sm">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" class="text-right">Qty</th>
+                    <th scope="col" class="text-right">Unit Price</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% sub_total = 0 %>
+                  <% @raw_cartitems.c.i.each_with_index do |product, p_index|  %>
+                    <% if product.v == vendor.vid %>
+                      <tr scope="row">
+                        <td class="align-middle"><img src="<%= product.thmb %>" onerror="this.src='<%= asset_url 'no-image-available100.jpg' %>';" class="img-100x100 img-fluid" alt="<%= product.pn %>"></td>
+                        <td class="align-middle"><%= product.p %></td>
+                        <td class="align-middle"><%= product.d %></td>
+                        <td class="text-right align-middle"><%= product.q %></td>
+                        <td class="text-right align-middle"><%= number_to_currency(product.up) %></td>
+                        <td class="align-middle"><a data-cmd="edit-item" data-toggle="modal" data-target="#update_item" data-sid="<%= product.sid %>" data-pn="<%= product.p %>" data-vid="<%= product.v %>" data-sqty="<%= product.q %>"><i class="fa fa-edit" title="Edit"></i></a></td>
+                        <% sub_total += product.q * product.up %>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                  <% vendor_level_total += sub_total %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Sub Total</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="text-right"><%= number_to_currency(@raw_cartitems.c.i.select {|product| vendor.vid == product.v}.inject(0) { |sum, x| sum + (x.q * x.up) }) %></th>
+                    <th></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          <% end %>
+        <% end %>
+        <div class="row">
+          <table class="table table-primary table-sm">
+            <tfoot>
+              <tr>
+                <th>Total</th>
+                <td></td>
+                <td class="text-right"><%= number_to_currency(vendor_level_total) %></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <hr class="mb-4">
+        <div class="row pb-5">
+          <div class="col text-nowrap">
+            <a href="#" onclick="history.go(-1)" class="mt-0 ml-auto btn btn-dark btn-sm">Go Back</a>
+          </div>
+          <div class="col text-right">
+            <button class="mt-0 ml-auto btn btn-dark btn-sm" type="submit">Submit Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script></script>

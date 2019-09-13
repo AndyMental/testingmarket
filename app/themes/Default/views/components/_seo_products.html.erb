@@ -1,0 +1,46 @@
+<% unless @product_seo_option.nil? %>
+    <!-- SEO Product Meta Tags -->
+    <title><%= @product_seo_option.title %></title>
+    <meta name="description" content="<%= @product_seo_option.description %>" />
+    <meta name="keywords" content="<%= @product_seo_option.keywords %>">
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="<%= @product_seo_option.google_name %>">
+    <meta itemprop="description" content="<%= @product_seo_option.google_description %>">
+    <meta itemprop="image" content="<%= @product_seo_option.google_image %>">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="<%= @product_seo_option.twitter_handle %>">
+    <meta name="twitter:title" content="<%= @product_seo_option.twitter_title %>">
+    <meta name="twitter:description" content="<%= @product_seo_option.twitter_description %>">
+    <meta name="twitter:creator" content="<%= @product_seo_option.twitter_handle %>">
+    <meta name="twitter:image" content="<%= @product_seo_option.twitter_image %>">
+    <meta name="twitter:data1" content="<%= @product_seo_option.twitter_data1 %>">
+    <meta name="twitter:label1" content="<%= @product_seo_option.twitter_label1 %>">
+    <meta name="twitter:data2" content="<%= @product_seo_option.twitter_data2 %>">
+    <meta name="twitter:label2" content="<%= @product_seo_option.twitter_label2 %>">
+    <meta name="twitter:data3" content="<%= @product_seo_option.twitter_data3 %>">
+    <meta name="twitter:label3" content="<%= @product_seo_option.twitter_label3 %>">
+    <!-- Open Graph data -->
+    <meta property="og:title" content="<%= @product_seo_option.facebook_title %>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="<%= request.url %>" />
+    <meta property="og:image" content="<%= @product_seo_option.facebook_image %>" />
+    <meta property="og:description" content="<%= @product_seo_option.facebook_description %>" />
+    <meta property="og:site_name" content="<%= @shop.shop_name %>" />
+    <meta property="og:price:amount" content="<%= @product_seo_option.facebook_price %>" />
+    <meta property="og:price:currency" content="<%= @product_seo_option.facebook_currency %>" />
+  <% end %>
+  <%= csrf_meta_tags %>
+  <% unless @seo_option_code.nil? %>
+    <% unless @seo_option_code.google_analytics_tracking.empty? %>
+      <!-- Global Site Tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-85549111-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', '<%= @seo_option_code.google_analytics_tracking %>');
+      </script>
+    <% end %>
+    <%= raw @seo_option_code.head_code %>
+  <% end %>

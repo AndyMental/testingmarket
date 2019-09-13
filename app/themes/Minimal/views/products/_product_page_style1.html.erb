@@ -1,0 +1,44 @@
+<section class="p-4">
+  <div class="container-fluid">
+    <div class="sticky-top">
+      <div class="row sticky-pt">
+        <div class="col">
+          <%= render 'pg_search' %>
+        </div>
+        <div class="col-4 text-right">
+          <%= render 'pg_vendor_dropdown' %>
+        </div>
+      </div>
+      <% if @raw_products.pc.to_i > 1 %>
+        <div class="row sticky-mt">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 text-right">
+            <%= render 'pagination' %>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <%= render 'pg_itemsperpage' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col"><hr></div>
+    </div>
+    <div class="container-fluid">
+      <%= render 'catalog_items_1' %>
+    </div>
+    <div class="row">
+      <div class="col"><hr></div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+  $('#vendor_list').change(function() {
+  window.location = $(this).find(":selected").data('edit-url');
+  });
+  $('#itemsPerPage').change(function() {
+  window.location = $(this).find(":selected").data('edit-url');
+  });
+  $('#search-btn').click(function() {
+  window.location = '<%= raw products_url(pi: "#{params[:pi].to_i + 1}", pz: "32", rg: "#{params[:rg]}", vid: "#{params[:vid]}") %>' + '&search=' + $('#search_tags').val();
+  });
+</script>

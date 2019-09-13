@@ -64,17 +64,17 @@ group :test do
 end
 
 group :production do
-  gem 'tiny_tds'
-  gem 'activerecord-sqlserver-adapter'
+  gem 'pg'
 end
 
 gem 'jquery-rails'
-gem 'jquery-migrate-rails'
+# gem 'jquery-migrate-rails'
 gem 'bootstrap'
 # gem 'simple_form'
 # gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
-gem 'will_paginate'
+gem 'country_select', '~> 4.0'
+# gem 'will_paginate'
 
 gem 'font-awesome-rails'
 

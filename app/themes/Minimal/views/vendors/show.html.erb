@@ -1,57 +1,49 @@
 <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
   <div class="container">
     <div class="row">
-      <%= tag.div class: 'col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center', style: "background-image: url('#{image_path('Minimal/vendor.jpg')}')" do %>
-      <% end %>
-      <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
-        <div class="heading-section-bold mb-5 mt-md-5">
-          <div class="ml-md-0">
-            <h2 class="mb-4"><%= @vendor.n %></h2>
-          </div>
-        </div>
-        <div class="pb-md-5">
-          <p><%= @vendor.d %></p>
-          <p>Minimum Order: <%= @vendor.mo %></p>
-          <p>Minimum Reorder: <%= @vendor.mr %></p>
-          <p>Accepted Credit Cards: <%= @vendor.pt %></p>
-          <h5>Explore Products from this Brand</h5>
-        </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <ul class="list-unstyled mb-4">
+          <li class="lead banner-stuff font-weight-bold text-uppercase"><%= @vendor.n %></li>
+          <li class="banner-stuff">Minimum Order: <%= @vendor.mo %></li>
+          <li class="banner-stuff">Minimum Reorder: <%= @vendor.mr %></li>
+          <span><%= @vendor.d %></span>
+          <span>Accepted Credit Cards: <%= @vendor.pt %></span>
+        </ul>
       </div>
     </div>
-  </div>
-</section>
-<section class="p-4">
-  <div class="container-fluid">
-    <%= render 'pg_search' %>
-    <%= render 'pg_nav' %>
-    <div class="row"><div class="col"><hr></div></div>
-    <% @products.each_slice(4).with_index do |products, id | %>
+    <div class="row mb-2">
+      <div class="col">
+        <h2>Products</h2>
+        <%= link_to products_path(pi: "1", pz: "32", search: "", rg: "", vid: "#{params[:id] + '.' + params[:format]}"), class: "btn btn-primary" do %>
+          Explore <span class="fa fa-th-large"></span>
+        <% end %>
+      </div>
+    </div>
+    <% if @catalogs.vcs.size != 0 %>
       <div class="row">
-        <% products.each_with_index do |product, index| %>
-          <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-            <div class="product">
-              <% if product.i2 != "" %>
-                <a href="#" class="img-prod">
-                  <%= image_tag(product.ia + product.i2, class: "img-fluid z-img-fluid", alt: product.pn) %>
-                </a>
+        <h2>Catalogs</h2>
+      </div>
+      <div class="row mb-2">
+        <% hosturl = "http://localhost:49826" %>
+        <% mybaseurl = @market_org.api_url.to_s.gsub! '/api/market', '' %>
+        <% @catalogs.vcs.each_with_index do |catalog, index| %>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="product text-center">
+              <% thislink = catalog.sp.to_s.gsub! hosturl.to_s, mybaseurl.to_s %>
+              <%= link_to thislink, target: :_blank, class: "img-prod" do %>
+                <img src="<%= catalog.thumb.to_s.gsub! hosturl.to_s, mybaseurl.to_s %>" onerror="this.src='<%= asset_url 'no-image-available.jpg' %>';" class="img-fluid" alt="<%= catalog.alias %>">
               <% end %>
-              <div class="text text-center py-3 px-3">
-                <span class="badge badge-dark">SKU: <%= product.pn %></span>
-                <span class="badge badge-success">Brand: <%= product.vn %></span>
-                <h3><a href="#"><%= product.d %></a></h3>
-                <a href="#" class="badge badge-primary" role="button">Add to Cart</a>
+              <div class="text-center py-3 px-3">
+                <span class="prod-text"><%= catalog.alias %></span>
+                <span class="prod-text prod-text-alt"><%= catalog.d %></span>
               </div>
+              <%= link_to thislink, target: :_blank, class: "btn btn-primary" do %>
+                Open Catalog <span class="fa fa-external-link"></span>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
     <% end %>
-    <div class="row"><div class="col"><hr></div></div>
-    <%= render 'pg_nav' %>
   </div>
 </section>
-<script type="text/javascript">
-  $('#vendor_list').change(function() {
-  window.location = $(this).find(":selected").data('edit-url');
-  });
-</script>

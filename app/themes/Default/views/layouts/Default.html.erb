@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Default</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+    <%= stylesheet_link_tag    "Default/all", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "Default/all", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render 'layouts/navbar' %>
+    <%= render 'layouts/messages' %>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+    <script>
+      function flip(id) {
+          $("#" + id).toggleClass('flipped');
+      }
+    </script>
+    <%= content_for :render_async %>
+  </body>
+</html>

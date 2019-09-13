@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def set_data
     if !@market_org.nil?
-      if controller_name == "products" || controller_name == "vendors" || controller_name == "pages"
+      if !request.path.include? "admin"
         getvendors_response = MarketAPI.new({baseurl: @market_org.api_url.to_s, xidentity: xidentity, data: ""}).GetVendors
         @raw_vendors = JSON.parse(getvendors_response.body, object_class: OpenStruct)
         # getvendors_response = File.read(File.join(Rails.public_path, 'GetVendors.json'))
@@ -58,10 +58,11 @@ class ApplicationController < ActionController::Base
         getcatalogitems_response = MarketAPI.new({baseurl: @market_org.api_url.to_s, xidentity: xidentity, data: data}).GetCatalogItems
         @raw_products = JSON.parse(getcatalogitems_response.body, object_class: OpenStruct)
 
-
         if current_user
           @raw_cartitems = get_cart_items
         end
+        @vendors = @raw_vendors.v
+        @products = @raw_products.i
       end
     end
   end
@@ -102,7 +103,7 @@ class ApplicationController < ActionController::Base
 
   def get_cart_items
     data = {
-      :v => ""
+      :v => params[:vid]
     }
     getcartitems_response = MarketAPI.new({baseurl: @market_org.api_url.to_s, xidentity: xidentity, data: data}).Restore
     return JSON.parse(getcartitems_response.body, object_class: OpenStruct)

@@ -15,3 +15,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w( Archie/jquery_required.js )
 
 Rails.application.config.assets.precompile += %w( Minimal/front.js )
+Rails.application.config.assets.precompile += %w( Miniimal/stepper.js )

@@ -6,6 +6,7 @@
 #
 default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  encoding: unicode
   timeout: 5000
 
 development:
@@ -23,13 +24,9 @@ test:
 
 production:
   <<: *default
-  adapter: sqlserver
-  mode: dblib
-  port: 1433
-  dataserver: marketruby.database.windows.net
-  host: marketruby.database.windows.net
+  adapter: postgresql
+  host: market-m3.postgres.database.azure.com
+  port: 5432
   database: market3
-  username: ruby19827
-  password: 8sduSkKmWt@G
-  timeout: 5000
-  azure: true
+  username: ruby19828@market-m3
+  password: cJzsb98yqZ4Q

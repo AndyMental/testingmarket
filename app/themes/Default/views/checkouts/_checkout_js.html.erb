@@ -1,0 +1,320 @@
+<script>
+  $(function() {
+  
+      initStepper();
+  
+      $('form').submit(function(e) {
+          e.preventDefault();
+      });
+  
+      $(document).on('click', 'a[data-cmd="edit-item"]', editItem);
+  
+      $('.form-remove-item').submit(function(e) {
+          e.preventDefault();
+  
+          var form = $(this);
+          var data = new FormData();
+          $.each(form.serializeArray(),
+              function(i, o) {
+                  data.append(o.name, o.value);
+              });
+  
+          $.ajax({
+              type: "POST",
+              url: form.attr('action'),
+              enctype: form.attr('enctype') === 'multipart/form-data' ? 'multipart/form-data' : '',
+              data: data,
+              processData: false,
+              contentType: false,
+              cache: false,
+              success: function(data, status, jqXhr) {
+                  location.reload(true);
+              },
+              error: function(jqXhr, status, err) {
+                  $.prompt(err);
+              }
+          });
+      });
+  
+      function initStepper() {
+  
+          $('.stepper').mdbStepper();
+  
+          $('.stepper').find('form').each(function() {
+              var validator = new $.validator(undefined, this);
+              $.data(this, "validator", validator);
+          });
+  
+          var activeStepTitles = {
+              "shippingAddressStep": "Let us know where to send your purchase",
+              "paymentMethodStep": "How would you like to pay?",
+              "reviewOrderStep": "Double check your order one last time"
+          };
+          var updateStepTitle = function() {
+              $(this).find('.step').children('.step-title').removeAttr("data-step-label");
+              var active = $(this).find('.step.active').children('.step-title');
+              var stepId = active.attr('id');
+              if (stepId != undefined) {
+                  active.attr("data-step-label", activeStepTitles[stepId]);
+              }
+          };
+          //$('.stepper').on('nextstep', submitStep);
+          //$('.stepper').on('prevstep', updateStepTitle);
+  
+          function submitStep(e) {
+              //$stepper.prevStep(undefined);
+              return false;
+          }
+  
+          $('#submitButton').on('click',
+              function(e) {
+                  e.preventDefault();
+                  var $frm = $(this).closest('form');
+                  bighelpers.ajaxForm($frm,
+                      function(data, success) {
+                          if (!success) {
+                              return;
+                          }
+                          window.location = "/OrchardLocal/market/checkout/thankyou";
+                      });
+  
+              });
+      }
+  
+      function editItem(e) {
+          e.preventDefault();
+  
+          const href =
+              "/OrchardLocal/Aleran.RepDesk.SaleOrgMarketMdb/ShoppingCart/EditItem";
+  
+          const hrefUpdate =
+              "/OrchardLocal/Aleran.RepDesk.SaleOrgMarketMdb/ShoppingCart/EditItem";
+          const hrefRemove =
+              "/OrchardLocal/Aleran.RepDesk.SaleOrgMarketMdb/ShoppingCart/RemoveItem";
+  
+          const $tr = $(this).closest('tr');
+          const notes = $tr.find('span[data-rel="notes"]').html();
+  
+          bighelpers.openEditDialogExt(href,
+              {
+                  saleItemId: $tr.attr('data-sItemId'),
+                  vid: $tr.attr('data-vid'),
+                  partnum: $tr.attr('data-partnum'),
+                  singleVendor: $tr.attr('data-singleVendor')
+              },
+              function($dlg) {
+  
+                  $('input[name="qty"]', $dlg).val($tr.attr('data-qty'));
+                  $('textarea[name="notes"]', $dlg).val(notes);
+  
+                  $('#_saveButton', $dlg).click(function(ev) {
+                      ev.preventDefault();
+  
+                      const $frm = $('form[data-rel="edit-item"]', $dlg);
+                      $frm.attr('action', hrefUpdate);
+  
+                      bighelpers.ajaxForm($frm,
+                          function(data, success) {
+                              if (!success) {
+                                  return;
+                              }
+                              onComplete(data);
+                          });
+  
+                  });
+  
+                  $('#_removeButton', $dlg).click(function(e) {
+                      e.preventDefault();
+  
+                      const $frm = $('form[data-rel="edit-item"]', $dlg);
+                      $frm.attr('action', hrefRemove);
+  
+                      bighelpers.ajaxForm($frm,
+                          function(data, success) {
+                              if (!success) {
+                                  return;
+                              }
+                              onComplete(data);
+                          });
+                  });
+  
+                  function onComplete(data) {
+                      $dlg.modal('hide');
+                      $('._shoppingCartList').html(data);
+                  }
+  
+              });
+      }
+  
+      $('._payterms').change(function() {
+          $('.step.active').removeClass('wrong');
+          var index = $(this).attr("index");
+          var selector = "._cardinfo" + index;
+          if ($(this).find(":selected").attr('ccrd')) {
+              $(selector).find('.form-control').val(function () {
+                  return $(this).attr('value');
+              });
+              $(selector).show();
+          } else {
+              $(selector).hide();
+              $(selector).find('.form-control').attr("value", function () {
+                  return $(this).val();
+              });
+              $(selector).find('.form-control').val(function () {
+                  return $(this).attr('data-value');
+              });
+              $(selector).find('*').removeClass('_invalid');
+              var useForAll = $(selector).find('._useForAll').prop("checked");
+              if (useForAll === true) {
+                  $(selector).find('._useForAll').prop("checked", false);
+                  $('._cardInfo').find('*').removeClass('_disabled');
+                  $('._cardInfo').find('._useForAll').prop('disabled', false);
+              }
+          }
+      });
+  
+      // validate required field when its value changes
+      $('._required').change(function() {
+          if ($(this).val() === "") {
+              $(this).addClass('_invalid');
+          } else {
+              $(this).removeClass('_invalid');
+          }
+      });
+  
+      // credit card "Use for all" logic
+      $('._cardNumber').change(function() {
+          var parent = $(this).closest('._cardInfo')[0];
+          var useForAll = $(parent).find('._useForAll').prop("checked");
+          if (useForAll === true) {
+              var cardNumber = $(this).val();
+              $('._cardInfo').not(parent).find('._cardNumber').val(cardNumber);
+          }
+      });
+      $('._nameOnCard').change(function() {
+          var parent = $(this).closest('._cardInfo')[0];
+          var useForAll = $(parent).find('._useForAll').prop("checked");
+          if (useForAll === true) {
+              var nameOnCard = $(this).val();
+              $('._cardInfo').not(parent).find('._nameOnCard').val(nameOnCard);
+          }
+      });
+      $('._expDateMonth').change(function() {
+          var parent = $(this).closest('._cardInfo')[0];
+          var useForAll = $(parent).find('._useForAll').prop("checked");
+          if (useForAll === true) {
+              var expDateMonth = $(this).val();
+              $('._cardInfo').not(parent).find('._expDateMonth').val(expDateMonth);
+          }
+      });
+      $('._expDateYear').change(function() {
+          var parent = $(this).closest('._cardInfo')[0];
+          var useForAll = $(parent).find('._useForAll').prop("checked");
+          if (useForAll === true) {
+              var expDateYear = $(this).val();
+              $('._cardInfo').not(parent).find('._expDateYear').val(expDateYear);
+          }
+      });
+      $('._cvv').change(function () {
+          var parent = $(this).closest('._cardInfo')[0];
+          var useForAll = $(parent).find('._useForAll').prop("checked");
+          if (useForAll === true) {
+              var cvv = $(this).val();
+              $('._cardInfo').not(parent).find('._cvv').val(cvv);
+          }
+      });
+      $('._billingAddress').change(function() {
+          var parent = $(this).closest('._cardInfo')[0];
+          var useForAll = $(parent).find('._useForAll').prop("checked");
+          if (useForAll === true) {
+              var billingAddress = $(this).val();
+              $('._cardInfo').not(parent).find('._billingAddress').val(billingAddress);
+          }
+      });
+      $('._useForAll').click(function() {
+          var parent = $(this).closest('._cardInfo')[0];
+          if ($(this).prop('checked')) {
+  
+              var cardNumber = $(parent).find('._cardNumber').val();
+              $('._cardInfo').not(parent).find('._cardNumber').val(cardNumber);
+              $('._cardInfo').not(parent).find('._cardNumber').addClass('_disabled');
+  
+              var nameOnCard = $(parent).find('._nameOnCard').val();
+              $('._cardInfo').not(parent).find('._nameOnCard').val(nameOnCard);
+              $('._cardInfo').not(parent).find('._nameOnCard').addClass('_disabled');
+  
+              var expDateMonth = $(parent).find('._expDateMonth').val();
+              $('._cardInfo').not(parent).find('._expDateMonth').val(expDateMonth);
+              $('._cardInfo').not(parent).find('._expDateMonth').addClass('_disabled');
+  
+              var expDateYear = $(parent).find('._expDateYear').val();
+              $('._cardInfo').not(parent).find('._expDateYear').val(expDateYear);
+              $('._cardInfo').not(parent).find('._expDateYear').addClass('_disabled');
+  
+              var cvv = $(parent).find('._cvv').val();
+              $('._cardInfo').not(parent).find('._cvv').val(cvv);
+              $('._cardInfo').not(parent).find('._cvv').addClass('_disabled');
+  
+              var billingAddress = $(parent).find('._billingAddress').val();
+              $('._cardInfo').not(parent).find('._billingAddress').val(billingAddress);
+              $('._cardInfo').not(parent).find('._billingAddress').addClass('_disabled');
+  
+              $('._cardInfo').not(parent).find('._useForAll').prop('disabled', true);
+  
+          } else {
+              $('._cardInfo').not(parent).find('*').removeClass('_disabled');
+              $('._cardInfo').not(parent).find('._useForAll').prop('disabled', false);
+          }
+      });
+  
+  });
+  
+  function validationFunction() {
+      // validate input:
+      var error = false;
+      $('._required').each(function() {
+          if ($(this).is(":visible") && $(this).val() === "") {
+              error = true;
+              $(this).addClass('_invalid');
+          } else {
+              $(this).removeClass('_invalid');
+          }
+      });
+  
+      var stepper = $('#shoppingCartStepper');
+      var activeStep = $('.step.active');
+
+      console.log('foo');
+      // server side validation:
+      if (error === false) {
+          var frm = activeStep.find('form')[0];
+          if (frm) {
+              setTimeout(function() { // need to set timeout to activate spinner
+                      bighelpers.ajaxForm($(frm),
+                          function(data, success) {
+                              if (!success) {
+                                  activeStep.removeClass('done').addClass('wrong');
+                                  stepper.destroyFeedback();
+                              } else {
+                                  stepper.nextStep();
+                              }
+                          });
+                  }, 0);
+          } else {
+              stepper.nextStep();
+          }
+      } else {
+          activeStep.removeClass('done').addClass('wrong');
+          stepper.destroyFeedback();
+      }
+  }
+</script>
+<style>
+  ._invalid {
+      border-color: red !important;
+  }
+  ._disabled{
+      pointer-events: none !important;
+      background: lightgray !important;
+  }
+</style>

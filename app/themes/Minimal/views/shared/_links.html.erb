@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-around">
+  <% if action_name=="register" %>
+    <div>
+      <%= link_to "Login with existing Account", login_path %>
+    </div>
+  <% else %>
+    <% if action_name!="recovery" %>
+      <div>
+        <%= link_to "Forgot your password?", recovery_path %>
+      </div>
+    <% end %>
+    <p>
+      Not a member? <%= link_to "Register", register_path %>
+    </p>
+  <% end %>
+</div>

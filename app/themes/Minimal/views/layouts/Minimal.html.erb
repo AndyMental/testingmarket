@@ -7,15 +7,8 @@
     <%#= render 'components/seo_others' %>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.css" />
     <%= stylesheet_link_tag "Minimal/all", media: "all" %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.min.js"></script>
+    <%= javascript_include_tag "Minimal/all" %>
   </head>
   <body>
     <% if @seo_option_code.present? %>
@@ -24,27 +17,18 @@
     <% if @seasonal_greetings.present? %>
       <%= render 'components/greetings' %>
     <% end %>
-    <%= render 'layouts/navbar' %>
+    <%= render 'layouts/navbar' %>  
     <%= render 'layouts/messages' %>
     <%= yield %>
     <%= render 'layouts/footer' %>
     <% if @seo_option_code.present? %>
       <%= raw @seo_option_code.footer_code %>
     <% end %>
-    <%= javascript_include_tag "Minimal/all" %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stellar.js/0.6.2/jquery.stellar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.js"></script>
-    <script src="http://iprodev.github.io/Scrollax.js/lib/scrollax.min.js"></script>
-    <%= javascript_include_tag "Minimal/front" %>
     <script>
       function flip(id) {
           $("#" + id).toggleClass('flipped');
       }
     </script>
+    <%= content_for :render_async %>
   </body>
 </html>

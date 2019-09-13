@@ -1,0 +1,167 @@
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>Checkout : Payment Information</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">Payment Method</h4>
+      <%= form_with(url: url_for(:controller => 'checkouts', :action => 'update_payment'), method: "post") do |f| %>
+        <%= f.hidden_field :cartid, value: @raw_cartitems.c.sci %>
+        <%= f.hidden_field :vid, value: params[:vid] %>
+        <div class="mt-0 ml-auto">
+          <% @raw_vendoritems.l.each_with_index do |vendor, index| %>
+            <% if params[:vid].present? %>
+              <% if params[:vid] == vendor.vi %>
+				<div class="mt-4">
+                	<h4><%= vendor.vn %></h4>
+                	<div class="px-0 py-0">
+                  	<%= f.hidden_field :vendor_id, value: vendor.vi, id: "vendor_id#{index}", name: "vd[#{index}]vid" %>
+	                  <div class="row">
+	                    <div class="col">
+	                      <%= f.label :po, 'Purchase Order Number', class: "mt-2 mb-1 active" %>
+	                      <%= f.text_field :po, class: "form-control", value: vendor.po, required: true, id: "po#{index}", name: "vd[#{index}]po" %>
+	                      <%= f.label :dm, 'Shipment Method', class: "mt-2 mb-1 active" %>
+	                      <%= f.select :dm, options_for_select(vendor.dx, :selected => vendor.dm), {}, { class: "browser-default custom-select", id: "dm#{index}", name: "vd[#{index}]dm" } %>
+	                    </div>
+	                    <div class="col">
+	                      <%= f.label :pt, 'Payment Method', class: "mt-2 mb-1" %>
+	                      <% payment_options = [] %>
+	                      <% vendor.px.each do |this_opt| %>
+	                        <% payment_options << [this_opt.n, this_opt.n] %>
+	                      <% end %>
+	                      <% if vendor.ccb != nil && vendor.cc == true %>
+	                        <% cc_opt = vendor.ccb + " ****** " + vendor.cc4 %>
+	                        <%= f.select :pt, options_for_select(payment_options << [cc_opt, "CREDIT CARD"], :selected => "CREDIT CARD"), {}, { class: "browser-default custom-select", id: "pt#{index}", name: "vd[#{index}]pt", "data-rel": "cc", "data-match": "cartinfo#{index}" } %>
+	                      <% else %>
+	                        <%= f.select :pt, options_for_select(payment_options, :selected => vendor.pt), {}, { class: "browser-default custom-select", id: "pt#{index}", name: "vd[#{index}]pt", "data-rel": "cc", "data-match": "cartinfo#{index}" } %>
+	                      <% end %>
+	                      <% vendor.cc == true ? (this_display = 'block') : (this_display = 'none') %>
+	                      <div class="_cardInfo" id="cartinfo<%= index %>" style="display:none;">
+	                        <%= f.label :ccrd_number, 'Card Number', class: "mt-2 mb-1" %>
+	                        <%= f.password_field :ccrd_number, class: "form-control", autocomplete: "off", id: "number#{index}", name: "vd[#{index}]ccrd_number" %>
+	                        <%= f.label :ccrd_cardholder, 'Name on Card', class: "mt-2 mb-1" %>
+	                        <%= f.text_field :ccrd_cardholder, class: "form-control", autocomplete: "off", id: "cardholder#{index}", name: "vd[#{index}]ccrd_cardholder" %>
+	                        <div class="row">
+	                          <div class="col-8">
+	                            <%= f.label 'Expiration Date', class: "mt-2 mb-1" %>
+	                            <div class="row">
+	                              <div class="col pr-1">
+	                                <%= f.select :ccrd_expm, options_for_select(["Month", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"], :selected => "Month"), {}, { class: "browser-default custom-select required", id: "expm#{index}", name: "vd[#{index}]ccrd_expm" } %>
+	                              </div>
+	                              <div class="col pl-1">
+	                                <%= f.select :ccrd_expy, options_for_select(["Year", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"], :selected => "Year"), {}, { class: "browser-default custom-select required", id: "expy#{index}", name: "vd[#{index}]ccrd_expy" } %>
+	                              </div>
+	                            </div>
+	                          </div>
+	                          <div class="col-4">
+	                            <%= f.label :ccrd_cvv, 'CVV', class: "mt-2 mb-1" %>
+	                            <%= f.password_field :ccrd_cvv, class: "form-control", autocomplete: "off", id: "cvv#{index}", name: "vd[#{index}]ccrd_cvv" %>
+	                          </div>
+	                        </div>
+	                        <%= f.label :ccrd_billingaddr, 'Billing Address', class: "mt-2 mb-1" %>
+	                        <%= f.text_area :ccrd_billingaddr, class: "form-control", rows: "3", autocomplete: "off", id: "billingaddr#{index}", name: "vd[#{index}]ccrd_billingaddr" %>
+	                        <div class="mt-2">
+	                          <%= f.check_box :ccrd_use4all, checked: @raw_cartitems.c.s2.r, id: "use4all#{index}", name: "vd[#{index}]ccrd_use4all" %>
+	                          <%= f.label :ccrd_use4all, 'Use this card for all vendors' %>
+	                        </div>
+	                      </div>
+	                    </div>
+	                    <div class="col">
+	                      <%= f.label :notes, 'Notes', class: "mt-2 mb-1" %>
+	                      <%= f.text_area :notes, class: "form-control", rows: "3", cols: "20", id: "notes#{index}", name: "vd[#{index}]notes" %>
+	                    </div>
+	                  </div>
+                	</div>
+              	</div>
+              <% end %>
+            <% else %>
+              <div class="mt-4">
+                <h4><%= vendor.vn %></h4>
+                <div class="px-0 py-0">
+                  <%= f.hidden_field :vendor_id, value: vendor.vi, id: "vendor_id#{index}", name: "vd[#{index}]vid" %>
+                  <div class="row">
+                    <div class="col">
+                      <%= f.label :po, 'Purchase Order Number', class: "mt-2 mb-1 active" %>
+                      <%= f.text_field :po, class: "form-control", value: vendor.po, required: true, id: "po#{index}", name: "vd[#{index}]po" %>
+                      <%= f.label :dm, 'Shipment Method', class: "mt-2 mb-1 active" %>
+                      <%= f.select :dm, options_for_select(vendor.dx, :selected => vendor.dm), {}, { class: "browser-default custom-select", id: "dm#{index}", name: "vd[#{index}]dm" } %>
+                    </div>
+                    <div class="col">
+                      <%= f.label :pt, 'Payment Method', class: "mt-2 mb-1" %>
+                      <% payment_options = [] %>
+                      <% vendor.px.each do |this_opt| %>
+                        <% if this_opt.c == true %>
+                          <% payment_options << [this_opt.n, "CREDIT CARD"] %>
+                        <% else %>
+                          <% payment_options << [this_opt.n, this_opt.n] %>
+                        <% end %>
+                      <% end %>
+                      <% if vendor.ccb != nil && vendor.cc == true %>
+                        <% cc_opt = vendor.ccb + " ****** " + vendor.cc4 %>
+                        <%= f.select :pt, options_for_select(payment_options << [cc_opt, "CREDIT CARD"], :selected => "CREDIT CARD"), {}, { class: "browser-default custom-select", id: "pt#{index}", name: "vd[#{index}]pt", "data-rel": "cc", "data-match": "cartinfo#{index}" } %>
+                      <% else %>
+                        <%= f.select :pt, options_for_select(payment_options, :selected => vendor.pt), {}, { class: "browser-default custom-select", id: "pt#{index}", name: "vd[#{index}]pt", "data-rel": "cc", "data-match": "cartinfo#{index}" } %>
+                      <% end %>
+                      <% vendor.cc == true ? (this_display = 'block') : (this_display = 'none') %>
+                      <div class="_cardInfo" id="cartinfo<%= index %>" style="display:none;">
+                        <%= f.label :ccrd_number, 'Card Number', class: "mt-2 mb-1" %>
+                        <%= f.password_field :ccrd_number, class: "form-control", autocomplete: "off", id: "number#{index}", name: "vd[#{index}]ccrd_number" %>
+                        <%= f.label :ccrd_cardholder, 'Name on Card', class: "mt-2 mb-1" %>
+                        <%= f.text_field :ccrd_cardholder, class: "form-control", autocomplete: "off", id: "cardholder#{index}", name: "vd[#{index}]ccrd_cardholder" %>
+                        <div class="row">
+                          <div class="col-8">
+                            <%= f.label 'Expiration Date', class: "mt-2 mb-1" %>
+                            <div class="row">
+                              <div class="col pr-1">
+                                <%= f.select :ccrd_expm, options_for_select(["Month", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"], :selected => "Month"), {}, { class: "browser-default custom-select required", id: "expm#{index}", name: "vd[#{index}]ccrd_expm" } %>
+                              </div>
+                              <div class="col pl-1">
+                                <%= f.select :ccrd_expy, options_for_select(["Year", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"], :selected => "Year"), {}, { class: "browser-default custom-select required", id: "expy#{index}", name: "vd[#{index}]ccrd_expy" } %>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <%= f.label :ccrd_cvv, 'CVV', class: "mt-2 mb-1" %>
+                            <%= f.password_field :ccrd_cvv, class: "form-control", autocomplete: "off", id: "cvv#{index}", name: "vd[#{index}]ccrd_cvv" %>
+                          </div>
+                        </div>
+                        <%= f.label :ccrd_billingaddr, 'Billing Address', class: "mt-2 mb-1" %>
+                        <%= f.text_area :ccrd_billingaddr, class: "form-control", rows: "3", autocomplete: "off", id: "billingaddr#{index}", name: "vd[#{index}]ccrd_billingaddr" %>
+                        <div class="mt-2">
+                          <%= f.check_box :ccrd_use4all, checked: @raw_cartitems.c.s2.r, id: "use4all#{index}", name: "vd[#{index}]ccrd_use4all" %>
+                          <%= f.label :ccrd_use4all, 'Use this card for all vendors' %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <%= f.label :notes, 'Notes', class: "mt-2 mb-1" %>
+                      <%= f.text_area :notes, class: "form-control", rows: "3", cols: "20", id: "notes#{index}", name: "vd[#{index}]notes" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <hr class="mb-4">
+        <div class="row mt-4 pb-5">
+          <div class="col text-nowrap">
+            <a href="#" onclick="history.go(-1)" class="mt-0 ml-auto btn btn-primary btn-sm">Go Back</a>
+          </div>
+          <div class="col text-right">
+            <button class="mt-0 ml-auto btn btn-primary btn-sm" type="submit">Continue to checkout</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  $('select[data-rel*="cc"]').on('change', function() {
+    if(this.value == "CREDIT CARD") {
+      $("#" + $(this).attr('data-match')).show();
+    } else {
+      $("#" + $(this).attr('data-match')).hide();
+    }
+  });
+</script>
